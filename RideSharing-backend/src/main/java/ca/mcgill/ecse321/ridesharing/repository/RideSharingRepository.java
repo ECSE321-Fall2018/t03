@@ -15,7 +15,7 @@ public class RideSharingRepository {
 	EntityManager entityManager;
 
 	@Transactional
-	public Passenger createParticipant(String name, String password) {
+	public Passenger createPassenger(String name, String password) {
 		Passenger passenger = new Passenger();
 		passenger.setUsername(name);
 		passenger.setPassword(password);
@@ -25,9 +25,29 @@ public class RideSharingRepository {
 	}
 
 	@Transactional
-	public Participant getParticipant(String name) {
-		Participant participant = entityManager.find(Participant.class, name);
-		return participant;
+	public Passenger getPassenger(String name) {
+		Passenger passenger = entityManager.find(Passenger.class, name);
+		return passenger;
 	}
+	
+	
+	@Transactional
+	public Driver createDriver(String name, String password) {
+		Driver driver = new Driver();
+		driver.setUsername(name);
+		driver.setPassword(password);
+		driver.setIsActive(true);
+		entityManager.persist(driver);
+		return driver;
+	}
+
+	@Transactional
+	public Driver getDriver(String name) {
+		Driver driver  = entityManager.find(Driver.class, name);
+		return driver;
+	}
+	
+	
+	
 
 }

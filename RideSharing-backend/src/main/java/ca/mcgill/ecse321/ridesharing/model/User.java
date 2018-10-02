@@ -1,8 +1,6 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
-import java.util.Set;
-import javax.persistence.ManyToMany;
 
 @Entity
 public class User{
@@ -22,15 +20,12 @@ this.password = value;
 public String getPassword() {
 return this.password;
     }
-private Set<Role> role;
+private boolean isActive;
 
-@ManyToMany
-public Set<Role> getRole() {
-   return this.role;
-}
-
-public void setRole(Set<Role> roles) {
-   this.role = roles;
-}
-
-}
+public void setIsActive(boolean value) {
+this.isActive = value;
+    }
+public boolean isIsActive() {
+return this.isActive;
+       }
+   }

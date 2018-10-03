@@ -35,5 +35,20 @@ public class RideSharingController {
 		}
 		return passenger.getUsername();
 	}
+	
+	@PostMapping("/driver/{username}/{password}")
+	public String createDriver(@PathVariable("username") String username, @PathVariable ("password") String password) {
+		Driver driver = repository.createDriver(username,password); 
+		return driver.getUsername();
+	}
+	
+	@GetMapping("/driver/{username}")
+	public String getDriver(@PathVariable("username") String username) {
+		Driver driver = repository.getDriver(username);
+		if(driver == null) {
+			return "NOT FOUND!";
+		}
+		return driver.getUsername();
+	}
 
 }

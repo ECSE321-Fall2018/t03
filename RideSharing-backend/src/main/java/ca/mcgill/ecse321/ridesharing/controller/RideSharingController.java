@@ -31,7 +31,7 @@ public class RideSharingController {
 	public String getPassenger(@PathVariable("username") String username) {
 		Passenger passenger = repository.getPassenger(username);
 		if(passenger == null) {
-			return "NOT FOUND";
+			return "NOT FOUND!";
 		}
 		return passenger.getUsername();
 	}

@@ -47,6 +47,22 @@ public class RideSharingRepository {
 		return driver;
 	}
 	
+	@Transactional
+	public Admin createAdmin(String name, String password) {
+		Admin admin = new Admin();
+		admin.setUsername(name);
+		admin.setPassword(password);
+		admin.setIsActive(true);
+		entityManager.persist(admin);
+		return admin;
+	}
+
+	@Transactional
+	public Admin getAdmin(String name) {
+		Admin admin  = entityManager.find(Admin.class, name);
+		return admin;
+	}
+	
 	
 	
 

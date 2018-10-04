@@ -1,3 +1,4 @@
 language: java
 script:
-- mvn clean install
+ - cd RideSharing-backend
+ - mvn clean install -DskipTests

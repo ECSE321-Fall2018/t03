@@ -98,4 +98,12 @@ public void setDriver1(Driver driver1) {
    this.driver1 = driver1;
 }
 
-}
+private boolean isAvailable;
+
+public void setIsAvailable(boolean value) {
+this.isAvailable = value;
+    }
+public boolean isIsAvailable() {
+return this.isAvailable;
+       }
+   }

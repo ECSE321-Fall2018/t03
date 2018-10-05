@@ -347,7 +347,7 @@
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_g4Ag0MaREeiv2M51Zg_wmA" containment="_7OUtQMaREeiv2M51Zg_wmA" name="Route" package="_LTtHIMZrEeiVNJpKJiRxkw" associationsIn="_-U3ncMaREeiv2M51Zg_wmA _52ao0MeGEeiv2M51Zg_wmA _uR6H8MhDEeiv2M51Zg_wmA _iKw9sMhIEeiv2M51Zg_wmA" associationsOut="_M7GRAMaSEeiv2M51Zg_wmA">
     <modelElement href="RideSharing-backend.uml#_g3_5wMaREeiv2M51Zg_wmA"/>
-    <visualProperties xmi:id="_g4Ag0caREeiv2M51Zg_wmA" position="810.0,211.0" size="201.0,159.0"/>
+    <visualProperties xmi:id="_g4Ag0caREeiv2M51Zg_wmA" position="810.0,211.0" size="201.0,-1.0"/>
     <visibility xmi:id="_g4Ag0saREeiv2M51Zg_wmA" label="+"/>
     <attributes xmi:id="_kHiX4MaREeiv2M51Zg_wmA" name="vehicle">
       <modelElement href="RideSharing-backend.uml#_kHhw0MaREeiv2M51Zg_wmA"/>
@@ -430,6 +430,14 @@
       <visibility xmi:id="_MvWoMchMEeiv2M51Zg_wmA" label="+"/>
       <cardinality xmi:id="_MvWoMshMEeiv2M51Zg_wmA" label="1" max="1" min="1"/>
       <type xmi:id="_PgFDYMhMEeiv2M51Zg_wmA" name="boolean">
+        <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+      </type>
+    </attributes>
+    <attributes xmi:id="_EyY8MMhNEeiv2M51Zg_wmA" name="isComplete">
+      <modelElement href="RideSharing-backend.uml#_EyRAYMhNEeiv2M51Zg_wmA"/>
+      <visibility xmi:id="_EyZjQMhNEeiv2M51Zg_wmA" label="+"/>
+      <cardinality xmi:id="_EyZjQchNEeiv2M51Zg_wmA" label="1" max="1" min="1"/>
+      <type xmi:id="_GKohgMhNEeiv2M51Zg_wmA" name="boolean">
         <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
       </type>
     </attributes>

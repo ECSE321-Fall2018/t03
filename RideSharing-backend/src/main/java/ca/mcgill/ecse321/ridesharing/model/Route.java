@@ -105,5 +105,13 @@ this.isAvailable = value;
     }
 public boolean isIsAvailable() {
 return this.isAvailable;
+    }
+private boolean isComplete;
+
+public void setIsComplete(boolean value) {
+this.isComplete = value;
+    }
+public boolean isIsComplete() {
+return this.isComplete;
        }
    }

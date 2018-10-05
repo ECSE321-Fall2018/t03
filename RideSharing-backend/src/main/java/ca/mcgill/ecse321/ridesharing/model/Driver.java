@@ -20,6 +20,14 @@ public void setRoute1(Set<Route> route1s) {
    this.route1 = route1s;
 }
 
+private String/*No type specified!*/ var1;
+
+public void setVar1(String/*No type specified!*/ value) {
+this.var1 = value;
+    }
+public String/*No type specified!*/ getVar1() {
+return this.var1;
+    }
 private Set<Route> route;
 public void setRoute (Set <Route> routes)
 {

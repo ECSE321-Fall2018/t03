@@ -113,5 +113,13 @@ this.isComplete = value;
     }
 public boolean isIsComplete() {
 return this.isComplete;
+    }
+private Integer time;
+
+public void setTime(Integer value) {
+this.time = value;
+    }
+public Integer getTime() {
+return this.time;
        }
    }

@@ -82,6 +82,7 @@
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iKtTUMhIEeiv2M51Zg_wmA"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iKtTUchIEeiv2M51Zg_wmA" value="*"/>
                 </ownedAttribute>
+                <ownedAttribute xmi:id="_xi0BkMhPEeiv2M51Zg_wmA" name="var1" visibility="public"/>
               </packagedElement>
               <packagedElement xmi:type="uml:Class" xmi:id="_g3_5wMaREeiv2M51Zg_wmA" name="Route">
                 <ownedAttribute xmi:id="_kHhw0MaREeiv2M51Zg_wmA" name="vehicle" visibility="public">
@@ -115,6 +116,9 @@
                 </ownedAttribute>
                 <ownedAttribute xmi:id="_EyRAYMhNEeiv2M51Zg_wmA" name="isComplete" visibility="public">
                   <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
+                </ownedAttribute>
+                <ownedAttribute xmi:id="_KbytUMhQEeiv2M51Zg_wmA" name="time" visibility="public">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#Integer"/>
                 </ownedAttribute>
               </packagedElement>
               <packagedElement xmi:type="uml:Association" xmi:id="_M7B_kMaSEeiv2M51Zg_wmA" name="" memberEnd="_M7B_kcaSEeiv2M51Zg_wmA _M7CmosaSEeiv2M51Zg_wmA"/>

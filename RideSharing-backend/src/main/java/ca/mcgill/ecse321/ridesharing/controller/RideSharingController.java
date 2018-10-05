@@ -22,13 +22,13 @@ public class RideSharingController {
 	}
 
 	@PostMapping("/passenger/{username}/{password}")
-	public String createParticipant(@PathVariable("username") String username, @PathVariable ("password") String password) {
+	public String createParticipant(@PathVariable String username, @PathVariable String password) {
 		Passenger passenger = repository.createPassenger(username, password);
 		return passenger.getUsername();
 	}
 
 	@GetMapping("/passenger/{username}")
-	public String getPassenger(@PathVariable("username") String username) {
+	public String getPassenger(@PathVariable String username) {
 		Passenger passenger = repository.getPassenger(username);
 		if(passenger == null) {
 			return "NOT FOUND!";
@@ -37,18 +37,22 @@ public class RideSharingController {
 	}
 	
 	@PostMapping("/driver/{username}/{password}")
-	public String createDriver(@PathVariable("username") String username, @PathVariable ("password") String password) {
+	public String createDriver(@PathVariable String username, @PathVariable String password) {
 		Driver driver = repository.createDriver(username,password); 
 		return driver.getUsername();
 	}
 	
 	@GetMapping("/driver/{username}")
-	public String getDriver(@PathVariable("username") String username) {
+	public String getDriver(@PathVariable String username) {
 		Driver driver = repository.getDriver(username);
 		if(driver == null) {
 			return "NOT FOUND!";
 		}
 		return driver.getUsername();
+	}
+	@PostMapping("/{date}/{time}/{Stop}/{car}/{startCity}/{numberOfSeats}")
+	{
+		Public void createRoute(@PathVariable Date date) 
 	}
 
 }

@@ -117,8 +117,8 @@ return this.isComplete;
     }
 private Time time;
 
-public void setTime(Time value) {
-this.time = value;
+public void setTime(Time time) {
+this.time = time;
     }
 public Time getTime() {
 return this.time;

@@ -3,6 +3,7 @@ package ca.mcgill.ecse321.ridesharing.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
+import java.sql.Time;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
@@ -114,12 +115,12 @@ this.isComplete = value;
 public boolean isIsComplete() {
 return this.isComplete;
     }
-private Integer time;
+private Time time;
 
-public void setTime(Integer value) {
+public void setTime(Time value) {
 this.time = value;
     }
-public Integer getTime() {
+public Time getTime() {
 return this.time;
        }
    }

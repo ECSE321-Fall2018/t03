@@ -382,10 +382,13 @@
         <modelElement href="RideSharing-backend.uml#_g3_5wMaREeiv2M51Zg_wmA"/>
       </type>
     </attributes>
-    <attributes xmi:id="_xi3r8MhPEeiv2M51Zg_wmA" name="var1">
+    <attributes xmi:id="_xi3r8MhPEeiv2M51Zg_wmA" name="email">
       <modelElement href="RideSharing-backend.uml#_xi0BkMhPEeiv2M51Zg_wmA"/>
       <visibility xmi:id="_xi3r8chPEeiv2M51Zg_wmA" label="+"/>
       <cardinality xmi:id="_xi3r8shPEeiv2M51Zg_wmA" label="1" max="1" min="1"/>
+      <type xmi:id="_FUuwEMhUEeiv2M51Zg_wmA" name="String">
+        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+      </type>
     </attributes>
   </nodes>
   <nodes xsi:type="com.yattasolutions.uml.diagrams.classifier:ClassifierVisual" xmi:id="_g4Ag0MaREeiv2M51Zg_wmA" containment="_7OUtQMaREeiv2M51Zg_wmA" name="Route" package="_LTtHIMZrEeiVNJpKJiRxkw" associationsIn="_-U3ncMaREeiv2M51Zg_wmA _52ao0MeGEeiv2M51Zg_wmA _uR6H8MhDEeiv2M51Zg_wmA _iKw9sMhIEeiv2M51Zg_wmA _MPMIIMhREeiv2M51Zg_wmA _NLCsYMhREeiv2M51Zg_wmA" associationsOut="_M7GRAMaSEeiv2M51Zg_wmA">

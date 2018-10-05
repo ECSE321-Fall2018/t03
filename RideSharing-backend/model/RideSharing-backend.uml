@@ -82,7 +82,9 @@
                   <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_iKtTUMhIEeiv2M51Zg_wmA"/>
                   <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_iKtTUchIEeiv2M51Zg_wmA" value="*"/>
                 </ownedAttribute>
-                <ownedAttribute xmi:id="_xi0BkMhPEeiv2M51Zg_wmA" name="var1" visibility="public"/>
+                <ownedAttribute xmi:id="_xi0BkMhPEeiv2M51Zg_wmA" name="email" visibility="public">
+                  <type xmi:type="uml:PrimitiveType" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
+                </ownedAttribute>
               </packagedElement>
               <packagedElement xmi:type="uml:Class" xmi:id="_g3_5wMaREeiv2M51Zg_wmA" name="Route">
                 <ownedAttribute xmi:id="_kHhw0MaREeiv2M51Zg_wmA" name="vehicle" visibility="public">

@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import java.util.Set;
 import javax.persistence.ManyToMany;
@@ -12,6 +13,7 @@ private String startCIty;
    public void setStartCIty(String value) {
 this.startCIty = value;
     }
+  @Id
 public String getStartCIty() {
 return this.startCIty;
     }
@@ -20,10 +22,12 @@ private String endCity;
 public void setEndCity(String value) {
 this.endCity = value;
     }
+
 public String getEndCity() {
 return this.endCity;
     }
 private Passenger passenger;
+
 
 @ManyToOne(optional=false)
 public Passenger getPassenger() {
@@ -35,6 +39,7 @@ public void setPassenger(Passenger passenger) {
 }
 
 private Set<Route> route;
+
 
 @ManyToMany
 public Set<Route> getRoute() {

@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Set;
 import javax.persistence.OneToMany;
 
@@ -8,6 +9,7 @@ import javax.persistence.OneToMany;
 public class Passenger extends User{
 private Set<Request> request;
 
+@Id
 @OneToMany(mappedBy="passenger")
 public Set<Request> getRequest() {
    return this.request;

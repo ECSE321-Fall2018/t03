@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.sql.Date;
 import javax.persistence.ManyToOne;
 import java.util.Set;
@@ -15,6 +16,7 @@ private String vehicle;
    public void setVehicle(String value) {
 this.vehicle = value;
     }
+ @Id  
 public String getVehicle() {
 return this.vehicle;
     }

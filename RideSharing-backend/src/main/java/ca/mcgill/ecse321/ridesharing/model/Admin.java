@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Set;
 import javax.persistence.ManyToMany;
 
@@ -11,6 +12,7 @@ public class Admin extends User{
 	
 private Set<Driver> driver;
 
+@Id
 @ManyToMany
 public Set<Driver> getDriver() {
    return this.driver;

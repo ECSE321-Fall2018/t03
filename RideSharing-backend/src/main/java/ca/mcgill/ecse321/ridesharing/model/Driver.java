@@ -1,6 +1,7 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Set;
 import javax.persistence.OneToMany;
 
@@ -8,6 +9,7 @@ import javax.persistence.OneToMany;
 public class Driver extends User{
 private Set<Route> route;
 
+@Id
 @OneToMany(mappedBy="driver")
 public Set<Route> getRoute() {
    return this.route;

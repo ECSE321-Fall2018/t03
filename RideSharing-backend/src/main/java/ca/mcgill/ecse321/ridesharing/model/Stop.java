@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.Id;
 
 @Entity
 public class Stop{
@@ -10,6 +11,7 @@ private String city;
    public void setCity(String value) {
 this.city = value;
     }
+@Id
 public String getCity() {
 return this.city;
     }

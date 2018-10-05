@@ -1,5 +1,9 @@
 package ca.mcgill.ecse321.ridesharing.controller;
 
+import java.sql.Date;
+import java.sql.Time;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,9 +54,11 @@ public class RideSharingController {
 		}
 		return driver.getUsername();
 	}
-	@PostMapping("/{date}/{time}/{Stop}/{car}/{startCity}/{numberOfSeats}")
-	{
-		Public void createRoute(@PathVariable Date date) 
+	@PostMapping("/{date}/{time}/{stop}/{car}/{startCity}/{numberOfSeats}")
+	
+		public void createRoute(@PathVariable Date date, @PathVariable Time time, @PathVariable Set <Stop> stop, String car, String startCity, int numberOfSeats) {
+			repository.createRoute(date, time, stop, car, startCity, numberOfSeats);
+			
+		}
 	}
 
-}

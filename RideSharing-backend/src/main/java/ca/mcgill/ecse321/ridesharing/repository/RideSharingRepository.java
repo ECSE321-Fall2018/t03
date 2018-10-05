@@ -68,16 +68,33 @@ public class RideSharingRepository {
 	}
 	
 	@Transactional
-	public Route createRoute(Date aDate, Time aTime, Driver aDriver, Set<Stop> stops, String vehicle, String startCity, int numberOfSeats, int price) {
-	    Route route = new Route();
+	public Route createRoute(Date aDate, Time aTime, Set<Stop> stops, String vehicle, String startCity, int numberOfSeats) {
+		Route route = new Route();
+		String error;
+		if(numberOfSeats == 0) {
+			error = "Need to add seats";
+		}
+		if(aDate==null) {
+			error = "Need date";
+		}
+		if(aTime==null) {
+			error = "Need time";
+		}
+		if(vehicle==null) {
+			error = "Need vehicle";
+		}
+		if(startCity==null) {
+			error = "Need start city";
+		}
+		if(stops==null) {
+			error = "Need stops";
+		}
+		
 	    route.setAvailableSeats(numberOfSeats);
 	    route.setDate(aDate);
 	    route.setStartCity(startCity);
 	    route.setStop(stops);
 	    route.setVehicle(vehicle);
-	    for(stop : stops) {
-	    	
-	    }
 	    route.setIsAvailable(true);
 	    route.setIsComplete(false);
 	    entityManager.persist(route);
@@ -92,6 +109,15 @@ public class RideSharingRepository {
 	
 	@Transactional
 	public Set<Route> findRoutes(Date aDate, String startCity, String endCity){
+		
+	}
+	
+	@Transactional
+	public void joinRoute(Route route) {
+		int avaiableSeats = route.getAvailableSeats();
+		if(avaiableSeats>0) {
+			
+		}
 		
 	}
 	

@@ -1,30 +1,30 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.util.Set;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
 @Entity
 public class Passenger extends User{
-private Set<Request> request;
-
-@Id
-@OneToMany(mappedBy="passenger")
-public Set<Request> getRequest() {
-   return this.request;
-}
-
-public void setRequest(Set<Request> requests) {
-   this.request = requests;
-}
-
 private Integer rating;
 
 public void setRating(Integer value) {
-this.rating = value;
-    }
+   this.rating = value;
+}
+
 public Integer getRating() {
-return this.rating;
-       }
-   }
+   return this.rating;
+}
+
+private Set<Route> route;
+
+@ManyToMany(mappedBy="passenger")
+public Set<Route> getRoute() {
+   return this.route;
+}
+
+public void setRoute(Set<Route> routes) {
+   this.route = routes;
+}
+
+}

@@ -1,8 +1,8 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Stop{
@@ -18,11 +18,13 @@ return this.city;
 private Integer price;
 
 public void setPrice(Integer value) {
-this.price = value;
-    }
+   this.price = value;
+}
+
 public Integer getPrice() {
-return this.price;
-    }
+   return this.price;
+}
+
 private Route route;
 
 @ManyToOne(optional=false)

@@ -10,24 +10,28 @@ private String username;
    public void setUsername(String value) {
 this.username = value;
     }
-   @Id
+@Id
 public String getUsername() {
 return this.username;
     }
 private String password;
 
 public void setPassword(String value) {
-this.password = value;
-    }
+   this.password = value;
+}
+
 public String getPassword() {
-return this.password;
-    }
+   return this.password;
+}
+
 private boolean isActive;
 
 public void setIsActive(boolean value) {
-this.isActive = value;
-    }
+   this.isActive = value;
+}
+
 public boolean isIsActive() {
-return this.isActive;
-       }
-   }
+   return this.isActive;
+}
+
+}

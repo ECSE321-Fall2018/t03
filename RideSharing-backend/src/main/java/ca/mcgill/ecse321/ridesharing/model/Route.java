@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Route{
@@ -84,6 +85,17 @@ public Set<Passenger> getPassenger() {
 
 public void setPassenger(Set<Passenger> passengers) {
    this.passenger = passengers;
+}
+
+private Driver driver1;
+
+@ManyToOne(optional=false)
+public Driver getDriver1() {
+   return this.driver1;
+}
+
+public void setDriver1(Driver driver1) {
+   this.driver1 = driver1;
 }
 
 }

@@ -65,32 +65,12 @@ public class RideSharingRepository {
 	}
 	
 	@Transactional
-	public Route createRoute(Date aDate, Time aTime, Set<Stop> stops, String vehicle, String startCity, int numberOfSeats) {
+	public Route createRoute(Date aDate, Time aTime, List<Stop> stops, String vehicle, String startCity, int numberOfSeats) {
 		Route route = new Route();
-		String error;
-		if(numberOfSeats == 0) {
-			error = "Need to add seats";
-		}
-		if(aDate==null) {
-			error = "Need date";
-		}
-		if(aTime==null) {
-			error = "Need time";
-		}
-		if(vehicle==null) {
-			error = "Need vehicle";
-		}
-		if(startCity==null) {
-			error = "Need start city";
-		}
-		if(stops==null) {
-			error = "Need stops";
-		}
-		
 	    route.setAvailableSeats(numberOfSeats);
 	    route.setDate(aDate);
 	    route.setStartCity(startCity);
-	    route.setStop(stops);
+	    route.setStops(stops);
 	    route.setVehicle(vehicle);
 	    route.setIsAvailable(true);
 	    route.setIsComplete(false);
@@ -104,19 +84,36 @@ public class RideSharingRepository {
 		return true;
 		}
 	
-//	@Transactional
-//	public Set<Route> findRoutes(Date aDate, String startCity, String endCity){
-		
-//	}
+	@Transactional
+	public List<Route> findRoutes(Date aDate, String startCity, String endCity){
+		List<Route> routeList = entityManager.createQuery("SELECT r FROM Route r").getResultList();
+		List<Route> matchingRoutes;
+		matchingRoutes = new ArrayList<Route>();
+		for(Route route: routeList) {
+			Date date = route.getDate();
+			String routeStartCity = route.getStartCity();
+			List<Stop> stops = route.getStops();
+			for(Stop stop: stops) {
+				if(stop.equals(endCity) && date.equals(aDate) && routeStartCity.equals(startCity) && route.isIsAvailable()) {
+					matchingRoutes.add(route);
+				}
+			}
+		}
+		return matchingRoutes;
+	}
 	
 	@Transactional
-	public void joinRoute(Route route) {
-		int avaiableSeats = route.getAvailableSeats();
-		if(avaiableSeats>0) {
-			
+	public void joinRoute(Route route, Passenger passenger) {
+		int availableSeats = route.getAvailableSeats();
+		List<Passenger> passengersOnRoute = route.getPassengers();
+		if(passengersOnRoute.size()<availableSeats) {
+			passengersOnRoute.add(passenger);
 		}
-		
+		if(passengersOnRoute.size()==availableSeats) {
+			route.setIsAvailable(false);
+		}
 	}
+	
 	
 
 }

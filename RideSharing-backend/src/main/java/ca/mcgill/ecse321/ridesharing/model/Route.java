@@ -129,5 +129,13 @@ this.vehicle = value;
     }
 public String getVehicle() {
 return this.vehicle;
+    }
+private String endCity;
+
+public void setEndCity(String value) {
+this.endCity = value;
+    }
+public String getEndCity() {
+return this.endCity;
        }
    }

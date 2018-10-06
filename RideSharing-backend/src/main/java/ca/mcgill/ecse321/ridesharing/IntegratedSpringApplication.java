@@ -46,6 +46,12 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         //@RequestMapping("/")
     	//public String greeting() {
     	//	return "<h1>Welcome to the ride sharing app!</h1>";
+    
+    
+    
+    	new connection  =new whatever(user, pass, url);
+    	whatever.query
+    	.insert("select * from ")
 
     @RequestMapping("/")
 	public String greeting() {
@@ -55,7 +61,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
 	public String createParticipant(@PathVariable String username) {
 		//Passenger passenger = repository.createPassenger(username);
 		//return passenger.getUsername();
-    	return "<form action=\"/action_page.php\" method=\"get\">\n" + 
+    	return "<form action=\"/action_page.php\" method=\"post\">\n" + 
     			"  First name: <input type=\"text\" name=\"fname\"><br>\n" + 
     			"  Last name: <input type=\"text\" name=\"lname\"><br>\n" + 
     			"  <input type=\"submit\" value=\"Submit\">\n" + 

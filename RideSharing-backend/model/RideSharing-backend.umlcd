@@ -322,22 +322,6 @@
         <modelElement href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#boolean"/>
       </type>
     </attributes>
-    <attributes xmi:id="_CWOYsckyEeiv2M51Zg_wmA" name="firstName">
-      <modelElement href="RideSharing-backend.uml#_CWOYsMkyEeiv2M51Zg_wmA"/>
-      <visibility xmi:id="_CWOYsskyEeiv2M51Zg_wmA" label="+"/>
-      <cardinality xmi:id="_CWOYs8kyEeiv2M51Zg_wmA" label="1" max="1" min="1"/>
-      <type xmi:id="_EAuysMkyEeiv2M51Zg_wmA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
-    <attributes xmi:id="_GrNb8MkyEeiv2M51Zg_wmA" name="lastName">
-      <modelElement href="RideSharing-backend.uml#_GrM04MkyEeiv2M51Zg_wmA"/>
-      <visibility xmi:id="_GrNb8ckyEeiv2M51Zg_wmA" label="+"/>
-      <cardinality xmi:id="_GrNb8skyEeiv2M51Zg_wmA" label="1" max="1" min="1"/>
-      <type xmi:id="_IcvD8MkyEeiv2M51Zg_wmA" name="String">
-        <modelElement href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#String"/>
-      </type>
-    </attributes>
     <attributes xmi:id="_I54S8MkyEeiv2M51Zg_wmA" name="password">
       <modelElement href="RideSharing-backend.uml#_I53r4MkyEeiv2M51Zg_wmA"/>
       <visibility xmi:id="_I54S8ckyEeiv2M51Zg_wmA" label="+"/>

@@ -18,7 +18,7 @@ public Integer getRating() {
 
 private Set<Route> route;
 
-@ManyToMany(mappedBy="passenger")
+@ManyToMany(mappedBy="passengers")
 public Set<Route> getRoute() {
    return this.route;
 }

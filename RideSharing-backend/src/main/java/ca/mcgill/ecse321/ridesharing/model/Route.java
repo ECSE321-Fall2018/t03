@@ -3,12 +3,12 @@ package ca.mcgill.ecse321.ridesharing.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
-import java.sql.Time;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import java.sql.Time;
 
 @Entity
 public class Route{
@@ -58,34 +58,43 @@ public Date getDate() {
    return this.date;
 }
 
+/**
+ * <pre>
+ *           1..1     1..1
+ * Route ------------------------> Driver
+ *           &lt;       driver
+ * </pre>
+ */
 private Driver driver;
 
 public void setDriver(Driver value) {
-this.driver = value;
-    }
+   this.driver = value;
+}
+
 public Driver getDriver() {
-return this.driver;
-    }
-private Set<Stop> stop;
+   return this.driver;
+}
+
+private Set<Stop> stops;
 
 @OneToMany(mappedBy="route", cascade={CascadeType.ALL})
-public Set<Stop> getStop() {
-   return this.stop;
+public Set<Stop> getStops() {
+   return this.stops;
 }
 
-public void setStop(Set<Stop> stops) {
-   this.stop = stops;
+public void setStops(Set<Stop> stopss) {
+   this.stops = stopss;
 }
 
-private Set<Passenger> passenger;
+private Set<Passenger> passengers;
 
 @ManyToMany
-public Set<Passenger> getPassenger() {
-   return this.passenger;
+public Set<Passenger> getPassengers() {
+   return this.passengers;
 }
 
-public void setPassenger(Set<Passenger> passengers) {
-   this.passenger = passengers;
+public void setPassengers(Set<Passenger> passengerss) {
+   this.passengers = passengerss;
 }
 
 private Driver driver1;
@@ -102,25 +111,38 @@ public void setDriver1(Driver driver1) {
 private boolean isAvailable;
 
 public void setIsAvailable(boolean value) {
-this.isAvailable = value;
-    }
+   this.isAvailable = value;
+}
+
 public boolean isIsAvailable() {
-return this.isAvailable;
-    }
+   return this.isAvailable;
+}
+
 private boolean isComplete;
 
 public void setIsComplete(boolean value) {
-this.isComplete = value;
-    }
+   this.isComplete = value;
+}
+
 public boolean isIsComplete() {
-return this.isComplete;
-    }
+   return this.isComplete;
+}
+
+/**
+ * <pre>
+ *           1..1     1..1
+ * Route ------------------------> Time
+ *           &lt;       time
+ * </pre>
+ */
 private Time time;
 
-public void setTime(Time time) {
-this.time = time;
-    }
+public void setTime(Time value) {
+   this.time = value;
+}
+
 public Time getTime() {
-return this.time;
-       }
-   }
+   return this.time;
+}
+
+}

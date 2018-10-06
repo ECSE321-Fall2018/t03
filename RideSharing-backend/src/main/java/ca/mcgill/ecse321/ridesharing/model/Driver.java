@@ -1,33 +1,14 @@
 package ca.mcgill.ecse321.ridesharing.model;
-import javax.persistence.CascadeType;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 import java.util.Set;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Driver extends User{
-private Set<Route> route1;
-
-@OneToMany(mappedBy="driver1", cascade={CascadeType.ALL})
-public Set<Route> getRoute1() {
-   return this.route1;
-}
-
-public void setRoute1(Set<Route> route1s) {
-   this.route1 = route1s;
-}
-
-private String/*No type specified!*/ var1;
-
-public void setVar1(String/*No type specified!*/ value) {
-this.var1 = value;
-    }
-public String/*No type specified!*/ getVar1() {
-return this.var1;
-    }
 private Set<Route> route;
 public void setRoute (Set <Route> routes)
 {
@@ -49,4 +30,23 @@ public Integer getRating() {
    return this.rating;
 }
 
+private Set<Route> routes;
+
+@OneToMany(mappedBy="driver1", cascade={CascadeType.ALL})
+public Set<Route> getRoutes() {
+   return this.routes;
 }
+
+public void setRoutes(Set<Route> routess) {
+   this.routes = routess;
+}
+
+private String email;
+
+public void setEmail(String value) {
+this.email = value;
+    }
+public String getEmail() {
+return this.email;
+       }
+   }

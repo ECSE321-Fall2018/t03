@@ -22,6 +22,10 @@ public class RideSharingRepository {
 
 	@Transactional
 	public Passenger createPassenger(String name) {
+		Passenger existingPassenger = entityManager.find(Passenger.class, name);
+		if(existingPassenger!=null) {
+			return null;
+		}
 		Passenger passenger = new Passenger();
 		passenger.setUsername(name);
 		passenger.setIsActive(true);
@@ -66,11 +70,12 @@ public class RideSharingRepository {
 		return admin;
 	}
 	@Transactional
-	public Route createRoute(Date aDate, Time aTime, String vehicle, String startCity, int numberOfSeats) {
+	public Route createRoute(Date aDate, Time aTime, String vehicle, String startCity, String endCity, int numberOfSeats) {
 		Route route = new Route();
 	    route.setAvailableSeats(numberOfSeats);
 	    route.setDate(aDate);
 	    route.setStartCity(startCity);
+	    route.setEndCity(endCity);
 	    route.setIsAvailable(true);
 	    route.setIsComplete(false);
 	    entityManager.persist(route);
@@ -84,17 +89,24 @@ public class RideSharingRepository {
 		}
 	
 	@Transactional
+	/*
+	 * Figure out query stuff
+	 */
 	public List<Route> findRoutes(Date aDate, String startCity, String endCity){
 		List<Route> routeList = entityManager.createQuery("SELECT r FROM Route r").getResultList();
 		List<Route> matchingRoutes;
 		matchingRoutes = new ArrayList<Route>();
 		for(Route route: routeList) {
 			Date date = route.getDate();
+			String routeEndCity = route.getEndCity();
 			String routeStartCity = route.getStartCity();
-			
+			if(routeStartCity.equals(startCity)&&routeEndCity.equals(endCity)&&aDate.equals(date)){
+				matchingRoutes.add(route);
+			}
 		}
 		return matchingRoutes;
 	}
+	
 	
 	@Transactional
 	public void joinRoute(Route route, Passenger passenger) {
@@ -108,6 +120,47 @@ public class RideSharingRepository {
 		}
 	}
 	
+	@Transactional
+	public void rateDriver(Driver driver, int rating) {
+		int ratingSum =0;
+		int newRating = 0;
+		List<Route> pastRoutes = driver.getRoutes();
+		int totalPastPassengers  = 0;
+		int passengersPerRoute = 0;
+		for(Route route : pastRoutes) {
+			passengersPerRoute = route.getPassengers().size();
+			totalPastPassengers = totalPastPassengers + passengersPerRoute;
+		}
+		int currentRating = driver.getRating();
+		ratingSum = currentRating*(totalPastPassengers-1);
+		newRating = (ratingSum+rating)/totalPastPassengers;
+		driver.setRating(newRating);
+		entityManager.persist(driver);
+	}
 	
+	@Transactional
+	public void ratePassenger(Passenger passenger, int rating) {
+		int ratingSum =0;
+		int newRating = 0;
+		List<Route> pastRoutes = passenger.getRoute();
+		int currentRating = passenger.getRating();
+		int numberOfTotal = pastRoutes.size();
+		ratingSum = currentRating*(numberOfTotal-1);
+		newRating = (ratingSum+rating)/numberOfTotal;
+		passenger.setRating(newRating);
+		entityManager.persist(passenger);
+	}
+	
+	public List<Driver> getDriverRatings(){
+		List<Driver> drivers = entityManager.createQuery("SELECT d FROM Driver d").getResultList();
+		List<Driver> bestDrivers = new ArrayList<Driver>();
+		for(Driver driver: drivers)
+		{
+			if(driver.getRating()<5) {
+				bestDrivers.add(driver);
+			}
+		}
+		return bestDrivers;
+	}
 
 }

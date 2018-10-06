@@ -48,11 +48,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     	//	return "<h1>Welcome to the ride sharing app!</h1>";
     
     
-    
-    	new connection  =new whatever(user, pass, url);
-    	whatever.query
-    	.insert("select * from ")
-
+   
     @RequestMapping("/")
 	public String greeting() {
 		return "<h1>Welcome to the ride sharing app!</h1>";
@@ -67,4 +63,34 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     			"  <input type=\"submit\" value=\"Submit\">\n" + 
     			"</form>";
 	}
+    
+    @RequestMapping("driver/{username}")
+    public String createDriver(@PathVariable String username) {
+    	return "<form action=\"/action_page.php\" method=\"post\">\n" + 
+    			"  First name: <input type=\"text\" name=\"fname\"><br>\n" + 
+    			"  Last name: <input type=\"text\" name=\"lname\"><br>\n" + 
+    			"  email: <input type=\"text\" name=\"email\"><br>\n" + 
+    			"  <input type=\"submit\" value=\"Submit\">\n" + 
+    			"</form>";
+    }
+    @RequestMapping("admin/{username}")
+    public String createAdmin(@PathVariable String username) {
+    	return "<form action=\"/action_page.php\" method=\"post\">\n" + 
+    			"  First name: <input type=\"text\" name=\"fname\"><br>\n" + 
+    			"  Last name: <input type=\"text\" name=\"lname\"><br>\n" + 
+    			"  <input type=\"submit\" value=\"Submit\">\n" + 
+    			"</form>";
+    }
+    @RequestMapping("driver/{username}/route")
+    public String createRoute(@PathVariable String username) {
+    	return "<form action=\"/action_page.php\" method=\"post\">\n" + 
+    			"  Available Seats: <input type=\"text\" name=\"availableSeats\"><br>\n" + 
+    			"  Start City: <input type=\"text\" name=\"sCity\"><br>\n" + 
+    			"  End City: <input type=\"text\" name=\"eCity\"><br>\n" + 
+    			"  Date: <input type=\"text\" name=\"date\"><br>\n" + 
+    			"  Time: <input type=\"text\" name=\"time\"><br>\n" + 
+    			"  <input type=\"submit\" value=\"Submit\">\n" + 
+    			"</form>";
+    }
+    
     }

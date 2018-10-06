@@ -66,13 +66,11 @@ public class RideSharingRepository {
 		return admin;
 	}
 	@Transactional
-	public Route createRoute(Date aDate, Time aTime, List<Stop> stops, String vehicle, String startCity, int numberOfSeats) {
+	public Route createRoute(Date aDate, Time aTime, String vehicle, String startCity, int numberOfSeats) {
 		Route route = new Route();
 	    route.setAvailableSeats(numberOfSeats);
 	    route.setDate(aDate);
 	    route.setStartCity(startCity);
-	    route.setStops(stops);
-	    route.setVehicle(vehicle);
 	    route.setIsAvailable(true);
 	    route.setIsComplete(false);
 	    entityManager.persist(route);
@@ -93,12 +91,7 @@ public class RideSharingRepository {
 		for(Route route: routeList) {
 			Date date = route.getDate();
 			String routeStartCity = route.getStartCity();
-			List<Stop> stops = route.getStops();
-			for(Stop stop: stops) {
-				if(stop.equals(endCity) && date.equals(aDate) && routeStartCity.equals(startCity) && route.isIsAvailable()) {
-					matchingRoutes.add(route);
-				}
-			}
+			
 		}
 		return matchingRoutes;
 	}

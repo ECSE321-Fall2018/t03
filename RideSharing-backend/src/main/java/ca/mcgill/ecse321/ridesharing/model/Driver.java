@@ -9,11 +9,15 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Driver extends User{
+private String vehicle;
+   
+   public void setVehicle(String value) {
+this.vehicle = value;
+    }
+public String getVehicle() {
+return this.vehicle;
+    }
 private List<Route> route;
-public void setRoute (List <Route> routes)
-{
-this.route = routes;
-   }
 @Id
 @OneToMany(mappedBy = "driver")
 public List<Route> getRoute ()

@@ -62,8 +62,8 @@ public class RideSharingController {
 	}
 	@PostMapping("/{date}/{time}/{stop}/{car}/{startCity}/{numberOfSeats}")
 	
-		public void createRoute(@PathVariable Date date, @PathVariable Time time, @PathVariable List <Stop> stop, String car, String startCity, int numberOfSeats) {
-			repository.createRoute(date, time, stop, car, startCity, numberOfSeats);
+		public void createRoute(@PathVariable Date date, @PathVariable Time time, String car, String startCity, int numberOfSeats) {
+			repository.createRoute(date, time, car, startCity, numberOfSeats);
 			
 		}
 	}

@@ -9,14 +9,6 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Driver extends User{
-private String vehicle;
-   
-   public void setVehicle(String value) {
-this.vehicle = value;
-    }
-public String getVehicle() {
-return this.vehicle;
-    }
 private List<Route> route;
 @Id
 @OneToMany(mappedBy = "driver")
@@ -48,9 +40,11 @@ public void setRoutes(List<Route> routess) {
 private String email;
 
 public void setEmail(String value) {
-this.email = value;
-    }
+   this.email = value;
+}
+
 public String getEmail() {
-return this.email;
-       }
-   }
+   return this.email;
+}
+
+}

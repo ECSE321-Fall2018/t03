@@ -1,25 +1,14 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import java.sql.Date;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.sql.Time;
 
 @Entity
 public class Route{
-private String endCity;
-   
-   public void setEndCity(String value) {
-this.endCity = value;
-    }
-public String getEndCity() {
-return this.endCity;
-    }
 private Integer availableSeats;
 
 public void setAvailableSeats(Integer value) {
@@ -133,4 +122,12 @@ public Time getTime() {
    return this.time;
 }
 
-}
+private String vehicle;
+
+public void setVehicle(String value) {
+this.vehicle = value;
+    }
+public String getVehicle() {
+return this.vehicle;
+       }
+   }

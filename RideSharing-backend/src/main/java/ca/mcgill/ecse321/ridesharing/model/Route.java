@@ -3,7 +3,7 @@ package ca.mcgill.ecse321.ridesharing.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.sql.Date;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 import javax.persistence.ManyToMany;
@@ -75,25 +75,25 @@ public Driver getDriver() {
    return this.driver;
 }
 
-private Set<Stop> stops;
+private List<Stop> stops;
 
 @OneToMany(mappedBy="route", cascade={CascadeType.ALL})
-public Set<Stop> getStops() {
+public List<Stop> getStops() {
    return this.stops;
 }
 
-public void setStops(Set<Stop> stopss) {
+public void setStops(List<Stop> stopss) {
    this.stops = stopss;
 }
 
-private Set<Passenger> passengers;
+private List<Passenger> passengers;
 
 @ManyToMany
-public Set<Passenger> getPassengers() {
+public List<Passenger> getPassengers() {
    return this.passengers;
 }
 
-public void setPassengers(Set<Passenger> passengerss) {
+public void setPassengers(List<Passenger> passengerss) {
    this.passengers = passengerss;
 }
 

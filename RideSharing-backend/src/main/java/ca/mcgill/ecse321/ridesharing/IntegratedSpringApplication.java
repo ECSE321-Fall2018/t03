@@ -33,8 +33,8 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     public static void main(String[] args) {
     	
         SpringApplication.run(IntegratedSpringApplication.class, args);
-       
       
+       
     	}
         @RequestMapping("/")
     	public String greeting() {

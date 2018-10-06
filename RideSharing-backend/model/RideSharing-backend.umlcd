@@ -373,7 +373,7 @@
     </attributes>
     <attributes xmi:id="_xi3r8MhPEeiv2M51Zg_wmA" name="email">
       <modelElement href="RideSharing-backend.uml#_xi0BkMhPEeiv2M51Zg_wmA"/>
-      <stereotypes xmi:id="_mBa_wMkEEeiv2M51Zg_wmA" name="StyledElement">
+      <stereotypes xmi:id="_ZV5S4MkFEeionrZVSxB2Mg" name="StyledElement">
         <modelElement href="RideSharing-backend.uml#_mBAJAMkEEeiv2M51Zg_wmA"/>
       </stereotypes>
       <visibility xmi:id="_xi3r8chPEeiv2M51Zg_wmA" label="+"/>
@@ -425,11 +425,11 @@
       <stereotypes xmi:id="_KdpEQMhMEeiv2M51Zg_wmA" name="StyledElement"/>
       <stereotypes xmi:id="_KdqSYMhMEeiv2M51Zg_wmA" name="StyledElement"/>
       <stereotypes xmi:id="_KdtVsMhMEeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e7lpsMj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e7m30Mj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e77n8Mj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_5cAloMkDEeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_5qwzUMkDEeiv2M51Zg_wmA" name="StyledElement"/>
+      <stereotypes xmi:id="_GehbsMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_GejQ4MjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_GewsQMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_ZAV5oMkFEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_aO6lkMkFEeionrZVSxB2Mg" name="StyledElement"/>
       <visibility xmi:id="_qR62gcaREeiv2M51Zg_wmA" label="+"/>
       <cardinality xmi:id="_qR62gsaREeiv2M51Zg_wmA" label="1" max="1" min="1"/>
       <type xmi:id="_BjgRMMaTEeiv2M51Zg_wmA" name="Date">
@@ -439,11 +439,11 @@
     <attributes xmi:id="_-U4OgMaREeiv2M51Zg_wmA" name="driver">
       <modelElement href="RideSharing-backend.uml#_-Uxg0caREeiv2M51Zg_wmA"/>
       <stereotypes xmi:id="_MPS10MhREeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e7x28Mj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e7yeAMj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e8DjwMj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_5ln0oMkDEeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_5qr60MkDEeiv2M51Zg_wmA" name="StyledElement"/>
+      <stereotypes xmi:id="_Gem7QMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_GeoJYMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_Gex6YMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_ZPbegMkFEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_aOz34MkFEeionrZVSxB2Mg" name="StyledElement"/>
       <visibility xmi:id="_-U4OgcaREeiv2M51Zg_wmA" label="+"/>
       <cardinality xmi:id="_-U4OgsaREeiv2M51Zg_wmA" label="1" max="1" min="1"/>
       <type xmi:id="_-U4Og8aREeiv2M51Zg_wmA" name="Driver">
@@ -499,11 +499,11 @@
     <attributes xmi:id="_KbzUYMhQEeiv2M51Zg_wmA" name="time">
       <modelElement href="RideSharing-backend.uml#_KbytUMhQEeiv2M51Zg_wmA"/>
       <stereotypes xmi:id="_NLNEcMhREeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e7zFEMj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e73WgMj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_e8FY8Mj9Eeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_5lpp0MkDEeiv2M51Zg_wmA" name="StyledElement"/>
-      <stereotypes xmi:id="_5pg2IMkDEeiv2M51Zg_wmA" name="StyledElement"/>
+      <stereotypes xmi:id="_GepXgMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_GerMsMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_Ge09sMjuEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_ZPeh0MkFEeionrZVSxB2Mg" name="StyledElement"/>
+      <stereotypes xmi:id="_ZYALsMkFEeionrZVSxB2Mg" name="StyledElement"/>
       <visibility xmi:id="_KbzUYchQEeiv2M51Zg_wmA" label="+"/>
       <cardinality xmi:id="_KbzUYshQEeiv2M51Zg_wmA" label="1" max="1" min="1"/>
       <type xmi:id="_MP550MhREeiv2M51Zg_wmA" name="Time">

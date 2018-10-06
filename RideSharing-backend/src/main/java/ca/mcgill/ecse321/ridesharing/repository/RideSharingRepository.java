@@ -2,7 +2,9 @@ package ca.mcgill.ecse321.ridesharing.repository;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
+
 
 import javax.persistence.EntityManager;
 
@@ -63,7 +65,6 @@ public class RideSharingRepository {
 		Admin admin  = entityManager.find(Admin.class, name);
 		return admin;
 	}
-	
 	@Transactional
 	public Route createRoute(Date aDate, Time aTime, List<Stop> stops, String vehicle, String startCity, int numberOfSeats) {
 		Route route = new Route();

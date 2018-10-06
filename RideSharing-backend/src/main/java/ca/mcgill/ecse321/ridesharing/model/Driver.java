@@ -3,20 +3,20 @@ package ca.mcgill.ecse321.ridesharing.model;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import java.util.Set;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.OneToMany;
 
 @Entity
 public class Driver extends User{
-private Set<Route> route;
-public void setRoute (Set <Route> routes)
+private List<Route> route;
+public void setRoute (List <Route> routes)
 {
 this.route = routes;
    }
 @Id
 @OneToMany(mappedBy = "driver")
-public Set<Route> getRoute ()
+public List<Route> getRoute ()
 {
 return this.route;
    }
@@ -30,14 +30,14 @@ public Integer getRating() {
    return this.rating;
 }
 
-private Set<Route> routes;
+private List<Route> routes;
 
 @OneToMany(mappedBy="driver1", cascade={CascadeType.ALL})
-public Set<Route> getRoutes() {
+public List<Route> getRoutes() {
    return this.routes;
 }
 
-public void setRoutes(Set<Route> routess) {
+public void setRoutes(List<Route> routess) {
    this.routes = routess;
 }
 

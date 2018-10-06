@@ -1,7 +1,7 @@
 package ca.mcgill.ecse321.ridesharing.model;
 
 import javax.persistence.Entity;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.ManyToMany;
 
 @Entity
@@ -16,14 +16,14 @@ public Integer getRating() {
    return this.rating;
 }
 
-private Set<Route> route;
+private List<Route> route;
 
 @ManyToMany(mappedBy="passengers")
-public Set<Route> getRoute() {
+public List<Route> getRoute() {
    return this.route;
 }
 
-public void setRoute(Set<Route> routes) {
+public void setRoute(List<Route> routes) {
    this.route = routes;
 }
 

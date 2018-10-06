@@ -2,7 +2,8 @@ package ca.mcgill.ecse321.ridesharing;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.Set;
+import java.util.List;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,10 @@ public class RideSharingController {
 	@PostMapping("/passenger/{username}")
 	public String createParticipant(@PathVariable String username) {
 		Passenger passenger = repository.createPassenger(username);
+		
+		// create connection with jdbc
+		// insert into query statement 
+		
 		return passenger.getUsername();
 	}
 
@@ -57,7 +62,7 @@ public class RideSharingController {
 	}
 	@PostMapping("/{date}/{time}/{stop}/{car}/{startCity}/{numberOfSeats}")
 	
-		public void createRoute(@PathVariable Date date, @PathVariable Time time, @PathVariable Set <Stop> stop, String car, String startCity, int numberOfSeats) {
+		public void createRoute(@PathVariable Date date, @PathVariable Time time, @PathVariable List <Stop> stop, String car, String startCity, int numberOfSeats) {
 			repository.createRoute(date, time, stop, car, startCity, numberOfSeats);
 			
 		}

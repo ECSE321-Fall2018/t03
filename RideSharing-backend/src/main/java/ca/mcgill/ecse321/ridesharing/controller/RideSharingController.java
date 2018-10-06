@@ -26,9 +26,9 @@ public class RideSharingController {
 	}
 
 
-	@PostMapping("/passenger/{username}/{password}")
-	public String createParticipant(@PathVariable String username, @PathVariable String password) {
-		Passenger passenger = repository.createPassenger(username, password);
+	@PostMapping("/passenger/{username}")
+	public String createParticipant(@PathVariable String username) {
+		Passenger passenger = repository.createPassenger(username);
 		return passenger.getUsername();
 	}
 
@@ -41,9 +41,9 @@ public class RideSharingController {
 		return passenger.getUsername();
 	}
 	
-	@PostMapping("/driver/{username}/{password}")
-	public String createDriver(@PathVariable String username, @PathVariable String password) {
-		Driver driver = repository.createDriver(username,password); 
+	@PostMapping("/driver/{username}")
+	public String createDriver(@PathVariable String username) {
+		Driver driver = repository.createDriver(username); 
 		return driver.getUsername();
 	}
 	

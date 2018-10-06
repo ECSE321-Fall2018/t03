@@ -19,10 +19,9 @@ public class RideSharingRepository {
 	private EntityManager entityManager;
 
 	@Transactional
-	public Passenger createPassenger(String name, String password) {
+	public Passenger createPassenger(String name) {
 		Passenger passenger = new Passenger();
 		passenger.setUsername(name);
-		passenger.setPassword(password);
 		passenger.setIsActive(true);
 		entityManager.persist(passenger);
 		return passenger;
@@ -36,10 +35,9 @@ public class RideSharingRepository {
 	
 	
 	@Transactional
-	public Driver createDriver(String name, String password) {
+	public Driver createDriver(String name) {
 		Driver driver = new Driver();
 		driver.setUsername(name);
-		driver.setPassword(password);
 		driver.setIsActive(true);
 		entityManager.persist(driver);
 		return driver;
@@ -52,10 +50,9 @@ public class RideSharingRepository {
 	}
 	
 	@Transactional
-	public Admin createAdmin(String name, String password) {
+	public Admin createAdmin(String name) {
 		Admin admin = new Admin();
 		admin.setUsername(name);
-		admin.setPassword(password);
 		admin.setIsActive(true);
 		entityManager.persist(admin);
 		return admin;

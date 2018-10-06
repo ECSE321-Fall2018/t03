@@ -22,8 +22,9 @@ public class RideSharingController {
 
 	@RequestMapping("/")
 	public String greeting() {
-		return "Welcome to the ride sharing app!";
+		return "<h1>Welcome to the ride sharing app!</h1>";
 	}
+
 
 	@PostMapping("/passenger/{username}/{password}")
 	public String createParticipant(@PathVariable String username, @PathVariable String password) {

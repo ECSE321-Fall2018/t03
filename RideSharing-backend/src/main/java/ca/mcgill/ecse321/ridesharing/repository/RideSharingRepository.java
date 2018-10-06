@@ -7,7 +7,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+  import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import ca.mcgill.ecse321.ridesharing.model.*;
@@ -16,7 +16,7 @@ import ca.mcgill.ecse321.ridesharing.model.*;
 public class RideSharingRepository {
 
 	@Autowired
-	EntityManager entityManager;
+	private EntityManager entityManager;
 
 	@Transactional
 	public Passenger createPassenger(String name, String password) {
@@ -107,10 +107,10 @@ public class RideSharingRepository {
 		return true;
 		}
 	
-	@Transactional
-	public Set<Route> findRoutes(Date aDate, String startCity, String endCity){
+//	@Transactional
+//	public Set<Route> findRoutes(Date aDate, String startCity, String endCity){
 		
-	}
+//	}
 	
 	@Transactional
 	public void joinRoute(Route route) {

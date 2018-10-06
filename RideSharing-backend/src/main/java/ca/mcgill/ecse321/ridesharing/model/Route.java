@@ -12,14 +12,13 @@ import java.sql.Time;
 
 @Entity
 public class Route{
-private String vehicle;
+private String endCity;
    
-   public void setVehicle(String value) {
-this.vehicle = value;
+   public void setEndCity(String value) {
+this.endCity = value;
     }
-@Id
-public String getVehicle() {
-return this.vehicle;
+public String getEndCity() {
+return this.endCity;
     }
 private Integer availableSeats;
 
@@ -73,17 +72,6 @@ public void setDriver(Driver value) {
 
 public Driver getDriver() {
    return this.driver;
-}
-
-private List<Stop> stops;
-
-@OneToMany(mappedBy="route", cascade={CascadeType.ALL})
-public List<Stop> getStops() {
-   return this.stops;
-}
-
-public void setStops(List<Stop> stopss) {
-   this.stops = stopss;
 }
 
 private List<Passenger> passengers;

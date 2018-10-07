@@ -1,6 +1,9 @@
-ca/mcgill/ecse321/ridesharing/model/Route.class
-ca/mcgill/ecse321/ridesharing/RidesharingApplication.class
-ca/mcgill/ecse321/ridesharing/model/Stop.class
-ca/mcgill/ecse321/ridesharing/model/Request.class
-ca/mcgill/ecse321/ridesharing/model/User.class
-ca/mcgill/ecse321/ridesharing/model/Role.class
+ca/mcgill/ecse321/ridesharing/IntegratedSpringApplication.class
+ca/mcgill/ecse321/ridesharing/RideSharingController.class
+ca/mcgill/ecse321/ridesharing/Admin.class
+ca/mcgill/ecse321/ridesharing/RideSharingRepository.class
+ca/mcgill/ecse321/ridesharing/User.class
+ca/mcgill/ecse321/ridesharing/Passenger.class
+ca/mcgill/ecse321/ridesharing/Role.class
+ca/mcgill/ecse321/ridesharing/Driver.class
+ca/mcgill/ecse321/ridesharing/Route.class

@@ -80,42 +80,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     public String passSignUp() {
     	
     	return 	
-//    			"<%@ taglib prefix=\"form\" uri=\"http://www.springframework.org/tags/form\"%>\n" + 
-//    			"<html>\n" + 
-//    			"    <head>\n" + 
-//    			"    </head>\n" + 
-//    			"    <body>\n" + 
-//    			"        <h3>Welcome, Enter The Employee Details</h3>\n" + 
-//    			"        <form:form method=\"POST\"\n" + 
-//    			"          action=\"http://localhost:8080/PassSignUp/Destination\" modelAttribute=\"user\">\n" + 
-//    			"             <table>\n" + 
-//    			"                <tr>\n" + 
-//    			"                    <td><form:label path=\"name\">Name</form:label></td>\n" + 
-//    			"                    <td><form:input path=\"name\"/></td>\n" + 
-//    			"                </tr>\n" + 
-//    			"                <tr>\n" + 
-//    			"                    <td><form:label path=\"id\">Id</form:label></td>\n" + 
-//    			"                    <td><form:input path=\"id\"/></td>\n" + 
-//    			"                </tr>\n" + 
-//    			"                <tr>\n" + 
-//    			"                    <td><form:label path=\"contactNumber\">\n" + 
-//    			"                      Contact Number</form:label></td>\n" + 
-//    			"                    <td><form:input path=\"contactNumber\"/></td>\n" + 
-//    			"                </tr>\n" + 
-//    			"                <tr>\n" + 
-//    			"                    <td><input type=\"submit\" value=\"Submit\"/></td>\n" + 
-//    			"                </tr>\n" + 
-//    			"            </table>\n" + 
-//    			"<form:form method=\"POST\"\n" + 
-//    			"  action=\"/PassSignUp/Destination\" modelAttribute=\"user\">"+
-//    			"    </body>\n" + 
-//    			"</html>";
-    			
-//    			"<form method=\"post\" name=\"User\" action=\"http://localhost:8080/PassSignUp/Destination\">\n" + 
-//    			"    <input uname=\"username\"/>\n" + 
-//    			"    <input pass=\"password\"/>\n" + 
-//    			"    <input type=\"submit\"/>\n" + 
-//    			"</form>";
+//    			
     			
     			"<form action=\"http://localhost:8080/PassSignUp/Destination\" method=\"get\">\n" + 
     			"  <div>\n" + 
@@ -131,80 +96,62 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     			"  </div>\n" + 
     			"</form>";
     			
-    	
-//    	"    <?php \n" + 
-//    	"    if(isset($_POST['insert'])){\n" +
-//    	"console.log(insertfx);\n"+
-//    	"     $message= \"The insert function is called.\";\n" + 
-//    	"    }\n" + 
-//    	"    if(isset($_POST['select'])){\n" + 
-//    	"console.log(inselectfx);\n"+
-//    	"      $message=\"The select function is called.\";\n" + 
-//    	"    }\n" + 
-//    	"    ?>\n" + 
-//    	"\n" + 
-//    	"\n" + 
-//    	"    <form  method=\"post\">\n" + 
-//    	"    <input type=\"text\" name=\"txt\" value=\"\" >\n" + 
-//    	"    <input type=\"submit\" name=\"insert\" value=\"insert\">\n" + 
-//    	"    <input type=\"submit\" name=\"select\" value=\"select\" >\n" + 
-//    	"    </form>";
-    	
-    			
+  
     	
 
     	
     }
+    
     @RequestMapping("/Destination")
     @ResponseBody
     public String dest() {
-        return "Hello";
+        return "hey";
     }
     
-    @PostMapping("/PassSignUp/Destination")
-    public String destinationPassenger() {
-    	
-    	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
-    	String username= "xhboobjzljpdus";
-    	String password="03d06a487d48508fd9476509db46d2644a17b36fe32be0d2c5d411f8dd5f3226";
-    	
-    	Connection conn = null;
-    	Statement stmt = null;
-        ResultSet rs = null;
-        
-        String tempq = "INSERT INTO users(rating, username, password) VALUES(";
-                
-        String rating = "4,";
-        String user = "'Whoever',";
-        String pass = "'placeholder');";
-        
-        String query = tempq+rating+user+pass;
-        
-        
-        try {
-			conn = DriverManager.getConnection(url, username, password);
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        
-        try {
-			stmt = conn.createStatement();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        try {
-			rs = stmt.executeQuery(query);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-            
- 	    System.out.println(query); 
-        
-    	return "<h1>Success</h1>";
-    }
+//    @PostMapping("/PassSignUp/Destination")
+//    public String destinationPassenger() {
+//    	
+//    	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
+//    	String username= "xhboobjzljpdus";
+//    	String password="03d06a487d48508fd9476509db46d2644a17b36fe32be0d2c5d411f8dd5f3226";
+//    	
+//    	Connection conn = null;
+//    	Statement stmt = null;
+//        ResultSet rs = null;
+//        
+//        String tempq = "INSERT INTO users(rating, username, password) VALUES(";
+//                
+//        String rating = "4,";
+//        String user = "'Whoever',";
+//        String pass = "'placeholder');";
+//        
+//        String query = tempq+rating+user+pass;
+//        
+//        
+//        try {
+//			conn = DriverManager.getConnection(url, username, password);
+//		} catch (SQLException e1) {
+//			// TODO Auto-generated catch block
+//			e1.printStackTrace();
+//		}
+//        
+//        try {
+//			stmt = conn.createStatement();
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        try {
+//			rs = stmt.executeQuery(query);
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//            
+// 	    System.out.println(query); 
+//        
+//    	return "<h1>Success</h1>";
+//    }
     
     @RequestMapping("/PassSignUp/{Destination}")
     public String getDetails(@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2){
@@ -263,26 +210,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     			"  <input type=\"submit\" value=\"Submit\">\n" + 
     			"</form>";
     }
-//    @Controller
-//    public class UserController {
-//     
-//        @RequestMapping(value = "PassSignUp/Destination", method = RequestMethod.GET)
-//        public ModelAndView showForm() {
-//            return new ModelAndView("employeeHome", "employee", new Employee());
-//        }
-//     
-//        @RequestMapping(value = "/addEmployee", method = RequestMethod.POST)
-//        public String submit(@Valid @ModelAttribute("employee")Employee employee, 
-//          BindingResult result, ModelMap model) {
-//            if (result.hasErrors()) {
-//                return "error";
-//            }
-//            model.addAttribute("name", employee.getName());
-//            model.addAttribute("contactNumber", employee.getContactNumber());
-//            model.addAttribute("id", employee.getId());
-//            return "employeeView";
-//        }
-//    }
+
     
     public String insertInDB(int _rating, String _user, String _pass)
     {

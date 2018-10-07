@@ -105,7 +105,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     @RequestMapping("/Destination")
     @ResponseBody
     public String dest() {
-        return "hey";
+        return "hello";
     }
     
 //    @PostMapping("/PassSignUp/Destination")

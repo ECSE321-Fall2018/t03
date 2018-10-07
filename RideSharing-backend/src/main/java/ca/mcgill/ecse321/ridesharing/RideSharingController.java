@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import ca.mcgill.ecse321.ridesharing.model.*;
-import ca.mcgill.ecse321.ridesharing.repository.RideSharingRepository;
 
 @RestController
 public class RideSharingController {

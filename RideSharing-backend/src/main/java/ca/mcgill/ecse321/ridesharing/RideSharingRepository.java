@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.ridesharing.repository;
+package ca.mcgill.ecse321.ridesharing;
 
 import java.sql.Date;
 import java.sql.Time;

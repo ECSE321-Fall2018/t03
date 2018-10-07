@@ -1,9 +1,12 @@
-package ca.mcgill.ecse321.ridesharing.model;
+package ca.mcgill.ecse321.ridesharing;
 
 import javax.persistence.Entity;
-import ca.mcgill.ecse321.ridesharing.model.User;
+
 import java.util.List;
 import javax.persistence.ManyToMany;
+
+import ca.mcgill.ecse321.ridesharing.User;
+
 import javax.persistence.Id;
 
 @Entity

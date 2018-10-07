@@ -1,6 +1,5 @@
 package ca.mcgill.ecse321.ridesharing;
 
-import ca.mcgill.ecse321.ridesharing.repository.RideSharingRepository;
 import ca.mcgill.ecse321.ridesharing.controller.RideSharingController;
 
 @RunWith(SpringRunner.class)

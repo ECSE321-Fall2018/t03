@@ -1,4 +1,4 @@
-package ca.mcgill.ecse321.ridesharing.model;
+package ca.mcgill.ecse321.ridesharing;
 
 import javax.persistence.Entity;
 import java.util.List;

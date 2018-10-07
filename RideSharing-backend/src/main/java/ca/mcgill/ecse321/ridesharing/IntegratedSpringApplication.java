@@ -72,15 +72,20 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     @RequestMapping("/")
 	public String greeting() {
 		return "<h1>Welcome to the ride sharing app!</h1>"
-				+ "<input type=\"submit\" value=\"Im a pass\" \n" + 
-				"    onclick=\"window.location='/PassSignUp';\" /> ";
-	}
+				+ "<input type=\"submit\" value=\"I'm a passenger\" \n" + 
+				"    onclick=\"window.location='/PassSignUp';\" /> "
+				+ "<input type=\"submit\" value=\"I'm a driver\" \n" + 
+				"    onclick=\"window.location='/driver/{username}';\" /> "
+				+ "<input type=\"submit\" value=\"I'm an Admin\" \n" + 
+				"    onclick=\"window.location='/admin/{username}';\" /> ";
+				}
+	
     
     @RequestMapping("/PassSignUp")
     public String passSignUp() {
     	
     	return 	
-//    			
+    			
     			
     			"<form action=\"http://localhost:8080/PassSignUp/Destination\" method=\"get\">\n" + 
     			"  <div>\n" + 

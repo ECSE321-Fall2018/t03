@@ -57,7 +57,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
 				"    onclick=\"window.location='/admin'\" /> "
 				+ "<input type=\"submit\" value=\"I'm a driver\" \n" + 
 				"    onclick=\"window.location='/driver/'\" /> "
-				+ "<input type=\"submit\" value=\"Rate you driver\" \n" + 
+				+ "<input type=\"submit\" value=\"Rate user\" \n" + 
 				"    onclick=\"window.location='/rateDriver/'\" /> ";
 				}
     @RequestMapping("/admin")
@@ -95,10 +95,19 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     @ResponseBody
     public String updateRating() {
         return "<form action=\"http://localhost:8080/rateDriver/success\" method=\"get\">\n"+
-            	"<label for=\"user\">Driver Username </label>\n"+
+            	"<label for=\"user\">Username </label>\n"+
           	  "<input name=\"user\" id=\"euser\">\n"+
           	"<label for=\"rating\">Rating out of 5 </label>\n"+
-          	"<input name=\"rating\" id=\"rating\">\n"+
+          	"<input name=\"rating\" id=\"rating\" list=\"ratings\"></br>\n"+
+          	 "<datalist id=\"ratings\">\n"+
+     	    "<option value=\"1\">\n"+
+     	    "<option value=\"2\">\n"+
+     	    "<option value=\"3\">\n"+
+     	    "<option value=\"4\">\n"+
+     	    "<option value=\"5\">\n"+
+     	    "</datalist>\n"+
+     	    "</br>"+  	
+          	
         	  "<input type=\"submit\">\n"+
         	"</form>";
     }
@@ -131,7 +140,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     	    "<option value=\"Hamilton\">\n"+
     	    "<option value=\"Quebec City\">\n"+
     	    "<option value=\"Ottawa\">\n"+
-    	    "<option value=\"Edmenton\">\n"+
+    	    "<option value=\"Edmonton\">\n"+
     	    "<option value=\"Toronto\">\n"+
     	    "<option value=\"Kingston\">\n"+
     	    "<option value=\"London\">\n"+
@@ -251,9 +260,9 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         		
         			returnMeMe = returnMeMe + "<form action=\"http://localhost:8080//PassSignUp/Destination/FindRoute/Success\" method=\"get\"><h4><label for=\"price\" id=\"price\">Price:</label> "+String.valueOf(price) + "</br>\n"+
             				"<label for=\"startcity\" id=\"startcity\">From:</label> "+ String.valueOf(start) +"</br>\n"+
-            				"<label for=\"endcity\" id=\"endcity\">From:</label>  "+ String.valueOf(end) +"</br>\n"+
-            				"<label for=\"date\" id=\"date\">From:</label>"+ String.valueOf(date) +"</br>\n"+
-            				"<label for=\"numofseats\" id=\"numofseats\">From:</label>"+ String.valueOf(seats) +"</h4><input type=\"submit\" value=\"Book Me!\" onclick=\"window.location='/PassSignUp/Destination/FindRoute/Success'\" /></form> \n";
+            				"<label for=\"endcity\" id=\"endcity\">To:</label>  "+ String.valueOf(end) +"</br>\n"+
+            				"<label for=\"date\" id=\"date\">Date:</label>"+ String.valueOf(date) +"</br>\n"+
+            				"<label for=\"numofseats\" id=\"numofseats\">Number of Seats:</label>"+ String.valueOf(seats) +"</h4><input type=\"submit\" value=\"Book Me!\" onclick=\"window.location='/PassSignUp/Destination/FindRoute/Success'\" /></form> \n";
                     
         		
         		
@@ -390,7 +399,7 @@ public String driverSignUp() {
 		    	    "<option value=\"Hamilton\">\n"+
 		    	    "<option value=\"Quebec City\">\n"+
 		    	    "<option value=\"Ottawa\">\n"+
-		    	    "<option value=\"Edmenton\">\n"+
+		    	    "<option value=\"Edmonton\">\n"+
 		    	    "<option value=\"Toronto\">\n"+
 		    	    "<option value=\"Kingston\">\n"+
 		    	    "<option value=\"London\">\n"+
@@ -454,7 +463,7 @@ public String driverSignUp() {
 		}
     	
       
-        return "<h1>Thank you for using the ride sharing app!</h1>";
+        return "<h1>Thank you for using the ride sharing app, your route has been created!</h1>";
     
     
     }

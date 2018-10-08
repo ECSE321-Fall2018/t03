@@ -40,14 +40,14 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     public static void main(String[] args) {
     	
         SpringApplication.run(IntegratedSpringApplication.class, args);
-        //RideSharingController rideSharingController = new RideSharingController();
         
-        
-      
        
     	}
      
-   
+    /*
+     * This is the main menu
+     * Here the user will be able to become a passenger, user, admin or rate driver
+     */
     @RequestMapping("/")
 	public String greeting() {
 		return "<h1>Welcome to the ride sharing app!</h1>"
@@ -60,11 +60,17 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
 				+ "<input type=\"submit\" value=\"Rate user\" \n" + 
 				"    onclick=\"window.location='/rateDriver/'\" /> ";
 				}
+    
+    //if you have admin access, this endpoint will allow you to see a list of usernames, passwords,ratings,email
     @RequestMapping("/admin")
     public String showData() {
     	String ret = showDataAdmin();
     	return 	ret;
     }
+    
+    /*
+     * endpoint for creating a passenger along with their sign up information
+     */
     @RequestMapping("/PassSignUp")
     public String passSignUp() {
     	
@@ -91,6 +97,10 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     	
     }
     
+    /*
+     * This endpoint will allow you to rate a user on a scale from 1-5
+     */
+    
     @RequestMapping("/rateDriver")
     @ResponseBody
     public String updateRating() {
@@ -112,15 +122,18 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         	"</form>";
     }
     
+    
+ // endpoint updates a user's rating 
+    
     @RequestMapping("/rateDriver/{success}")
     @ResponseBody
     public String success(@RequestParam(value="user", required=true) String param1,@RequestParam(value="rating", required=true) int param2) {
-    	// update drivers rating 
+    	
     	String message = rateDriver(param1,param2);
         return "<h1>"+message+"</h1>";
     }
 
-    
+    //endpoint allows a passenger to join a route
     @RequestMapping("/PassSignUp/{Destination}")
     public String getDetails(@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2){
 		String status = insertInDB(5, param1, param2);
@@ -153,6 +166,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
       	
     	}
     
+    //this endpoints displays all the routes that match requested route
     @RequestMapping("/PassSignUp/Destination/{FindRoute}")
     public String getRoute(@RequestParam(value="cityfrom", required=true) String param1,@RequestParam(value="cityto", required=true) String param2,@RequestParam(value="date", required=true) String param3){
 		String status = queryForRide(param1, param2,param3);
@@ -163,7 +177,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     }
     
     
- 
+ // this method inserts the rating, username, and password into the user's table in the database
     public String insertInDB(int _rating, String _user, String _pass)
     {
     	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -208,8 +222,9 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
 		}
     	return "Success";
     }
+  
     
-
+//queries the database for matching routes
     
   public String queryForRide(String _From, String _To, String _Date)
     {
@@ -220,6 +235,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     	Connection conn = null;
     	Statement stmt = null;
         ResultSet rs = null;
+        int count = 0;
         
         String tempq = "select * from destination where date = '"+_Date+"'"
         		+ " and startcity = '"+_From+"'"
@@ -245,7 +261,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         try {
 			
         	rs = stmt.executeQuery(tempq);
-        	int count = 0;
+        	
         	while (rs.next()) {
         		int userid = rs.getInt("id_users");
         		int price = rs.getInt("price");
@@ -256,7 +272,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         		String date = rs.getString("date");
         		int seats = rs.getInt("numofseats");
         		
-       
+        		count++;
         		
         			returnMeMe = returnMeMe + "<form action=\"http://localhost:8080//PassSignUp/Destination/FindRoute/Success\" method=\"get\"><h4><label for=\"price\" id=\"price\">Price:</label> "+String.valueOf(price) + "</br>\n"+
             				"<label for=\"startcity\" id=\"startcity\">From:</label> "+ String.valueOf(start) +"</br>\n"+
@@ -277,11 +293,11 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         
         
         System.out.println(returnMe);
-    	return returnMeMe;
+    	return "there were " + count + " rides found\n" + returnMeMe;
     }
     @RequestMapping("/driver")
     
-
+//this signs the driver up for the application
 public String driverSignUp() {
     	
     	return 	
@@ -307,6 +323,7 @@ public String driverSignUp() {
     	
     }
     
+    //Adds driver to the database and sends the user to the destination end point to create a route
     @RequestMapping("/driver/{Destination}")
     public String getDriverDetails(@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2, @RequestParam(value="email", required=true) String param3){
     	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -350,33 +367,7 @@ public String driverSignUp() {
 		
 			e.printStackTrace();
 		}
-    	return /*
-		    	"<form action=\"http://localhost:8080/driver/Destination/MakeANew\" method=\"get\">\n" + 
-				"  <div>\n" + 
-				"    <label for=\"price\">Price</label>\n" + 
-				"    <input name=\"price\" id=\"price\" value=\"\">\n" + 
-				"  </div>\n" + 
-				"  <div>\n" + 
-				"    <label for=\"date\">Date</label>\n" + 
-				"    <input name=\"date\" id=\"date\" value=\"\">\n" + 
-				"  </div>\n" +
-				"  <div>\n" + 
-				"    <label for=\"startcity\">Start City</label>\n" + 
-				"    <input name=\"startcity\" id=\"startcity\" value=\"\">\n" + 
-				"  </div>\n" +
-				"  <div>\n" + 
-				"    <label for=\"endcity\">End City</label>\n" + 
-				"    <input name=\"endcity\" id=\"endcity\" value=\"\">\n" + 
-				"  </div>\n" +
-				"  <div>\n" + 
-				"    <label for=\"numofseats\">Number of Seats</label>\n" + 
-				"    <input name=\"numofseats\" id=\"numofseats\" value=\"\">\n" + 
-				"  </div>\n" +
-				"  <div>\n" + 
-				"    <button>Create Route</button>\n" + 
-				"  </div>\n" + 
-				"</form>";
-    	*/
+    	return 
     			"<form action=\"http://localhost:8080/driver/Destination/MakeANew\" method=\"get\">\n" + 
 				"  <div>\n" + 
 				"    <label for=\"price\">Price</label>\n" + 
@@ -417,6 +408,8 @@ public String driverSignUp() {
 				"</form>";
     	}
     
+    
+    //Adds destination to the database and directs to the thank you endpoint
     @RequestMapping("/driver/Destination/{MakeANew}")
     public String getRouteDetails(@RequestParam(value="price", required=true) String param1,@RequestParam(value="date", required=true) String param2, @RequestParam(value="startcity", required=true) String param3, @RequestParam(value="endcity", required=true) String param4, @RequestParam(value="numofseats", required=true) String param5){
     	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -468,13 +461,14 @@ public String driverSignUp() {
     
     }
 
-    
+    //Success endpoint reached after user selects a route
     @RequestMapping("/PassSignUp/Destination/FindRoute/{Success}")
 	public String updateSeats() {
     	
 		return "<h1>Update Success!</h1>";
 				}
     
+    //End point for updating a drivers rating after trip
     public String rateDriver(@RequestParam(value="username", required=true) String param1,@RequestParam(value="rating", required=true) int param2){
     	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
     	String username= "xhboobjzljpdus";
@@ -513,6 +507,7 @@ public String driverSignUp() {
     	
     	}
     
+    //books a passenger to a seat in a route
     public String bookSeat(@RequestParam(value="username", required=true) String param1,@RequestParam(value="rating", required=true) int param2){
     	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
     	String username= "xhboobjzljpdus";
@@ -555,7 +550,8 @@ public String driverSignUp() {
 		    	"Update Success";
     	
     	}
-
+    
+    //This endpoitn displays all the suers to the admin
     public String showDataAdmin()
     {
     	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -581,6 +577,7 @@ public String driverSignUp() {
         //System.out.println(query);
         String returnMe =""; 
         String returnMeMe="";
+       
         try {
 			conn = DriverManager.getConnection(url, username, password);
 		} catch (SQLException e1) {

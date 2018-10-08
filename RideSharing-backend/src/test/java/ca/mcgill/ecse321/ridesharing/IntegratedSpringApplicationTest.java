@@ -14,10 +14,12 @@ import java.sql.Statement;
 import org.junit.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
+//Tests for our unit functions are done in here.
+//These functions include: Adding passengers, Adding drivers, Creating routes, Finding routes and updating User ratings
 @SpringBootTest
 public class IntegratedSpringApplicationTest{
 	
+	//Add elements to the database for testing
 	@Before
 	public void setup()
 	{
@@ -30,7 +32,7 @@ public class IntegratedSpringApplicationTest{
     	Statement stmt = null;
         ResultSet rs = null;
         
-		
+	//Informationg for test passenger 1	
         String tempq = "INSERT INTO users(rating, username, password) VALUES ('";
         
         String tmprate = String.valueOf(5);
@@ -40,7 +42,8 @@ public class IntegratedSpringApplicationTest{
         String pass = "\'"+"password" +"\');";
         
         String query1 = tempq+rating+user+pass;
-  
+  	
+	//Information for test driver 2
         String tempq2 = "INSERT INTO users(rating, username, password, email) VALUES (";
         
         String rating2 =  "5,";
@@ -50,6 +53,8 @@ public class IntegratedSpringApplicationTest{
         
         String query2 = tempq2+rating2+user2+pass2+email2;
         
+		
+	//Information for test destination 3
         String price = "200" + ",";
         String date ="'" +"2018-01-01" + "',";
         String startCity = "\'"+"Montreal" +"\',";
@@ -61,6 +66,8 @@ public class IntegratedSpringApplicationTest{
         
         String query3 = tempq+ID_users+price+startCity+endCity+isAvailable+isDriver+date+numSeats;
         
+		
+	//Information for test driver 4
         String tempq4 = "INSERT INTO users(rating, username, password, email) VALUES (";
         
         String rating4 =  "4,";
@@ -85,6 +92,7 @@ public class IntegratedSpringApplicationTest{
 			e.printStackTrace();
 		}
         try {
+			//Adding all test cases to the database
 			rs = stmt.executeQuery(query1);
 			rs = stmt.executeQuery(query2);
 			rs = stmt.executeQuery(query3);
@@ -96,6 +104,7 @@ public class IntegratedSpringApplicationTest{
 		}
 	}
 	
+	//Test if passenger was properly added to the database
 	@Test
 	public void testSignUpPassenger(){
 		String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -125,15 +134,16 @@ public class IntegratedSpringApplicationTest{
 				e.printStackTrace();
 			}
 	        try {
-				//rs = stmt.executeQuery(query);
+			//Retrive infomation from the database 
 	        	rs = stmt.executeQuery(tempq);
+			
 		        rating = rs.getInt("rating");
-		        System.out.println(rating);
-		        username =rs.getString("username");
-		        System.out.println(username);
-		        password =rs.getString("password");
-		        System.out.println(password);
 		        
+		        username =rs.getString("username");
+
+		        password =rs.getString("password");
+		 
+		        //Assert that information was properly stored
 		        assertEquals(5, rating);
 		        assertEquals("test", username);
 		        assertEquals("password", password);
@@ -149,6 +159,7 @@ public class IntegratedSpringApplicationTest{
 	       
 	}
 	
+	//Test if driver was properly added to the databse
 	@Test
 	public void testSignUpDriver(){
 		String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -180,13 +191,14 @@ public class IntegratedSpringApplicationTest{
 			}
 	        try {
 	        	
-				//rs = stmt.executeQuery(query);
+			//Retrive infomation from the database 
 	        	rs = stmt.executeQuery(tempq);
 		        rating = rs.getInt("rating");
 		        username =rs.getString("username");
 		        password =rs.getString("password");
 		        email =rs.getString("email");
 		        
+			//Assert that information was properly stored
 		        assertEquals(5, rating);
 		        assertEquals("Benji", username);
 		        assertEquals("Szwimer", password);
@@ -203,6 +215,7 @@ public class IntegratedSpringApplicationTest{
 	       
 	}
 	
+	//Test if route was properly added to the databse and verify that call for finding routes retrives the data
 	@Test
 	public void testCreateRouteFindRoute(){
 		String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -239,7 +252,7 @@ public class IntegratedSpringApplicationTest{
 	        	
 	        	
 	        	
-				//rs = stmt.executeQuery(query);
+			//Retrive infomation from the database 
 	        	rs = stmt.executeQuery(tempqSE);
 		        price = rs.getInt("price");
 		        date =rs.getDate("date");
@@ -249,6 +262,7 @@ public class IntegratedSpringApplicationTest{
 		        isAvailable = rs.getBoolean("isdriver");
 		        isDriver = rs.getBoolean("isavailable");
 		        
+			//Assert that information was properly stored
 		        assertEquals(200, price);
 		        assertEquals("2018-01-01", date);
 		        assertEquals("Montreal", startCity);
@@ -268,6 +282,8 @@ public class IntegratedSpringApplicationTest{
 	       
 	}
 	
+	
+	//Test if a passengers rating can be updated
 	@Test
 	public void testRateDriver(){
 		String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
@@ -277,6 +293,7 @@ public class IntegratedSpringApplicationTest{
 	 	Connection conn = null;
     	Statement stmt = null;
         ResultSet rs = null;
+	//call to update infomration in the database
         String tempqUP = "UPDATE users SET rating="+"5"+" WHERE username like '"+"Ethan"+"';";
 		String tempqSE = "select * from users WHERE username like 'Ethan'; ";
 		
@@ -296,11 +313,13 @@ public class IntegratedSpringApplicationTest{
 				e.printStackTrace();
 			}
 	        try {
-
+			
+			//update data and retive information from the databse
 	        	rs = stmt.executeQuery(tempqUP);
 	        	rs = stmt.executeQuery(tempqSE);
 		        rating = rs.getInt("rating");
 		        
+			//Assert that the rating was properly changed
 		        assertEquals(5, rating);
 		
 	        }
@@ -314,6 +333,7 @@ public class IntegratedSpringApplicationTest{
 	       
 	}
 	
+	//delete the data that was inserted into the database to be tested
 	@After
 	public void cleanUp() {
 		
@@ -346,9 +366,9 @@ public class IntegratedSpringApplicationTest{
 	        try {
 
 	        	rs = stmt.executeQuery(tempqUP1);
-	        	//rs = stmt.executeQuery(tempqUP2);
-	        	//rs = stmt.executeQuery(tempqUP3);
-	        	//rs = stmt.executeQuery(tempqUP4);
+	        	rs = stmt.executeQuery(tempqUP2);
+	        	rs = stmt.executeQuery(tempqUP3);
+	        	rs = stmt.executeQuery(tempqUP4);
 		
 	        }
 	        

@@ -53,7 +53,7 @@ public class IntegratedSpringApplicationTest{
         String price = "200" + ",";
         String date ="'" +"2018-01-01" + "',";
         String startCity = "\'"+"Montreal" +"\',";
-        String endCity = "\'"+"Toronto" +"\',";
+        String endCity = "\'"+"Mars" +"\',";
         String numSeats = "4"+");";
         String isAvailable =  "TRUE,";
         String isDriver = "TRUE,";
@@ -252,7 +252,7 @@ public class IntegratedSpringApplicationTest{
 		        assertEquals(200, price);
 		        assertEquals("2018-01-01", date);
 		        assertEquals("Montreal", startCity);
-		        assertEquals("Toronto", endCity);
+		        assertEquals("Mars", endCity);
 		        assertEquals(4, numSeats);
 		        assertEquals(true, isAvailable);
 		        assertEquals(true, isDriver);
@@ -323,8 +323,10 @@ public class IntegratedSpringApplicationTest{
     	Connection conn = null;
     	Statement stmt = null;
         ResultSet rs = null;
-        String tempqUP = "DELETE FROM users WHERE username = 1000;";
-		String tempqSE = "select * from users WHERE username like 'Ethan'; ";
+        String tempqUP1 = "DELETE FROM users WHERE username = test;";
+        String tempqUP2 = "DELETE FROM users WHERE username = Benji;";
+        String tempqUP3 = "DELETE FROM users WHERE username = Ethan;";
+        String tempqUP4 = "DELETE FROM destination WHERE endcity = Mars;";
         
         
         try {
@@ -343,8 +345,10 @@ public class IntegratedSpringApplicationTest{
 			}
 	        try {
 
-	        	rs = stmt.executeQuery(tempqUP);
-	        	rs = stmt.executeQuery(tempqSE);
+	        	rs = stmt.executeQuery(tempqUP1);
+	        	//rs = stmt.executeQuery(tempqUP2);
+	        	//rs = stmt.executeQuery(tempqUP3);
+	        	//rs = stmt.executeQuery(tempqUP4);
 		
 	        }
 	        

@@ -115,22 +115,27 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     @RequestMapping("/PassSignUp/{Destination}")
     public String getDetails(@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2){
 		String status = insertInDB(5, param1, param2);
-    	return "<h1>USER:"+ param1 + " </h1>\n"+
-				"<h1>PASSWORD: "+param2+"</h1>" + 
-    	"<h1>" +status+ "</h1>"+
-
+    	return "<h1>Username:"+ param1 + " </h1>\n"+
+				"<h2> Find a Route </h2>" + 
+    
 "<form action=\"http://localhost:8080/PassSignUp/Destination/FindRoute\" method=\"get\">\n"+
-    	"<label for=\"provfrom\">From Province</label>\n"+
-    	  "<input name=\"provfrom\" id=\"provfrom\" list=\"provs\">\n"+
-    	  "<label for=\"provto\">To Province</label>\n"+
-      	  "<input name=\"provto\" id=\"provto\" list=\"provs\"></br>\n"+
+    	"<label for=\"cityfrom\">From City</label>\n"+
+    	  "<input name=\"cityfrom\" id=\"cityfrom\" list=\"cities\">\n"+
+    	  "<label for=\"cityto\">To City</label>\n"+
+      	  "<input name=\"cityto\" id=\"cityto\" list=\"cities\"></br>\n"+
       	  "Date:\n" + 
       	  "  <input type=\"date\" name=\"date\">\n" +
-    	  "<datalist id=\"provs\">\n"+
-    	    "<option value=\"QC\">\n"+
-    	    "<option value=\"ON\">\n"+
-    	    "<option value=\"NS\">\n"+
-    	    "<option value=\"NB\">\n"+
+    	  "<datalist id=\"cities\">\n"+
+    	    "<option value=\"Montreal\">\n"+
+    	    "<option value=\"Winnipeg\">\n"+
+    	    "<option value=\"Hamilton\">\n"+
+    	    "<option value=\"Quebec City\">\n"+
+    	    "<option value=\"Ottawa\">\n"+
+    	    "<option value=\"Edmenton\">\n"+
+    	    "<option value=\"Toronto\">\n"+
+    	    "<option value=\"Kingston\">\n"+
+    	    "<option value=\"London\">\n"+
+    	    "<option value=\"Haliburton\">\n"+   
     	    "</datalist>\n"+
     	    "</br>"+  	    
   	  "<input type=\"submit\">\n"+
@@ -140,7 +145,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
     	}
     
     @RequestMapping("/PassSignUp/Destination/{FindRoute}")
-    public String getRoute(@RequestParam(value="provfrom", required=true) String param1,@RequestParam(value="provto", required=true) String param2,@RequestParam(value="date", required=true) String param3){
+    public String getRoute(@RequestParam(value="cityfrom", required=true) String param1,@RequestParam(value="cityto", required=true) String param2,@RequestParam(value="date", required=true) String param3){
 		String status = queryForRide(param1, param2,param3);
     	return "<h1>To:"+ param1 + " </h1>\n"+
 		"<h1>From: "+param2+"</h1>"+
@@ -231,6 +236,7 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         try {
 			
         	rs = stmt.executeQuery(tempq);
+        	int count = 0;
         	while (rs.next()) {
         		int userid = rs.getInt("id_users");
         		int price = rs.getInt("price");
@@ -240,14 +246,21 @@ public class IntegratedSpringApplication extends SpringBootServletInitializer{
         		boolean driver = rs.getBoolean("isdriver");
         		String date = rs.getString("date");
         		int seats = rs.getInt("numofseats");
-
-        		returnMeMe = returnMeMe + "<form action=\"http://localhost:8080//PassSignUp/Destination/FindRoute/Success\" method=\"get\"><h4><label for=\"price\" id=\"price\">Price:</label> "+String.valueOf(price) + "</br>\n"+
-        				"<label for=\"startcity\" id=\"startcity\">From:</label> "+ String.valueOf(start) +"</br>\n"+
-        				"<label for=\"endcity\" id=\"endcity\">From:</label>  "+ String.valueOf(end) +"</br>\n"+
-        				"<label for=\"date\" id=\"date\">From:</label>"+ String.valueOf(date) +"</br>\n"+
-        				"<label for=\"numofseats\" id=\"numofseats\">From:</label>"+ String.valueOf(seats) +"</h4><input type=\"submit\" value=\"Book Me!\" onclick=\"window.location='/PassSignUp/Destination/FindRoute/Success'\" /></form> \n" ;
-                
+        		
+       
+        		
+        			returnMeMe = returnMeMe + "<form action=\"http://localhost:8080//PassSignUp/Destination/FindRoute/Success\" method=\"get\"><h4><label for=\"price\" id=\"price\">Price:</label> "+String.valueOf(price) + "</br>\n"+
+            				"<label for=\"startcity\" id=\"startcity\">From:</label> "+ String.valueOf(start) +"</br>\n"+
+            				"<label for=\"endcity\" id=\"endcity\">From:</label>  "+ String.valueOf(end) +"</br>\n"+
+            				"<label for=\"date\" id=\"date\">From:</label>"+ String.valueOf(date) +"</br>\n"+
+            				"<label for=\"numofseats\" id=\"numofseats\">From:</label>"+ String.valueOf(seats) +"</h4><input type=\"submit\" value=\"Book Me!\" onclick=\"window.location='/PassSignUp/Destination/FindRoute/Success'\" /></form> \n";
+                    
+        		
+        		
             }
+        	
+        	
+        	
 		} catch (SQLException e) {
 		
 			e.printStackTrace();
@@ -328,7 +341,7 @@ public String driverSignUp() {
 		
 			e.printStackTrace();
 		}
-    	return 
+    	return /*
 		    	"<form action=\"http://localhost:8080/driver/Destination/MakeANew\" method=\"get\">\n" + 
 				"  <div>\n" + 
 				"    <label for=\"price\">Price</label>\n" + 
@@ -354,7 +367,45 @@ public String driverSignUp() {
 				"    <button>Create Route</button>\n" + 
 				"  </div>\n" + 
 				"</form>";
-    	
+    	*/
+    			"<form action=\"http://localhost:8080/driver/Destination/MakeANew\" method=\"get\">\n" + 
+				"  <div>\n" + 
+				"    <label for=\"price\">Price</label>\n" + 
+				"    <input name=\"price\" id=\"price\" value=\"\">\n" + 
+				"  </div>\n" + 
+				"  <div>\n" + 
+				"    <label for=\"date\">Date</label>\n" + 
+				"  <input type=\"date\" name=\"date\">\n" +
+				"  </div>\n" +
+				"  <div>\n" + 
+				"    <label for=\"startcity\">Start City</label>\n" + 
+				"	<input name=\"startcity\" id=\"startcity\" list=\"cities\"></br>\n"+
+				"  </div>\n" +
+				"  <div>\n" + 
+				"    <label for=\"endcity\">End City</label>\n" + 
+				"	<input name=\"endcity\" id=\"endcity\" list=\"cities\"></br>\n"+ 
+				 "<datalist id=\"cities\">\n"+
+		    	    "<option value=\"Montreal\">\n"+
+		    	    "<option value=\"Winnipeg\">\n"+
+		    	    "<option value=\"Hamilton\">\n"+
+		    	    "<option value=\"Quebec City\">\n"+
+		    	    "<option value=\"Ottawa\">\n"+
+		    	    "<option value=\"Edmenton\">\n"+
+		    	    "<option value=\"Toronto\">\n"+
+		    	    "<option value=\"Kingston\">\n"+
+		    	    "<option value=\"London\">\n"+
+		    	    "<option value=\"Haliburton\">\n"+   
+		    	    "</datalist>\n"+
+		    	    "</br>"+  	   
+				"  </div>\n" +
+				"  <div>\n" + 
+				"    <label for=\"numofseats\">Number of Seats</label>\n" + 
+				"    <input name=\"numofseats\" id=\"numofseats\" value=\"\">\n" + 
+				"  </div>\n" +
+				"  <div>\n" + 
+				"    <button>Create Route</button>\n" + 
+				"  </div>\n" + 
+				"</form>";
     	}
     
     @RequestMapping("/driver/Destination/{MakeANew}")

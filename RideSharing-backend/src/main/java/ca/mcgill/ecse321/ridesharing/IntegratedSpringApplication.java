@@ -325,7 +325,10 @@ public String driverSignUp() {
     
     //Adds driver to the database and sends the user to the destination end point to create a route
     @RequestMapping("/driver/{Destination}")
-    public String getDriverDetails(@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2, @RequestParam(value="email", required=true) String param3){
+    public User getDriverDetails(@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2, @RequestParam(value="email", required=true) String param3){
+    	
+    	User theUser = new User(5, param1, param2);
+    	
     	String url="jdbc:postgresql://ec2-23-23-216-40.compute-1.amazonaws.com:5432/ddp4sc0fffl2n9";
     	String username= "xhboobjzljpdus";
     	String password="03d06a487d48508fd9476509db46d2644a17b36fe32be0d2c5d411f8dd5f3226";
@@ -367,8 +370,8 @@ public String driverSignUp() {
 		
 			e.printStackTrace();
 		}
-    	return 
-    			"<form action=\"http://localhost:8080/driver/Destination/MakeANew\" method=\"get\">\n" + 
+    	return theUser;
+    			/*"<form action=\"http://localhost:8080/driver/Destination/MakeANew\" method=\"get\">\n" + 
 				"  <div>\n" + 
 				"    <label for=\"price\">Price</label>\n" + 
 				"    <input name=\"price\" id=\"price\" value=\"\">\n" + 
@@ -406,6 +409,7 @@ public String driverSignUp() {
 				"    <button>Create Route</button>\n" + 
 				"  </div>\n" + 
 				"</form>";
+				*/
     	}
     
     

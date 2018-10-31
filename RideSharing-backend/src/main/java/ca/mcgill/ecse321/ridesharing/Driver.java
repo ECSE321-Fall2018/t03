@@ -9,6 +9,10 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Driver extends User{
+public Driver(int i, String param1, String param2) {
+		super(i, param1, param2);
+		
+	}
 private List<Route> route;
 @Id
 @OneToMany(mappedBy = "driver")

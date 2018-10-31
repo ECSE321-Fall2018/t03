@@ -6,6 +6,11 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Passenger extends User{
+public Passenger(int i, String param1, String param2) {
+		super(i, param1, param2);
+		
+	}
+
 private Integer rating;
 
 public void setRating(Integer value) {

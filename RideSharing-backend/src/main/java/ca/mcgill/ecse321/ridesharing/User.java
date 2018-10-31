@@ -9,6 +9,14 @@ private String password;
 private int rating;
 private boolean isActive;
    
+public User(int i, String param1, String param2) {
+	
+	this.rating = i;
+	this.username = param1;
+	this.password = param2;
+	
+}
+
 public void setUsername(String value) {
 this.username = value;
     }

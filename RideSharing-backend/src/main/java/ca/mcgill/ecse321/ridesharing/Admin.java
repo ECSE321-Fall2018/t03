@@ -6,6 +6,12 @@ import javax.persistence.ManyToMany;
 
 @Entity
 public class Admin extends User{
+public Admin(int i, String param1, String param2) {
+		super(i, param1, param2);
+		
+	
+	}
+
 private List<Passenger> passenger;
 
 @ManyToMany

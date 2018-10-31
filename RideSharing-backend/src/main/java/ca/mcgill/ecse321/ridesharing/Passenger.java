@@ -12,7 +12,7 @@ public void setRating(Integer value) {
    this.rating = value;
 }
 
-public Integer getRating() {
+public int getRating() {
    return this.rating;
 }
 

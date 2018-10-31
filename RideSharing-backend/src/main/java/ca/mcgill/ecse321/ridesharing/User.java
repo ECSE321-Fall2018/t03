@@ -1,7 +1,6 @@
 package ca.mcgill.ecse321.ridesharing;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 
 @Entity
 public class User{

@@ -2,7 +2,6 @@ package ca.mcgill.ecse321.ridesharing;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
   import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-import ca.mcgill.ecse321.ridesharing.model.*;
 
 @Repository
 public class RideSharingRepository {
@@ -83,18 +81,18 @@ public class RideSharingRepository {
 		return true;
 		}
 	
-	@Transactional
-	public List<Route> findRoutes(Date aDate, String startCity, String endCity){
-		List<Route> routeList = entityManager.createQuery("SELECT r FROM Route r").getResultList();
-		List<Route> matchingRoutes;
-		matchingRoutes = new ArrayList<Route>();
-		for(Route route: routeList) {
-			Date date = route.getDate();
-			String routeStartCity = route.getStartCity();
-			
-		}
-		return matchingRoutes;
-	}
+//	@Transactional
+//	public List<Route> findRoutes(Date aDate, String startCity, String endCity){
+//		List<Route> routeList = entityManager.createQuery("SELECT r FROM Route r").getResultList();
+//		List<Route> matchingRoutes;
+//		matchingRoutes = new ArrayList<Route>();
+//		for(Route route: routeList) {
+//			Date date = route.getDate();
+//			String routeStartCity = route.getStartCity();
+//			
+//		}
+//		return matchingRoutes;
+//	}
 	
 	@Transactional
 	public void joinRoute(Route route, Passenger passenger) {

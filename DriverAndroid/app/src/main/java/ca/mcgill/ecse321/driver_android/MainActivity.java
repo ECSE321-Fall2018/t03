@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
                 String driverUsername = driverUsernameText.getText().toString();
                 String driverPassword = driverPasswordText.getText().toString();
 
-                HttpUtils.post("driver/" + driverUsername + driverPassword, new RequestParams(), new JsonHttpResponseHandler());
+                HttpUtils.post("driver/" + driverUsername + "/" + driverPassword, new RequestParams(), new JsonHttpResponseHandler());
 
                 Intent startIntent = new Intent(getApplicationContext(), Second_Activity.class);
                 startIntent.putExtra("ca.mcgill.ecse321.driver_android.USERNAME",driverUsername);

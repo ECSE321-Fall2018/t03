@@ -324,8 +324,10 @@ public String driverSignUp() {
     }
     
     //Adds driver to the database and sends the user to the destination end point to create a route
-    @RequestMapping("/driver/{Destination}")
-    public User getDriverDetails(@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2, @RequestParam(value="email", required=true) String param3){
+    @RequestMapping("/driver/{param1}/{param2}")
+    public User getDriverDetails(@RequestParam String param1, @RequestParam String param2
+    		//@RequestParam(value="username", required=true) String param1,@RequestParam(value="password", required=false) String param2, @RequestParam(value="email", required=true) String param3
+    		){
     	
     	User theUser = new User(5, param1, param2);
     	
@@ -340,6 +342,7 @@ public String driverSignUp() {
         String tempq = "INSERT INTO users(rating, username, password, email) VALUES (";
             
        
+        String param3 = "email";
         
         String rating =  "5,";
         String user = "\'"+param1 + "\',";

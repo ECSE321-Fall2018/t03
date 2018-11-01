@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 //import ca.mcgill.ecse321.ridesharing.model.User;
@@ -22,7 +24,6 @@ import ca.mcgill.ecse321.ridesharing.repository.RideSharingRepository;
 
 
 @RestController
-//@RequestMapping("api/user")
 public class RideSharingController {
 
 	@Autowired
@@ -34,16 +35,24 @@ public class RideSharingController {
 		return "Hello world!";
 	}
 	
-	@PostMapping("/create/{username}")
-	//@ResponseBody
-	public String createUser(@PathVariable String username) {
-		String password = "123";
-
-		User user = repository.createUser(username, password);
-		if (user != null) {
-			return " user was created!";
-		} else {
-			return "user could not be created.";
+	@RequestMapping(value = "/create/{username}/{password}", method = RequestMethod.POST)
+	@ResponseBody
+	public String createUser(@PathVariable String username, @PathVariable String password) {
+		
+		try {
+			
+			User user = repository.createUser(username, password);
+			
+			if (user != null) {
+				return " user was created!";
+			} else {
+				return "user could not be created.";
+			}
+			
+		} catch (Exception e) {
+			
+			return "sorry username exists";
+			
 		}
 		
 	}

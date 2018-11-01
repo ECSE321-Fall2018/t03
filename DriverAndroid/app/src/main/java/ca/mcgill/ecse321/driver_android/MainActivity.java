@@ -16,7 +16,15 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity {
+
+    private String error = null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +42,95 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button loginBtn = (Button) findViewById(R.id.loginBtn);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                EditText driverUsernameText = (EditText) findViewById(R.id.driverUsernameText);
-                EditText driverPasswordText = (EditText) findViewById(R.id.driverPasswordText);
-
-
-                String driverUsername = driverUsernameText.getText().toString();
-                String driverPassword = driverPasswordText.getText().toString();
-
-                HttpUtils.post("driver/" + driverUsername + "/" + driverPassword, new RequestParams(), new JsonHttpResponseHandler());
-
-                Intent startIntent = new Intent(getApplicationContext(), Second_Activity.class);
-                startIntent.putExtra("ca.mcgill.ecse321.driver_android.USERNAME",driverUsername);
-
-                startActivity(startIntent);
-
-
-
-            }
-        });
+//        Button loginBtn = (Button) findViewById(R.id.loginBtn);
+//        loginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                EditText driverUsernameText = (EditText) findViewById(R.id.driverUsernameText);
+//                EditText driverPasswordText = (EditText) findViewById(R.id.driverPasswordText);
+//
+//
+//                String driverUsername = driverUsernameText.getText().toString();
+//                String driverPassword = driverPasswordText.getText().toString();
+//
+//                //HttpUtils.post("create/" + driverUsername + "/" + driverPassword, new RequestParams(), new JsonHttpResponseHandler());
+//
+//                Intent startIntent = new Intent(getApplicationContext(), CreateOrRate.class);
+//                startIntent.putExtra("ca.mcgill.ecse321.driver_android.USERNAME",driverUsername);
+//
+//                startActivity(startIntent);
+//
+//
+//
+//            }
+//        });
     }
 
+    public void addUser(View v) {
+        error = "";
+        EditText driverUsernameText = (EditText) findViewById(R.id.driverUsernameText);
+        EditText driverPasswordText = (EditText) findViewById(R.id.driverPasswordText);
+
+        String driverUsername = driverUsernameText.getText().toString();
+        String driverPassword = driverPasswordText.getText().toString();
+
+        HttpUtils.post("/signIn/" + driverUsername + "/" + driverPassword, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                refreshErrorMessage();
+               // driverUsernameText.setText("");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                super.onSuccess(statusCode, headers, responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+        Intent startIntent = new Intent(getApplicationContext(), CreateOrRate.class);
+        startIntent.putExtra("ca.mcgill.ecse321.driver_android.USERNAME",driverUsername);
+
+        startActivity(startIntent);
+    }
+
+
+
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.error);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.

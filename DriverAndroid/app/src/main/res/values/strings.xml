@@ -14,4 +14,6 @@
         <item>Halifax</item>
     </string-array>
     <string name="title_activity_third">Route LIst</string>
+    <string name="title_activity_rate_passenger">RatePassenger</string>
+    <string name="title_activity_create_or_rate">CreateOrRate</string>
 </resources>

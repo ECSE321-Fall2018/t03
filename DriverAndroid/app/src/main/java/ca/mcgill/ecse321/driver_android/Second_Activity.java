@@ -12,10 +12,22 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import ca.mcgill.ecse321.driver_android.MainActivity;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
+import cz.msebera.android.httpclient.Header;
+
 public class Second_Activity extends AppCompatActivity {
+
+    String error = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,52 +67,151 @@ public class Second_Activity extends AppCompatActivity {
         ArrayAdapter<String> routeAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, routeArrayList);
 
 
-        Button createRouteBtn = (Button) findViewById(R.id.createRouteBtn);
-        createRouteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String startCity = startCitySpinner.getSelectedItem().toString();
-                String endCity = endCitySpinner.getSelectedItem().toString();
-
-                EditText priceText = (EditText) findViewById(R.id.priceText);
-                EditText vehicleText = (EditText) findViewById(R.id.vehicleText);
-                EditText seatsAvailableText = (EditText) findViewById(R.id.seatsAvailableText);
-
-                TextView dateText = (TextView) findViewById(R.id.routeDateText);
-
-                String price = priceText.getText().toString();
-                String vehicle = vehicleText.getText().toString();
-                String seatsAvailable = seatsAvailableText.getText().toString();
-
-                String date = dateText.getText().toString();
-
-                String route = startCity + " " + endCity + " " + price + " " + vehicle + " " + seatsAvailable + " " + date;
-
-                routeArrayList.add(route);
-
-//                String routeString = "";
-
-                Intent startIntent = new Intent(getApplicationContext(), ThirdActivity.class);
-                startIntent.putStringArrayListExtra("ca.mcgill.ecse321.driver_android.ROUTELIST", routeArrayList);
-//                startIntent.putExtra("ca.mcgill.ecse321.driver_android.STARTCITY",startCity);
-//                startIntent.putExtra("ca.mcgill.ecse321.driver_android.ENDCITY",endCity);
-//                startIntent.putExtra("ca.mcgill.ecse321.driver_android.PRICE",price);
-//                startIntent.putExtra("ca.mcgill.ecse321.driver_android.VEHICLE",vehicle);
-//                startIntent.putExtra("ca.mcgill.ecse321.driver_android.SEATSAVAILABLE",seatsAvailable);
-//                startIntent.putExtra("ca.mcgill.ecse321.driver_android.DATE",date);
-
-               startActivity(startIntent);
-
-//               for(int i =0; i<routeArrayList.size();i++){
-//                   routeString=routeString + routeArrayList.get(i);
-//               }
-//               TextView testingRouteView = (TextView) findViewById(R.id.testingRouteView);
-//               testingRouteView.setText(routeString);
-
-            }
-        });
+//        Button createRouteBtn = (Button) findViewById(R.id.createRouteBtn);
+//        createRouteBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String startCity = startCitySpinner.getSelectedItem().toString();
+//                String endCity = endCitySpinner.getSelectedItem().toString();
+//
+//                EditText priceText = (EditText) findViewById(R.id.priceText);
+//                EditText vehicleText = (EditText) findViewById(R.id.vehicleText);
+//                EditText seatsAvailableText = (EditText) findViewById(R.id.seatsAvailableText);
+//
+//                TextView dateText = (TextView) findViewById(R.id.routeDateText);
+//
+//                String price = priceText.getText().toString();
+//                String vehicle = vehicleText.getText().toString();
+//                String seatsAvailable = seatsAvailableText.getText().toString();
+//
+//                String date = dateText.getText().toString();
+//
+//                String route = startCity + " " + endCity + " " + price + " " + vehicle + " " + seatsAvailable + " " + date;
+//
+//                routeArrayList.add(route);
+//
+////                String routeString = "";
+//
+//                Intent startIntent = new Intent(getApplicationContext(), ThirdActivity.class);
+//                startIntent.putStringArrayListExtra("ca.mcgill.ecse321.driver_android.ROUTELIST", routeArrayList);
+////                startIntent.putExtra("ca.mcgill.ecse321.driver_android.STARTCITY",startCity);
+////                startIntent.putExtra("ca.mcgill.ecse321.driver_android.ENDCITY",endCity);
+////                startIntent.putExtra("ca.mcgill.ecse321.driver_android.PRICE",price);
+////                startIntent.putExtra("ca.mcgill.ecse321.driver_android.VEHICLE",vehicle);
+////                startIntent.putExtra("ca.mcgill.ecse321.driver_android.SEATSAVAILABLE",seatsAvailable);
+////                startIntent.putExtra("ca.mcgill.ecse321.driver_android.DATE",date);
+//
+//                startActivity(startIntent);
+//
+////               for(int i =0; i<routeArrayList.size();i++){
+////                   routeString=routeString + routeArrayList.get(i);
+////               }
+////               TextView testingRouteView = (TextView) findViewById(R.id.testingRouteView);
+////               testingRouteView.setText(routeString);
+//
+//            }
+//        });
 
     }
+
+    public void createRoute(View v) {
+        error = "";
+        final Spinner startCitySpinner = (Spinner) findViewById(R.id.startCitySpinner);
+        final Spinner endCitySpinner = (Spinner) findViewById(R.id.endCitySpinner);
+
+        String startCity = startCitySpinner.getSelectedItem().toString();
+        String endCity = endCitySpinner.getSelectedItem().toString();
+
+        EditText priceText = (EditText) findViewById(R.id.priceText);
+        EditText vehicleText = (EditText) findViewById(R.id.vehicleText);
+        EditText seatsAvailableText = (EditText) findViewById(R.id.seatsAvailableText);
+
+        TextView dateText = (TextView) findViewById(R.id.routeDateText);
+
+        String price = priceText.getText().toString();
+        String vehicle = vehicleText.getText().toString();
+        String seatsAvailable = seatsAvailableText.getText().toString();
+        int seatsInt = Integer.parseInt(seatsAvailable);
+
+        String date = dateText.getText().toString();
+
+        String route = startCity + " " + endCity + " " + price + " " + vehicle + " " + seatsAvailable + " " + date;
+
+        final ArrayList<String> routeArrayList = new ArrayList<String>();
+        // Adapter: You need three parameters 'the context, id of the layout (it will be where the data is shown),
+        // and the array that contains the data
+        ArrayAdapter<String> routeAdapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_spinner_item, routeArrayList);
+
+        TextView driverUsernameTextView = (TextView) findViewById(R.id.driverUsernameTextView);
+        String driverUsername = driverUsernameTextView.toString();
+
+
+
+        routeArrayList.add(route);
+
+
+     //   String driverUsername = getIntent().getExtras().getString("ca.mcgill.ecse321.driver_android.USERNAME");
+
+
+
+        HttpUtils.post("/createRoute/" + seatsInt + "/" + startCity + "/"+ endCity + "/" + date + "/" + vehicle + "/" +
+                        driverUsername + "/" + price, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                refreshErrorMessage();
+                // driverUsernameText.setText("");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                super.onSuccess(statusCode, headers, responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+        Intent startIntent = new Intent(getApplicationContext(), ThirdActivity.class);
+       // startIntent.putExtra("ca.mcgill.ecse321.driver_android.USERNAME",driverUsername);
+        startIntent.putStringArrayListExtra("ca.mcgill.ecse321.driver_android.ROUTELIST", routeArrayList);
+
+        startActivity(startIntent);
+    }
+
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.error);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+
+    }
+
 
 
     private Bundle getDateFromLabel(String text) {

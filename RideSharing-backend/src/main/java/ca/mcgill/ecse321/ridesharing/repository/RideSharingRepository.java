@@ -1,8 +1,19 @@
-package ca.mcgill.ecse321.ridesharing;
+package ca.mcgill.ecse321.ridesharing.repository;
 
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import ca.mcgill.ecse321.ridesharing.model.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 import javax.persistence.EntityManager;
@@ -15,14 +26,28 @@ import org.springframework.transaction.annotation.Transactional;
 @Repository
 public class RideSharingRepository {
 
-	@Autowired
-	private EntityManager entityManager;
-
+	@PersistenceContext
+	EntityManager entityManager;
+	
+	@Transactional
+	public User createUser(String username, String password) {
+		
+		User user = new User();
+		user.setRating(5);
+		user.setUsername(username);
+		user.setPassword(password);
+		
+		entityManager.persist(user);
+		
+		return user;
+		
+	}
+	
+	/*
 	@Transactional
 	public Passenger createPassenger(String name) {
 		Passenger passenger = new Passenger(0, name, name);
 		passenger.setUsername(name);
-		passenger.setIsActive(true);
 		entityManager.persist(passenger);
 		return passenger;
 	}
@@ -38,7 +63,6 @@ public class RideSharingRepository {
 	public Driver createDriver(String name) {
 		Driver driver = new Driver(0, name, name);
 		driver.setUsername(name);
-		driver.setIsActive(true);
 		entityManager.persist(driver);
 		return driver;
 	}
@@ -51,9 +75,7 @@ public class RideSharingRepository {
 	
 	@Transactional
 	public Admin createAdmin(String name) {
-		Admin admin = new Admin(0, name, name);
 		admin.setUsername(name);
-		admin.setIsActive(true);
 		entityManager.persist(admin);
 		return admin;
 	}
@@ -107,5 +129,5 @@ public class RideSharingRepository {
 	}
 	
 	
-
+	*/
 }

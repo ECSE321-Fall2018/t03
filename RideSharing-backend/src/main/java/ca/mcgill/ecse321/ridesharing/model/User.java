@@ -1,48 +1,45 @@
-package ca.mcgill.ecse321.ridesharing;
+package ca.mcgill.ecse321.ridesharing.model;
 
-import javax.persistence.Entity;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "testTable")
+@NamedQueries({
+	@NamedQuery(name = "User.findAll", query = "SELECT e FROM User e")
+})
 public class User{
 private String username;
 private String password;
 private int rating;
-private boolean isActive;
-   
-public User(int i, String param1, String param2) {
-	
-	this.rating = i;
-	this.username = param1;
-	this.password = param2;
-	
-}
+
 
 public void setUsername(String value) {
 this.username = value;
-    }
+}
 
+@Id
+@Column(name = "username")
 public String getUsername() {
 return this.username;
-    }
-
-
-public void setIsActive(boolean value) {
-   this.isActive = value;
 }
 
-public boolean isIsActive() {
-   return this.isActive;
-}
 
 public void setPassword(String value) {
 this.password = value;
     }
+
+@Column(name = "password")
 public String getPassword() {
 return this.password;
        }
+
+
+@Column(name = "rating")
 public int getRating() {
 	return rating;
 }
+
+
 public void setRating(int rating) {
 	this.rating = rating;
 }

@@ -3,10 +3,12 @@ package ca.mcgill.ecse321.ridesharing.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "testTable")
+@Table(name = "participants")
+/*
 @NamedQueries({
-	@NamedQuery(name = "User.findAll", query = "SELECT e FROM User e")
+	@NamedQuery(name = "User.findAll", query = "SELECT e FROM participants e")
 })
+*/
 public class User{
 private String username;
 private String password;
@@ -43,4 +45,4 @@ public int getRating() {
 public void setRating(int rating) {
 	this.rating = rating;
 }
-   }
+}

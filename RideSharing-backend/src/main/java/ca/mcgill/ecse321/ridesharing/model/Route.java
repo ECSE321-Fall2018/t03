@@ -1,142 +1,225 @@
-//package ca.mcgill.ecse321.ridesharing.model;
-//
-//import javax.persistence.Entity;
-//import java.sql.Date;
-//import java.util.List;
-//import javax.persistence.ManyToMany;
-//import javax.persistence.ManyToOne;
-//
-//import java.sql.Time;
-//
-//@Entity
-//public class Route{
-//private Integer availableSeats;
-//
-//public void setAvailableSeats(Integer value) {
-//   this.availableSeats = value;
-//}
-//
-//public Integer getAvailableSeats() {
-//   return this.availableSeats;
-//}
-//
-//private String startCity;
-//
-//public void setStartCity(String value) {
-//   this.startCity = value;
-//}
-//
-//public String getStartCity() {
-//   return this.startCity;
-//}
-//
-///**
-// * <pre>
-// *           1..1     1..1
-// * Route ------------------------> Date
-// *           &lt;       date
-// * </pre>
-// */
-//private Date date;
-//
-//public void setDate(Date value) {
-//   this.date = value;
-//}
-//
-//public Date getDate() {
-//   return this.date;
-//}
-//
-///**
-// * <pre>
-// *           1..1     1..1
-// * Route ------------------------> Driver
-// *           &lt;       driver
-// * </pre>
-// */
-//private Driver driver;
-//
-//public void setDriver(Driver value) {
-//   this.driver = value;
-//}
-//
-//public Driver getDriver() {
-//   return this.driver;
-//}
-//
-//private List<Passenger> passengers;
-//
-//@ManyToMany
-//public List<Passenger> getPassengers() {
-//   return this.passengers;
-//}
-//
-//public void setPassengers(List<Passenger> passengerss) {
-//   this.passengers = passengerss;
-//}
-//
-//private Driver driver1;
-//
-//@ManyToOne(optional=false)
-//public Driver getDriver1() {
-//   return this.driver1;
-//}
-//
-//public void setDriver1(Driver driver1) {
-//   this.driver1 = driver1;
-//}
-//
-//private boolean isAvailable;
-//
-//public void setIsAvailable(boolean value) {
-//   this.isAvailable = value;
-//}
-//
-//public boolean isIsAvailable() {
-//   return this.isAvailable;
-//}
-//
-//private boolean isComplete;
-//
-//public void setIsComplete(boolean value) {
-//   this.isComplete = value;
-//}
-//
-//public boolean isIsComplete() {
-//   return this.isComplete;
-//}
-//
-///**
-// * <pre>
-// *           1..1     1..1
-// * Route ------------------------> Time
-// *           &lt;       time
-// * </pre>
-// */
-//private Time time;
-//
-//public void setTime(Time value) {
-//   this.time = value;
-//}
-//
-//public Time getTime() {
-//   return this.time;
-//}
-//
-//private String vehicle;
-//
-//public void setVehicle(String value) {
-//this.vehicle = value;
-//    }
-//public String getVehicle() {
-//return this.vehicle;
-//    }
-//private String endCity;
-//
-//public void setEndCity(String value) {
-//this.endCity = value;
-//    }
-//public String getEndCity() {
-//return this.endCity;
-//       }
-//   }
+package ca.mcgill.ecse321.ridesharing.model;
+
+import javax.persistence.*;
+import java.util.ArrayList;
+
+@Entity
+@Table(name = "routes")
+//@NamedQueries({@NamedQuery(name = "Route.findAll", query = "SELECT e FROM routes e")})
+public class Route{
+	
+private String driver;
+private int availableSeats;
+private String startCity;
+private String endCity;
+private String date;
+private boolean isAvailable;
+private boolean isComplete;
+private String vehicle;
+private ArrayList<String> users = new ArrayList<String>();
+private String price;
+private String passenger1;
+private String passenger2;
+private String passenger3;
+private String passenger4;
+private String passenger5;
+private String passenger6;
+
+//==================================
+
+public void setPassenger1(String user) {
+	   this.passenger1 = user;
+	}
+
+	@Column(name = "passenger1")
+	public String getPassenger1() {
+	   return this.passenger1;
+	}
+
+
+//==================================
+
+	public void setPassenger2(String user) {
+		this.passenger2 = user;
+	}
+
+	@Column(name = "passenger2")
+	public String getPassenger2() {
+		return this.passenger2;
+	}
+
+
+//==================================
+
+	public void setPassenger3(String user) {
+		   this.passenger3 = user;
+		}
+
+		@Column(name = "passenger3")
+		public String getPassenger3() {
+		   return this.passenger3;
+		}
+
+
+//==================================
+	public void setPassenger5(String user) {
+		this.passenger5 = user;
+	}
+
+	@Column(name = "passenger5")
+	public String getPassenger5() {
+		return this.passenger5;
+	}
+
+//==================================
+	
+	public void setPassenger6(String user) {
+		   this.passenger6 = user;
+		}
+
+		@Column(name = "passenger6")
+		public String getPassenger6() {
+		   return this.passenger6;
+		}
+
+
+//==================================
+	
+	public void setPassenger4(String user) {
+		   this.passenger4 = user;
+		}
+
+		@Column(name = "passenger4")
+		public String getPassenger4() {
+		   return this.passenger4;
+		}
+
+
+//==================================	
+	
+public void setDriver(String driver) {
+   this.driver = driver;
+}
+
+@Id
+@Column(name = "driver")
+public String getDriver() {
+   return this.driver;
+}
+
+//==================================
+
+public void setPrice(String price) {
+   this.price = price;
+}
+
+@Column(name = "price")
+public String getPrice() {
+   return this.price;
+}
+
+//==================================
+
+
+public void addUser(String user) {
+	this.users.add(user);
+}
+
+public void setUsers(ArrayList<String> users) {
+	
+	this.users = users;
+	
+}
+
+@Column(name = "participants")
+public ArrayList<String> getUsers() {
+	return this.users;
+}
+
+public void removeUser(String user) {
+	users.remove(user);
+}
+
+//==================================
+
+public void setAvailableSeats(int value) {
+   this.availableSeats = value;
+}
+
+@Column(name = "seats")
+public int getAvailableSeats() {
+   return this.availableSeats;
+}
+
+//==================================
+
+
+public void setStartCity(String value) {
+   this.startCity = value;
+}
+
+@Column(name = "startCity")
+public String getStartCity() {
+   return this.startCity;
+}
+
+//==================================
+
+public void setDate(String value) {
+   this.date = value;
+}
+
+@Column(name = "date")
+public String getDate() {
+   return this.date;
+}
+
+//==================================
+
+public void setIsAvailable(boolean value) {
+   this.isAvailable = value;
+}
+
+@Column(name = "isAvailable")
+public boolean isIsAvailable() {
+   return this.isAvailable;
+}
+
+//==================================
+
+
+public void setIsComplete(boolean value) {
+   this.isComplete = value;
+}
+
+@Column(name = "isComplete")
+public boolean isIsComplete() {
+   return this.isComplete;
+}
+
+//==================================
+
+public void setVehicle(String value) {
+this.vehicle = value;
+    }
+
+@Column(name = "vehicle")
+public String getVehicle() {
+	return this.vehicle;
+ }
+
+
+//==================================
+
+public void setEndCity(String value) {
+	this.endCity = value;
+}
+
+@Column(name = "endCity")
+public String getEndCity() {
+	return this.endCity;
+}
+
+//==================================
+
+}

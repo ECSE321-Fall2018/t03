@@ -2,6 +2,7 @@ package ca.mcgill.ecse321.ridesharing.repository;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,8 @@ import ca.mcgill.ecse321.ridesharing.model.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,18 +34,73 @@ public class RideSharingRepository {
 	
 	@Transactional
 	public User createUser(String username, String password) {
-		
 		User user = new User();
 		user.setRating(5);
 		user.setUsername(username);
 		user.setPassword(password);
-		
 		entityManager.persist(user);
-		
-		return user;
-		
+		return user;	
 	}
 	
+	@Transactional
+	public Route createRoute(int numberOfSeats, String startCity, String endCity, String aDate, String vehicle, String driver, String price) {
+		
+		Route route = new Route();
+		route.setAvailableSeats(numberOfSeats);
+		route.setStartCity(startCity);
+		route.setEndCity(endCity);
+		route.setDate(aDate);
+		route.setIsAvailable(true);
+	    route.setIsComplete(false);
+	    route.setVehicle(vehicle);
+	    route.setDriver(driver);
+	    route.setPrice(price);
+	    entityManager.persist(route);
+	    return route;
+	}
+	/*
+	@Transactional
+	public void joinRoute(String driver, String user) {
+		
+		Class<? extends Query> route = entityManager.createQuery("SELECT * FROM routes WHERE driver = 'driver';").getClass();
+		
+		seats 
+		
+		if(route.getAvailableSeats() > 1) {
+			route.addUser(user);
+			
+		} else if (route.getAvailableSeats() == 1) {
+			route.addUser(user);
+			route.setIsAvailable(false);
+		}
+		
+		
+	}
+	*/
+	@Transactional
+	public List<Route> findRoutes(String aDate, String startCity, String endCity){
+		
+		List<Route> routeList = entityManager.createQuery("SELECT * FROM routes WHERE date = 'aDate'"
+				+ " AND startCity = 'startCity' AND endCity = 'endCity' and isAvailable = TRUE and isComplete = FALSE;").getResultList();
+		
+		return routeList;
+	}
+	
+	public void deleteRoute(String driver) {
+		
+		entityManager.createQuery("DELETE FROM routes WHERE driver = 'driver'");  
+
+	}
+	/*
+	@Transactional
+	public Route updateRoute(int numberOfSeats, String startCity, String endCity, String aDate, String vehicle, String driver, String price) {
+		
+		entityManager.createQuery("UPDATE routes set seats = 'numberOfSeats', startCity = 'startCity', endCity = 'endCity', date)
+		
+		
+	    return route;
+	}
+	*/
 	/*
 	@Transactional
 	public Passenger createPassenger(String name) {

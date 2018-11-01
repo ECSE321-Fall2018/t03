@@ -6,6 +6,7 @@ package ca.mcgill.ecse321.ridesharing.controller;
 import ca.mcgill.ecse321.ridesharing.model.*;
 //import ca.mcgill.ecse321.ridesharing.repository.*;
 
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.web.bind.annotation.*;
@@ -35,7 +36,7 @@ public class RideSharingController {
 		return "Hello world!";
 	}
 	
-	@RequestMapping(value = "/create/{username}/{password}", method = RequestMethod.POST)
+	@RequestMapping(value = "/signIn/{username}/{password}", method = RequestMethod.POST)
 	@ResponseBody
 	public String createUser(@PathVariable String username, @PathVariable String password) {
 		
@@ -56,6 +57,47 @@ public class RideSharingController {
 		}
 		
 	}
+	
+	@RequestMapping(value = "/createRoute/{seats}/{start}/{end}/{date}/{vehicle}/{driver}/{price}", method = RequestMethod.POST)
+	@ResponseBody
+	public String createRoute(@PathVariable Integer seats, @PathVariable String start,
+			@PathVariable String end, @PathVariable String date, @PathVariable String vehicle,
+			@PathVariable String driver, @PathVariable String price) {
+		
+
+		Route route = repository.createRoute(seats,start,end,date,vehicle, driver, price);
+			
+		if (route != null) {
+			return " route created!";
+		} else {
+			return "route not created.";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/findRoute/{date}/{startCity}/{endCity} ", method = RequestMethod.GET)
+	@ResponseBody
+	public String createRoute(@PathVariable String date, @PathVariable String startCity,
+			@PathVariable String endCity) {
+
+		List<Route> routes = repository.findRoutes(date, startCity, endCity);
+			
+		if (routes.isEmpty() != false) {
+			return " route found!";
+		} else {
+			return "route not found.";
+		}
+		
+	}
+	
+	@RequestMapping(value = "/joinRoute/{driver}/{passenger}", method = RequestMethod.POST)
+	@ResponseBody
+	public void createRoute(@PathVariable String driver, @PathVariable String passenger) {
+		
+		//repository.joinRoute(driver, passenger);
+		
+	}
+	
 	/*
 	@RequestMapping(value = "/find/{username}", method = RequestMethod.GET)
 	public User getVehicle(@PathVariable("username") String username) {

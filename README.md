@@ -1,5 +1,5 @@
 # t03
-Markup :  # Sprint 1: Backend#
+## Sprint 1: Backend ##
 
 To run the program, you must run it as a spring boot application from IntegratedSpringApplication.java inside the ca.mcgill.ecse321.ridesharing package.
 

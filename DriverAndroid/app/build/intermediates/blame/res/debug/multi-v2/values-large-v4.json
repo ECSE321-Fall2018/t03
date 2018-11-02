@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Matthew/Desktop/321-backend/t03/DriverAndroid/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
+            "outputFile": "/Users/ethanitovitch/Desktop/GameDay/t03/DriverAndroid/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-large-v4/values-large-v4.xml",
             "map": [
                 {
-                    "source": "/Users/Matthew/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/6e7c4aee1be78fdc1e4dd0e42647327e/res/values-large-v4/values-large-v4.xml",
+                    "source": "/Users/ethanitovitch/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/dcf4811d0d44c18b8f7804b00495537b/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/Matthew/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/4b6f68639195bd8b740348633f7f29e9/res/values-large-v4/values-large-v4.xml",
+                    "source": "/Users/ethanitovitch/.gradle/caches/transforms-1/files-1.1/design-28.0.0.aar/c970008d7a857c81387bddba39124c34/res/values-large-v4/values-large-v4.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

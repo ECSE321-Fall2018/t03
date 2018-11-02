@@ -80,7 +80,7 @@ public class RideSharingController {
 	//find route
 	@RequestMapping(value = "/findRoute/{date}/{startCity}/{endCity}", method = RequestMethod.GET)
 	@ResponseBody
-	public String createRoute(@PathVariable String date, @PathVariable String startCity, @PathVariable String endCity) {
+	public String findRoute(@PathVariable String date, @PathVariable String startCity, @PathVariable String endCity) {
 
 		List<Route>routes = repository.findRoutes(date, startCity, endCity);
 			
@@ -105,7 +105,7 @@ public class RideSharingController {
 	//join route
 	@RequestMapping(value = "/joinRoute/{id}/{passenger}", method = RequestMethod.GET)
 	@ResponseBody
-	public String createRoute(@PathVariable long id, @PathVariable String passenger) {
+	public String joinRoute(@PathVariable long id, @PathVariable String passenger) {
 		
 		Route route = repository.joinRoute(id, passenger);
 		
@@ -132,6 +132,7 @@ public class RideSharingController {
 		
 	}
 	
+	//show drivers routes
 	@RequestMapping(value = "/showDriversRoutes/{driver}", method = RequestMethod.GET)
 	@ResponseBody
 	public String showDriversRoutes(@PathVariable String driver) {
@@ -156,6 +157,7 @@ public class RideSharingController {
 		
 	}
 	
+	//show passengers routes
 	@RequestMapping(value = "/showPassengersRoutes/{passenger}", method = RequestMethod.GET)
 	@ResponseBody
 	public String showPassengersRoutes(@PathVariable String passenger) {
@@ -177,6 +179,24 @@ public class RideSharingController {
 		} else {
 			
 			return " not found.";
+		}
+		
+	}
+	
+	//leave route
+	@RequestMapping(value = "/leaveRoute/{id}/{passenger}", method = RequestMethod.GET)
+	@ResponseBody
+	public String leaveRoute(@PathVariable long id, @PathVariable String passenger) {
+		
+		Route route = repository.leaveRoute(id, passenger);
+		
+		if (route != null) {
+			
+			return "removed";
+			
+		} else {
+			
+			return " not in this route.";
 		}
 		
 	}

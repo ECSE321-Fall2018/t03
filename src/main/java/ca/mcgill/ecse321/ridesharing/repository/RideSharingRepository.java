@@ -135,7 +135,7 @@ public class RideSharingRepository {
 		return route;
 	}
 		
-
+	//show drivers routes
 	public List<Route> showDriversRoutes(String driver) {
 			
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.driver = :driver AND c.isComplete = FALSE", Route.class);
@@ -144,7 +144,8 @@ public class RideSharingRepository {
 			
 		return routes;
 	}
-
+	
+	//show passengers routes
 	public List<Route> showPassengerRoutes(String passenger) {
 		
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.passenger1 = :passenger OR c.passenger2 = :passenger OR c.passenger3 = :passenger OR c.passenger4 = :passenger OR c.passenger5 = :passenger OR c.passenger6 = :passenger", Route.class);
@@ -166,6 +167,45 @@ public class RideSharingRepository {
 			
 		return routes;
 		
+	}
+
+	//leave route
+	public Route leaveRoute(long id, String passenger) {
+		
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.id = :id", Route.class);
+		
+		Route route = query.setParameter("id", id).getSingleResult();
+			
+		if (route.getPassenger1() == passenger) {
+			
+			route.setPassenger1(null);
+			
+		} else if (route.getPassenger2() == passenger) {
+			
+			route.setPassenger2(null);
+			
+		} else if (route.getPassenger3() == passenger) {
+			
+			route.setPassenger3(null);
+			
+		} else if (route.getPassenger4() == passenger) {
+			
+			route.setPassenger4(null);
+			
+		} else if (route.getPassenger5() == passenger) {
+			
+			route.setPassenger5(null);
+			
+		} else {
+			
+			route.setPassenger6(null);
+			
+		}
+			
+		entityManager.persist(route);
+		
+		
+		return route;
 	}
 	
 	

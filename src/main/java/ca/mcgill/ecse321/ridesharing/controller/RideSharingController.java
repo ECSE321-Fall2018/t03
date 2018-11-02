@@ -201,4 +201,22 @@ public class RideSharingController {
 		
 	}
 	
+	//leave route
+	@RequestMapping(value = "/rateUser/{username}/{rating}", method = RequestMethod.GET)
+	@ResponseBody
+	public String rateUser(@PathVariable String username, @PathVariable int rating) {
+			
+		User user = repository.rateUser(username, rating);
+			
+		if (user != null) {
+				
+			return "updated";
+				
+		} else {
+				
+			return " not found";
+		}
+			
+	}
+	
 }

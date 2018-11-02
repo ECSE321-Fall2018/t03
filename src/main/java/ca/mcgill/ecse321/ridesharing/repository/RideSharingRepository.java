@@ -136,6 +136,7 @@ public class RideSharingRepository {
 	}
 		
 	//show drivers routes
+	@Transactional
 	public List<Route> showDriversRoutes(String driver) {
 			
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.driver = :driver AND c.isComplete = FALSE", Route.class);
@@ -146,6 +147,7 @@ public class RideSharingRepository {
 	}
 	
 	//show passengers routes
+	@Transactional
 	public List<Route> showPassengerRoutes(String passenger) {
 		
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.passenger1 = :passenger OR c.passenger2 = :passenger OR c.passenger3 = :passenger OR c.passenger4 = :passenger OR c.passenger5 = :passenger OR c.passenger6 = :passenger", Route.class);
@@ -170,42 +172,94 @@ public class RideSharingRepository {
 	}
 
 	//leave route
+	@Transactional
 	public Route leaveRoute(long id, String passenger) {
+		
+		boolean found = false;
 		
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.id = :id", Route.class);
 		
 		Route route = query.setParameter("id", id).getSingleResult();
+		
+		if (route.getPassenger1() != null) {
+		
+			if (route.getPassenger1().equals(passenger)) {
 			
-		if (route.getPassenger1() == passenger) {
+				route.setPassenger1("");
+				found = true;
 			
-			route.setPassenger1(null);
+			}
 			
-		} else if (route.getPassenger2() == passenger) {
+		} else if (route.getPassenger2() != null) {
 			
-			route.setPassenger2(null);
+			if (route.getPassenger2().equals(passenger)) {
+				
+				route.setPassenger2("");
+				found = true;
 			
-		} else if (route.getPassenger3() == passenger) {
+			}
 			
-			route.setPassenger3(null);
+		} else if (route.getPassenger3() != null) {
 			
-		} else if (route.getPassenger4() == passenger) {
+			if (route.getPassenger3().equals(passenger)) {
+				
+				route.setPassenger3("");
+				found = true;
 			
-			route.setPassenger4(null);
+			}
 			
-		} else if (route.getPassenger5() == passenger) {
+		} else if (route.getPassenger4() != null) {
 			
-			route.setPassenger5(null);
+			if (route.getPassenger4().equals(passenger)) {
+				
+				route.setPassenger4("");
+				found = true;
 			
-		} else {
+			}
 			
-			route.setPassenger6(null);
+		} else if (route.getPassenger5() != null) {
+			
+			if (route.getPassenger5().equals(passenger)) {
+				
+				route.setPassenger5("");
+				found = true;
+			
+			}
+			
+		} else if (route.getPassenger6() != null) {
+			
+			if (route.getPassenger6().equals(passenger)) {
+				
+				route.setPassenger6("");
+				found = true;
+			
+			}
 			
 		}
-			
-		entityManager.persist(route);
 		
+		if (found) {
+			
+			entityManager.persist(route);
+			
+		}
 		
 		return route;
+		
+	}
+
+	//rankUser
+	@Transactional
+	public User rateUser(String username, int rating) {
+		
+		TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+		
+		User user = query.setParameter("username", username).getSingleResult();
+			
+		user.setRating(rating);
+			
+		entityManager.persist(user);
+		
+		return user;
 	}
 	
 	

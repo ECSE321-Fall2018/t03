@@ -262,7 +262,45 @@ public class RideSharingRepository {
 		return user;
 	}
 	
-	
+	//create route
+	@Transactional
+	public Route modifyRoute(Integer numberOfSeats, String startCity, String endCity, String aDate, String vehicle, String price, long id) {
+			
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.id = :id", Route.class);
+		
+		Route route = query.setParameter("id", id).getSingleResult();
+		
+		route.setStartCity(startCity);
+		route.setEndCity(endCity);
+		route.setDate(aDate);
+		route.setVehicle(vehicle);
+		route.setPrice(price);
+		int people = 0;
+		
+		if (route.getPassenger1() != null) {
+			people++;
+		} if (route.getPassenger2() != null) {
+			people++;
+		} if (route.getPassenger3() != null) {
+			people++;
+		} if (route.getPassenger4() != null) {
+			people++;
+		} if (route.getPassenger5() != null) {
+			people++;
+		} if (route.getPassenger6() != null) {
+			people++;
+		}
+		
+		if (numberOfSeats > people) {
+			
+			route.setIsAvailable(true);
+			route.setAvailableSeats(numberOfSeats - people); 
+			
+		} 
+		
+		entityManager.persist(route);
+		return route;
+	}
 	
 	
 

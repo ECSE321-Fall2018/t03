@@ -219,4 +219,21 @@ public class RideSharingController {
 			
 	}
 	
+	//create route
+	@RequestMapping(value = "/modifyRoute/{seats}/{start}/{end}/{date}/{vehicle}/{price}/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String modifyRoute(@PathVariable Integer seats, @PathVariable String start,
+		@PathVariable String end, @PathVariable String date, @PathVariable String vehicle,
+		@PathVariable String price, @PathVariable long id) {
+			
+		Route route = repository.modifyRoute(seats,start,end,date,vehicle, price, id);
+				
+		if (route != null) {
+			return "modified!";
+		} else {
+			return "not found.";
+		}
+			
+	}
+	
 }

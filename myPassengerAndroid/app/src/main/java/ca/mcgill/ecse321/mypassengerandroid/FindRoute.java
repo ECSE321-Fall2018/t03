@@ -1,5 +1,6 @@
 package ca.mcgill.ecse321.mypassengerandroid;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -17,9 +20,15 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
+
 import cz.msebera.android.httpclient.Header;
 
 import com.loopj.android.http.AsyncHttpClient;
+
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class FindRoute extends AppCompatActivity {
@@ -52,6 +61,17 @@ public class FindRoute extends AppCompatActivity {
 
         TextView dateView = (TextView) findViewById(R.id.newevent_date);
         String date = dateView.getText().toString();
+
+
+
+        TextView txtView = (TextView) findViewById(R.id.textView1);
+        Intent intent = getIntent();
+        Bundle bd = intent.getExtras();
+        if(bd != null)
+        {
+            String getName = (String) bd.get("username");
+            txtView.setText(getName);
+        }
 
     }
 
@@ -88,8 +108,44 @@ public class FindRoute extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
                 super.onSuccess(statusCode, headers, response);
+                String vehicle = "";
+                String price = "";
+                String id = "";
+                String list = "";
+                for (int i = 0; i < response.length(); i++) {
 
+                    JSONObject jsonobject = null;
+                    try {
+                        jsonobject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
 
+                    try {
+                        vehicle = jsonobject.getString("vehicle");
+                        Log.d("fail", vehicle);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        price = jsonobject.getString("price");
+                        Log.d("fail", price);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        id = String.valueOf(jsonobject.getLong("id"));
+                        Log.d("id", String.valueOf(id));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    list += "Vehicle: " + vehicle + " Price: " + price + " ID: " + id + "\n";
+                }
+
+                TextView listText = (TextView) findViewById(R.id.listText);
+                listText.setText(list);
             }
 
             @Override
@@ -124,6 +180,55 @@ public class FindRoute extends AppCompatActivity {
         });
     }
 
+    public void joinRoute (View v){
+
+        final EditText idText = (EditText) findViewById(R.id.idText);
+        long id = Long.parseLong(idText.getText().toString());
+
+        TextView txtView = (TextView) findViewById(R.id.textView1);
+        String username = txtView.getText().toString();
+
+
+
+
+
+        HttpUtils.get("joinRoute/" + id + "/" + username, new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+                Log.d("omg android", response.toString());
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                super.onSuccess(statusCode, headers, responseString);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+
+
+    }
 
 
 

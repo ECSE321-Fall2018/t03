@@ -49,9 +49,40 @@ public class homePage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                Intent startIntent = new Intent(getApplicationContext(), FindRoute.class);
-                startActivity(startIntent);
+                final TextView usernameText = (TextView)findViewById(R.id.textView1);
+                 String username = usernameText.getText().toString();
 
+                Intent startIntent = new Intent(getApplicationContext(), FindRoute.class);
+                startIntent.putExtra( "username" ,username);
+                startActivity(startIntent);
+            }
+
+        });
+        Button myRoutesButton = (Button) findViewById(R.id.button3);
+        myRoutesButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final TextView usernameText = (TextView)findViewById(R.id.textView1);
+                String username = usernameText.getText().toString();
+
+                Intent startIntent = new Intent(getApplicationContext(), MyPassengerRoutes.class);
+                startIntent.putExtra( "username" ,username);
+                startActivity(startIntent);
+            }
+
+        });
+        Button button2 = (Button) findViewById(R.id.button2);
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final TextView usernameText = (TextView)findViewById(R.id.textView1);
+                String username = usernameText.getText().toString();
+
+                Intent startIntent = new Intent(getApplicationContext(), RateDriver.class);
+                startIntent.putExtra( "username" ,username);
+                startActivity(startIntent);
             }
 
         });

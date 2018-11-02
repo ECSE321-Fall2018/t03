@@ -26,6 +26,8 @@ animator mtrl_fab_show_motion_spec
 animator mtrl_fab_transformation_sheet_collapse_spec
 animator mtrl_fab_transformation_sheet_expand_spec
 array city_array
+array rating_array
+array seats_array
 attr actionBarDivider
 attr actionBarItemBackground
 attr actionBarPopupTheme
@@ -1027,6 +1029,7 @@ drawable tooltip_frame_light
 id ALT
 id CTRL
 id FUNCTION
+id IdText
 id META
 id SHIFT
 id SYM
@@ -1056,10 +1059,12 @@ id all
 id always
 id async
 id auto
+id availableSeatsTextView
 id barrier
 id beginning
 id blocking
 id bottom
+id button
 id buttonPanel
 id center
 id center_horizontal
@@ -1073,7 +1078,9 @@ id collapseActionView
 id container
 id content
 id contentPanel
+id continueAppBtn
 id coordinator
+id createOrRateUserTextView
 id createRouteBtn
 id createRouteTextView
 id custom
@@ -1081,6 +1088,7 @@ id customPanel
 id dateTextView
 id decor_content_parent
 id default_activity_button
+id deletBtn
 id design_bottom_sheet
 id design_menu_item_action_area
 id design_menu_item_action_area_stub
@@ -1099,6 +1107,7 @@ id endCitySpinner
 id endCityTextView
 id enterAlways
 id enterAlwaysCollapsed
+id error
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
@@ -1110,6 +1119,8 @@ id filled
 id fixed
 id forever
 id ghost_view
+id goCreateRouteBtn
+id goToRouteListBtn
 id gone
 id group_divider
 id groups
@@ -1131,7 +1142,7 @@ id line1
 id line3
 id listMode
 id list_item
-id loginBtn
+id loginDriverBtn
 id masked
 id message
 id middle
@@ -1158,11 +1169,17 @@ id priceText
 id progress_circular
 id progress_horizontal
 id radio
+id ratePassengerActivityBtn
+id rateUserBtn
+id rateUserEditText
+id ratingSpinner
+id ratingView
 id right
 id right_icon
 id right_side
 id routeDateText
 id routeListView
+id routeUsername
 id save_image_matrix
 id save_non_transition_alpha
 id save_scale_type
@@ -1182,7 +1199,7 @@ id search_mag_icon
 id search_plate
 id search_src_text
 id search_voice_btn
-id seatsAvailableText
+id seatsSpinner
 id select_dialog_listview
 id selected
 id shortcut
@@ -1212,7 +1229,6 @@ id tabMode
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
-id testingRouteView
 id text
 id text2
 id textSpacerNoButtons
@@ -1292,11 +1308,17 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_create_or_rate
 layout activity_fourth_
 layout activity_main
+layout activity_rate_passenger
+layout activity_route_list
 layout activity_second_
 layout activity_third
+layout content_create_or_rate
 layout content_main
+layout content_rate_passenger
+layout content_route_list
 layout content_second_
 layout content_third
 layout design_bottom_navigation_item
@@ -1386,6 +1408,9 @@ string path_password_eye_mask_visible
 string path_password_strike_through
 string search_menu_title
 string status_bar_notification_info_overflow
+string title_activity_create_or_rate
+string title_activity_rate_passenger
+string title_activity_route_list
 string title_activity_second_
 string title_activity_third
 style AlertDialog_AppCompat

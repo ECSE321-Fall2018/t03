@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/ethanitovitch/Desktop/GameDay/t03/DriverAndroid/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml",
+            "outputFile": "/Users/Matthew/Desktop/321-backend/t03/DriverAndroid/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "/Users/ethanitovitch/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/dcf4811d0d44c18b8f7804b00495537b/res/values-watch-v21/values-watch-v21.xml",
+                    "source": "/Users/Matthew/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/6e7c4aee1be78fdc1e4dd0e42647327e/res/values-watch-v21/values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

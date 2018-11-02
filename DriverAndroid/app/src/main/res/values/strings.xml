@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">Driver</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_second_">Driver</string>
+    <string name="newevent_date_label">Date</string>
+    <string name="newevent_date_first">01-01-2018</string>
+    <string-array name="city_array">
+        <item>Montreal</item>
+        <item>Toronto</item>
+        <item>Kingston</item>
+        <item>Ottawa</item>
+        <item>Calgary</item>
+        <item>Sudbery</item>
+        <item>Halifax</item>
+    </string-array>
+    <string-array name="seats_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+    </string-array>
+    <string-array name="rating_array">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+
+    <string name="title_activity_third">Route List</string>
+    <string name="title_activity_rate_passenger">RatePassenger</string>
+    <string name="title_activity_create_or_rate">CreateOrRate</string>
+    <string name="title_activity_route_list">RouteList</string>
+</resources>

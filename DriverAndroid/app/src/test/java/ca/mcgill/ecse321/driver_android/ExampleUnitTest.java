@@ -1,18 +1,169 @@
-package ca.mcgill.ecse321.driver_android;
-
-import org.junit.Test;
-
-import static org.junit.Assert.*;
-
-/**
- * Example local unit test, which will execute on the development machine (host).
- *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
- */
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
+
+    long id;
+
+    @Before
+    public void setup() {
+        HttpUtils.post("signIn/" + "Matt" + "/" + "Zolt", new RequestParams(), new JsonHttpResponseHandler() {
+
+        });
+
+        HttpUtils.post("signIn/" + "theDriver" + "/" + "Zolt", new RequestParams(), new JsonHttpResponseHandler() {
+
+        });
+
+        HttpUtils.post("createRoute/3/Montreal/Toronto/1-1-2018/Maybach/theDriver/120", new RequestParams(), new JsonHttpResponseHandler() {
+
+        });
+
     }
+
+    @Test
+    public void createRouteCheck() {
+
+        HttpUtils.get("findRoute/" + "1-1-2018" + "/" + "Montreal" + "/" + "Toronto", new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+                String vehicle = "";
+                String price = "";
+                String list = "";
+                for (int i = 0; i < response.length(); i++) {
+
+                    JSONObject jsonobject = null;
+                    try {
+                        jsonobject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        vehicle = jsonobject.getString("vehicle");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        price = jsonobject.getString("price");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+                        id = jsonobject.getLong("id");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    assertNotNull(jsonobject);
+                    assertEquals(vehicle, "Maybach");
+                    assertEquals(price, "150");
+
+
+                }
+
+            }
+
+        });
+
+
+    }
+
+    @Test
+    public void showDriversRouteCheck() {
+
+
+
+        HttpUtils.get("showDriversRoutes/" + "Matt", new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+
+                String foundDriver = "";
+
+
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonobject = null;
+                    try {
+                        jsonobject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+
+                        foundDriver = jsonobject.getString("driver");
+
+                    } catch (JSONException e) {
+
+
+                    }
+
+                }
+
+                assertEquals(foundDriver, "Matt");
+
+            }
+
+
+        });
+
+    }
+
+    @Test
+    public void endRouteCheck() {
+
+        HttpUtils.get("endRoute/" + id, new RequestParams(), new JsonHttpResponseHandler() {
+
+        });
+
+        HttpUtils.get("showDriverRoutes/" + "aaa", new RequestParams(), new JsonHttpResponseHandler() {
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+
+                long foundID = 0;
+
+
+                for (int i = 0; i < response.length(); i++) {
+                    JSONObject jsonobject = null;
+                    try {
+                        jsonobject = response.getJSONObject(i);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    try {
+
+                        foundID = jsonobject.getLong("id");
+
+                    } catch (JSONException e) {
+
+
+                    }
+
+                }
+
+                assertEquals(foundID,0);
+
+            }
+
+
+        });
+
+    }
+
+    @After
+    public void cleanUp() {
+
+        HttpUtils.get("endRoute/" + id, new RequestParams(), new JsonHttpResponseHandler() {
+
+        });
+
+    }
+
 }
 

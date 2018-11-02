@@ -36,6 +36,7 @@ public class RideSharingController {
 		return "Hello world!";
 	}
 	
+	//sign in
 	@RequestMapping(value = "/signIn/{username}/{password}", method = RequestMethod.POST)
 	@ResponseBody
 	public String createUser(@PathVariable String username, @PathVariable String password) {
@@ -58,6 +59,7 @@ public class RideSharingController {
 		
 	}
 	
+	//create route
 	@RequestMapping(value = "/createRoute/{seats}/{start}/{end}/{date}/{vehicle}/{driver}/{price}", method = RequestMethod.POST)
 	@ResponseBody
 	public String createRoute(@PathVariable Integer seats, @PathVariable String start,
@@ -75,81 +77,73 @@ public class RideSharingController {
 		
 	}
 	
-	@RequestMapping(value = "/findRoute/{date}/{startCity}/{endCity} ", method = RequestMethod.GET)
+	//find route
+	@RequestMapping(value = "/findRoute/{date}/{startCity}/{endCity}", method = RequestMethod.GET)
 	@ResponseBody
-	public String createRoute(@PathVariable String date, @PathVariable String startCity,
-			@PathVariable String endCity) {
+	public String createRoute(@PathVariable String date, @PathVariable String startCity, @PathVariable String endCity) {
 
-		List<Route> routes = repository.findRoutes(date, startCity, endCity);
+		List<Route>routes = repository.findRoutes(date, startCity, endCity);
 			
-		if (routes.isEmpty() != false) {
-			return " route found!";
+		if (routes.isEmpty() != true) {
+			
+			String list = "";
+			
+			for (Route route : routes ) {
+			
+				list += route.getDriver();
+				
+			}
+			
+			return list;
+			
 		} else {
 			return "route not found.";
 		}
 		
 	}
 	
-	@RequestMapping(value = "/joinRoute/{driver}/{passenger}", method = RequestMethod.POST)
+	//join route
+	@RequestMapping(value = "/joinRoute/{id}/{passenger}", method = RequestMethod.GET)
 	@ResponseBody
-	public void createRoute(@PathVariable String driver, @PathVariable String passenger) {
+	public String createRoute(@PathVariable long id, @PathVariable String passenger) {
 		
-		//repository.joinRoute(driver, passenger);
+		Route route = repository.joinRoute(id, passenger);
+		
+		if (route != null) {
+			return " joined!";
+		} else {
+			return " not joined.";
+		}
 		
 	}
 	
+	//end route
+	@RequestMapping(value = "/endRoute/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public String endRoute(@PathVariable long id) {
+		
+		Route route = repository.endRoute(id);
+		
+		if (route != null) {
+			return " joined!";
+		} else {
+			return " not joined.";
+		}
+		
+	}
 	/*
-	@RequestMapping(value = "/find/{username}", method = RequestMethod.GET)
-	public User getVehicle(@PathVariable("username") String username) {
-		return repository.getUser(username);
-	}
-	
-	@RequestMapping("/")
-	public String greeting() {
-		return "<h1>Welcome to the ride sharing app!</h1>";
-	}
-
-
-	@PostMapping("/passenger/{username}")
-	public String createParticipant(@PathVariable String username) {
-		Passenger passenger = repository.createPassenger(username);
+	@RequestMapping(value = "/showDriversRoutes/{driver}", method = RequestMethod.GET)
+	@ResponseBody
+	public String endRoute(@PathVariable long id) {
 		
-		// create connection with jdbc
-		// insert into query statement 
+		Route route = repository.endRoute(id);
 		
-		return passenger.getUsername();
-	}
-
-	@GetMapping("/passenger/{username}")
-	public String getPassenger(@PathVariable String username) {
-		Passenger passenger = repository.getPassenger(username);
-		if(passenger == null) {
-			return "NOT FOUND!";
-		}
-		return passenger.getUsername();
-	}
-	
-	@PostMapping("/driver/{username}")
-	public String createDriver(@PathVariable String username) {
-		Driver driver = repository.createDriver(username); 
-		return driver.getUsername();
-	}
-	
-	@GetMapping("/driver/{username}")
-	public String getDriver(@PathVariable String username) {
-		Driver driver = repository.getDriver(username);
-		if(driver == null) {
-			return "NOT FOUND!";
-		}
-		return driver.getUsername();
-	}
-	@PostMapping("/{date}/{time}/{stop}/{car}/{startCity}/{numberOfSeats}")
-	
-		public void createRoute(@PathVariable Date date, @PathVariable Time time, String car, String startCity, int numberOfSeats) {
-			repository.createRoute(date, time, car, startCity, numberOfSeats);
-			
+		if (route != null) {
+			return " joined!";
+		} else {
+			return " not joined.";
 		}
 		
-		*/
 	}
-
+	*/
+}

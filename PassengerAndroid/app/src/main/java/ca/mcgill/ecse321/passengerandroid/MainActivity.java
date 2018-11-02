@@ -13,7 +13,31 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import cz.msebera.android.httpclient.Header;
+
 public class MainActivity extends AppCompatActivity {
+   private String error = null;
+
+    private void refreshErrorMessage() {
+        // set the error message
+        TextView tvError = (TextView) findViewById(R.id.error);
+        tvError.setText(error);
+
+        if (error == null || error.length() == 0) {
+            tvError.setVisibility(View.GONE);
+        } else {
+            tvError.setVisibility(View.VISIBLE);
+        }
+
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,25 +55,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-        Button loginBtn = (Button) findViewById(R.id.loginBtn);
-        loginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final EditText passengerUsernameText = (EditText) findViewById(R.id.passengerUsernameText);
-                EditText passengerPasswordText = (EditText) findViewById(R.id.passengerPasswordText);
-
-
-                String passengerUsername = passengerUsernameText.getText().toString();
-                String passengerPassword = passengerPasswordText.getText().toString();
-
-                Intent startIntent = new Intent(getApplicationContext(), Second_Activity.class);
-                startIntent.putExtra("ca.mcgill.ecse321.passengerandroid.USERNAME",passengerUsername);
-
-                startActivity(startIntent);
-
-            }
-        });
     }
 
     @Override
@@ -72,5 +77,58 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addPassenger(View v) {
+        error = "";
+
+        final EditText passengerUsernameText = (EditText) findViewById(R.id.passengerUsernameText);
+        final EditText passengerPasswordText = (EditText) findViewById(R.id.passengerPasswordText);
+
+        String passengerUsername = passengerUsernameText.getText().toString();
+        String passengerPassword = passengerPasswordText.getText().toString();
+
+        HttpUtils.post("/signIn/" + passengerUsername + "/" + passengerPassword, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                refreshErrorMessage();
+                passengerUsernameText.setText("");
+                passengerPasswordText.setText("");
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                super.onSuccess(statusCode, headers, responseString);
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
+        });
+
+        Intent startIntent = new Intent(getApplicationContext(), Second_Activity.class);
+        startIntent.putExtra("ca.mcgill.ecse321.passengerandroid.USERNAME",passengerUsername);
+        startActivity(startIntent);
     }
 }

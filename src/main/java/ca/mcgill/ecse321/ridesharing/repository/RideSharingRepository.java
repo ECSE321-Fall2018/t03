@@ -14,6 +14,7 @@ import ca.mcgill.ecse321.ridesharing.model.*;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,6 +33,7 @@ public class RideSharingRepository {
 	@PersistenceContext
 	EntityManager entityManager;
 	
+	//create user
 	@Transactional
 	public User createUser(String username, String password) {
 		User user = new User();
@@ -42,6 +44,7 @@ public class RideSharingRepository {
 		return user;	
 	}
 	
+	//create route
 	@Transactional
 	public Route createRoute(int numberOfSeats, String startCity, String endCity, String aDate, String vehicle, String driver, String price) {
 		
@@ -58,34 +61,80 @@ public class RideSharingRepository {
 	    entityManager.persist(route);
 	    return route;
 	}
-	/*
+	
+	//join route
 	@Transactional
-	public void joinRoute(String driver, String user) {
+	public Route joinRoute(long id, String user) {
 		
-		Class<? extends Query> route = entityManager.createQuery("SELECT * FROM routes WHERE driver = 'driver';").getClass();
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.id = :id", Route.class);
 		
-		seats 
+		Route route = query.setParameter("id", id).getSingleResult();
+		int seats = route.getAvailableSeats();
 		
-		if(route.getAvailableSeats() > 1) {
-			route.addUser(user);
+		if (seats == 6) {
 			
-		} else if (route.getAvailableSeats() == 1) {
-			route.addUser(user);
+			route.setPassenger1(user);
+			
+		} else if (seats == 5) {
+			
+			route.setPassenger2(user);
+			
+		} else if (seats == 4) {
+			
+			route.setPassenger3(user);
+			
+		} else if (seats == 3) {
+			
+			route.setPassenger4(user);
+			
+		} else if (seats == 2) {
+			
+			route.setPassenger5(user);
+			
+		} else  {
+			
+			route.setPassenger6(user);
 			route.setIsAvailable(false);
+			
 		}
 		
+		route.setAvailableSeats(route.getAvailableSeats() - 1);
+		entityManager.persist(route);
 		
-	}
-	*/
-	@Transactional
-	public List<Route> findRoutes(String aDate, String startCity, String endCity){
-		
-		List<Route> routeList = entityManager.createQuery("SELECT * FROM routes WHERE date = 'aDate'"
-				+ " AND startCity = 'startCity' AND endCity = 'endCity' and isAvailable = TRUE and isComplete = FALSE;").getResultList();
-		
-		return routeList;
+		return route;
 	}
 	
+	//find route
+	@Transactional
+	public List<Route> findRoutes(String aDate, String startCity, String endCity){
+	
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.date = :aDate"
+				+ " AND c.startCity = :startCity AND c.endCity = :endCity AND c.isAvailable = TRUE AND c.isComplete = FALSE", Route.class);
+		
+		
+		query.setParameter("startCity", startCity);
+		query.setParameter("endCity", endCity);
+		query.setParameter("aDate", aDate);
+		
+		return query.getResultList();
+
+	}
+	
+	//end route
+	@Transactional
+	public Route endRoute(long id) {
+		
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.id = :id", Route.class);
+		
+		Route route = query.setParameter("id", id).getSingleResult();
+		
+		route.setIsComplete(true);
+		
+		entityManager.persist(route);
+		
+		return route;
+	}
+	/*
 	public void deleteRoute(String driver) {
 		
 		entityManager.createQuery("DELETE FROM routes WHERE driver = 'driver'");  

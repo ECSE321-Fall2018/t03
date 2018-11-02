@@ -1,3 +1,25 @@
+package ca.mcgill.ecse321.driver_android;
+
+import android.util.Log;
+import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import ca.mcgill.ecse321.driver_android.HttpUtils;
+import cz.msebera.android.httpclient.Header;
+
+
+import static org.junit.Assert.*;
+
 public class ExampleUnitTest {
 
     long id;

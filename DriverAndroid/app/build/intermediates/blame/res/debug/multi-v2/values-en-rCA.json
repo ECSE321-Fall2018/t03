@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/Matthew/Desktop/321-backend/t03/DriverAndroid/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml",
+            "outputFile": "/Users/rebeccaweill/Desktop/rideSharing/t03/DriverAndroid/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml",
             "map": [
                 {
-                    "source": "/Users/Matthew/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/6e7c4aee1be78fdc1e4dd0e42647327e/res/values-en-rCA/values-en-rCA.xml",
+                    "source": "/Users/rebeccaweill/.gradle/caches/transforms-1/files-1.1/appcompat-v7-28.0.0.aar/29ddb039336e0a2da610b39406c5d0c0/res/values-en-rCA/values-en-rCA.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29",
                         "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
@@ -14,7 +14,7 @@
                     }
                 },
                 {
-                    "source": "/Users/Matthew/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/ed2ec2566c130e4f97eed8df9cff353e/res/values-en-rCA/values-en-rCA.xml",
+                    "source": "/Users/rebeccaweill/.gradle/caches/transforms-1/files-1.1/support-compat-28.0.0.aar/9749a7a5e2cd69cc3aee0922a8422bed/res/values-en-rCA/values-en-rCA.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

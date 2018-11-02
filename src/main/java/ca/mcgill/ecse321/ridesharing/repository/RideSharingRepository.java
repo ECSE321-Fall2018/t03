@@ -185,7 +185,7 @@ public class RideSharingRepository {
 		
 			if (route.getPassenger1().equals(passenger)) {
 			
-				route.setPassenger1("");
+				route.setPassenger1(null);
 				found = true;
 			
 			}
@@ -194,7 +194,7 @@ public class RideSharingRepository {
 			
 			if (route.getPassenger2().equals(passenger)) {
 				
-				route.setPassenger2("");
+				route.setPassenger2(null);
 				found = true;
 			
 			}
@@ -203,7 +203,7 @@ public class RideSharingRepository {
 			
 			if (route.getPassenger3().equals(passenger)) {
 				
-				route.setPassenger3("");
+				route.setPassenger3(null);
 				found = true;
 			
 			}
@@ -212,7 +212,7 @@ public class RideSharingRepository {
 			
 			if (route.getPassenger4().equals(passenger)) {
 				
-				route.setPassenger4("");
+				route.setPassenger4(null);
 				found = true;
 			
 			}
@@ -221,7 +221,7 @@ public class RideSharingRepository {
 			
 			if (route.getPassenger5().equals(passenger)) {
 				
-				route.setPassenger5("");
+				route.setPassenger5(null);
 				found = true;
 			
 			}
@@ -230,7 +230,7 @@ public class RideSharingRepository {
 			
 			if (route.getPassenger6().equals(passenger)) {
 				
-				route.setPassenger6("");
+				route.setPassenger6(null);
 				found = true;
 			
 			}
@@ -239,6 +239,7 @@ public class RideSharingRepository {
 		
 		if (found) {
 			
+			route.setAvailableSeats(route.getAvailableSeats() + 1);
 			entityManager.persist(route);
 			
 		}
@@ -301,8 +302,5 @@ public class RideSharingRepository {
 		entityManager.persist(route);
 		return route;
 	}
-	
-	
-
 	
 }

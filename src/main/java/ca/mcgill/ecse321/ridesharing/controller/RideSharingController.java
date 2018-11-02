@@ -39,21 +39,17 @@ public class RideSharingController {
 	//sign in
 	@RequestMapping(value = "/signIn/{username}/{password}", method = RequestMethod.POST)
 	@ResponseBody
-	public String createUser(@PathVariable String username, @PathVariable String password) {
+	public User createUser(@PathVariable String username, @PathVariable String password) {
 		
 		try {
 			
 			User user = repository.createUser(username, password);
 			
-			if (user != null) {
-				return " user was created!";
-			} else {
-				return "user could not be created.";
-			}
+			return user;
 			
 		} catch (Exception e) {
 			
-			return "sorry username exists";
+			return null;
 			
 		}
 		
@@ -62,7 +58,7 @@ public class RideSharingController {
 	//create route
 	@RequestMapping(value = "/createRoute/{seats}/{start}/{end}/{date}/{vehicle}/{driver}/{price}", method = RequestMethod.POST)
 	@ResponseBody
-	public String createRoute(@PathVariable Integer seats, @PathVariable String start,
+	public Route createRoute(@PathVariable Integer seats, @PathVariable String start,
 			@PathVariable String end, @PathVariable String date, @PathVariable String vehicle,
 			@PathVariable String driver, @PathVariable String price) {
 		
@@ -70,9 +66,9 @@ public class RideSharingController {
 		Route route = repository.createRoute(seats,start,end,date,vehicle, driver, price);
 			
 		if (route != null) {
-			return " route created!";
+			return route;
 		} else {
-			return "route not created.";
+			return null;
 		}
 		
 	}
@@ -80,24 +76,17 @@ public class RideSharingController {
 	//find route
 	@RequestMapping(value = "/findRoute/{date}/{startCity}/{endCity}", method = RequestMethod.GET)
 	@ResponseBody
-	public String findRoute(@PathVariable String date, @PathVariable String startCity, @PathVariable String endCity) {
+	public List<Route> findRoute(@PathVariable String date, @PathVariable String startCity, @PathVariable String endCity) {
 
 		List<Route>routes = repository.findRoutes(date, startCity, endCity);
 			
 		if (routes.isEmpty() != true) {
 			
-			String list = "";
-			
-			for (Route route : routes ) {
-			
-				list += route.getDriver();
-				
-			}
-			
-			return list;
+			return routes;
 			
 		} else {
-			return "route not found.";
+			
+			return null;
 		}
 		
 	}
@@ -105,14 +94,14 @@ public class RideSharingController {
 	//join route
 	@RequestMapping(value = "/joinRoute/{id}/{passenger}", method = RequestMethod.GET)
 	@ResponseBody
-	public String joinRoute(@PathVariable long id, @PathVariable String passenger) {
+	public Route joinRoute(@PathVariable long id, @PathVariable String passenger) {
 		
 		Route route = repository.joinRoute(id, passenger);
 		
 		if (route != null) {
-			return " joined!";
+			return route;
 		} else {
-			return " not joined.";
+			return null;
 		}
 		
 	}
@@ -120,14 +109,14 @@ public class RideSharingController {
 	//end route
 	@RequestMapping(value = "/endRoute/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public String endRoute(@PathVariable long id) {
+	public Route endRoute(@PathVariable long id) {
 		
 		Route route = repository.endRoute(id);
 		
 		if (route != null) {
-			return " joined!";
+			return route;
 		} else {
-			return " not joined.";
+			return null;
 		}
 		
 	}
@@ -135,24 +124,17 @@ public class RideSharingController {
 	//show drivers routes
 	@RequestMapping(value = "/showDriversRoutes/{driver}", method = RequestMethod.GET)
 	@ResponseBody
-	public String showDriversRoutes(@PathVariable String driver) {
+	public List<Route> showDriversRoutes(@PathVariable String driver) {
 		
 		List<Route> routes = repository.showDriversRoutes(driver);
 		
 		if (routes.isEmpty() != true) {
 			
-			String list = "";
-			
-			for (Route route : routes) {
-				
-				list += route.getPrice();
-				
-			}
-			
-			return list;
+			return routes;
 			
 		} else {
-			return " not found.";
+			
+			return null;
 		}
 		
 	}
@@ -160,25 +142,17 @@ public class RideSharingController {
 	//show passengers routes
 	@RequestMapping(value = "/showPassengersRoutes/{passenger}", method = RequestMethod.GET)
 	@ResponseBody
-	public String showPassengersRoutes(@PathVariable String passenger) {
+	public List<Route> showPassengersRoutes(@PathVariable String passenger) {
 		
 		List<Route> routes = repository.showPassengerRoutes(passenger);
 		
 		if (routes.isEmpty() != true) {
 			
-			String list = "";
-			
-			for (Route route : routes) {
-				
-				list += route.getPrice();
-				
-			}
-			
-			return list;
+			return routes;
 			
 		} else {
 			
-			return " not found.";
+			return null;
 		}
 		
 	}
@@ -186,17 +160,17 @@ public class RideSharingController {
 	//leave route
 	@RequestMapping(value = "/leaveRoute/{id}/{passenger}", method = RequestMethod.GET)
 	@ResponseBody
-	public String leaveRoute(@PathVariable long id, @PathVariable String passenger) {
+	public Route leaveRoute(@PathVariable long id, @PathVariable String passenger) {
 		
 		Route route = repository.leaveRoute(id, passenger);
 		
 		if (route != null) {
 			
-			return "removed";
+			return route;
 			
 		} else {
 			
-			return " not in this route.";
+			return null;
 		}
 		
 	}
@@ -204,17 +178,17 @@ public class RideSharingController {
 	//leave route
 	@RequestMapping(value = "/rateUser/{username}/{rating}", method = RequestMethod.GET)
 	@ResponseBody
-	public String rateUser(@PathVariable String username, @PathVariable int rating) {
+	public User rateUser(@PathVariable String username, @PathVariable int rating) {
 			
 		User user = repository.rateUser(username, rating);
 			
 		if (user != null) {
 				
-			return "updated";
+			return user;
 				
 		} else {
 				
-			return " not found";
+			return null;
 		}
 			
 	}
@@ -222,16 +196,16 @@ public class RideSharingController {
 	//create route
 	@RequestMapping(value = "/modifyRoute/{seats}/{start}/{end}/{date}/{vehicle}/{price}/{id}", method = RequestMethod.GET)
 	@ResponseBody
-	public String modifyRoute(@PathVariable Integer seats, @PathVariable String start,
+	public Route modifyRoute(@PathVariable Integer seats, @PathVariable String start,
 		@PathVariable String end, @PathVariable String date, @PathVariable String vehicle,
 		@PathVariable String price, @PathVariable long id) {
 			
 		Route route = repository.modifyRoute(seats,start,end,date,vehicle, price, id);
 				
 		if (route != null) {
-			return "modified!";
+			return route;
 		} else {
-			return "not found.";
+			return null;
 		}
 			
 	}

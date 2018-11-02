@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -13,13 +14,13 @@ import android.widget.TextView;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
+import cz.msebera.android.httpclient.Header;
 
 import com.loopj.android.http.AsyncHttpClient;
 
-import cz.msebera.android.httpclient.Header;
 
 public class FindRoute extends AppCompatActivity {
 
@@ -73,17 +74,34 @@ public class FindRoute extends AppCompatActivity {
         TextView dateView = (TextView) findViewById(R.id.newevent_date);
         String date = dateView.getText().toString();
 
+        Log.d("hello", "hello");
 
         HttpUtils.get("findRoute/" + date + "/" + startCity + "/" + endCity, new RequestParams(), new JsonHttpResponseHandler() {
+
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
 
+                Log.d("omg android", response.toString());
+
+            }
+
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONArray response) {
+                super.onSuccess(statusCode, headers, response);
 
 
             }
 
             @Override
+            public void onSuccess(int statusCode, Header[] headers, String responseString) {
+                super.onSuccess(statusCode, headers, responseString);
+            }
+
+            @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+
+                Log.d("fail", "fail aahhhhh");
+
                 /*
                 try {
                     error += errorResponse.get("message").toString();
@@ -93,8 +111,22 @@ public class FindRoute extends AppCompatActivity {
                 refreshErrorMessage();
                 */
             }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String responseString, Throwable throwable) {
+                super.onFailure(statusCode, headers, responseString, throwable);
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONArray errorResponse) {
+                super.onFailure(statusCode, headers, throwable, errorResponse);
+            }
         });
     }
+
+
+
+
     private Bundle getDateFromLabel (String text){
         Bundle rtn = new Bundle();
         String comps[] = text.toString().split("-");

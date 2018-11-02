@@ -59,6 +59,9 @@ public class RideSharingRepository {
 	    route.setDriver(driver);
 	    route.setPrice(price);
 	    entityManager.persist(route);
+	    
+	    //TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.availableSeats = :numberOfSeats AND c.date = :aDate ", Route.class);
+	    
 	    return route;
 	}
 	

@@ -6,7 +6,20 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.loopj.android.http.JsonHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+
+import com.loopj.android.http.AsyncHttpClient;
+
+import cz.msebera.android.httpclient.Header;
 
 public class FindRoute extends AppCompatActivity {
 
@@ -25,10 +38,64 @@ public class FindRoute extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        final Spinner startCitySpinner = (Spinner) findViewById(R.id.startCitySpinner);
+        final Spinner endCitySpinner = (Spinner) findViewById(R.id.endCitySpinner);
+// Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.city_array, android.R.layout.simple_spinner_item);
+// Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+// Apply the adapter to the spinner
+        startCitySpinner.setAdapter(adapter);
+        endCitySpinner.setAdapter(adapter);
+
+        TextView dateView = (TextView) findViewById(R.id.newevent_date);
+        String date = dateView.getText().toString();
+
     }
 
 
-    private Bundle getDateFromLabel(String text) {
+    public void findRoute (View v) {
+        //error = "";
+
+//        final TextView passengerUsernameText = (TextView) findViewById(R.id.username_editText);
+//        final TextView passengerPasswordText = (TextView) findViewById(R.id.password_editText);
+//
+//        String passengerUsername = passengerUsernameText.getText().toString();
+//        String passengerPassword = passengerPasswordText.getText().toString();
+
+        final Spinner startCitySpinner = (Spinner) findViewById(R.id.startCitySpinner);
+        final Spinner endCitySpinner = (Spinner) findViewById(R.id.endCitySpinner);
+
+        String startCity = startCitySpinner.getSelectedItem().toString();
+        String endCity = endCitySpinner.getSelectedItem().toString();
+
+        TextView dateView = (TextView) findViewById(R.id.newevent_date);
+        String date = dateView.getText().toString();
+
+
+        HttpUtils.get("findRoute/" + date + "/" + startCity + "/" + endCity, new RequestParams(), new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+
+
+
+            }
+
+            @Override
+            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
+                /*
+                try {
+                    error += errorResponse.get("message").toString();
+                } catch (JSONException e) {
+                    error += e.getMessage();
+                }
+                refreshErrorMessage();
+                */
+            }
+        });
+    }
+    private Bundle getDateFromLabel (String text){
         Bundle rtn = new Bundle();
         String comps[] = text.toString().split("-");
         int day = 1;
@@ -42,14 +109,14 @@ public class FindRoute extends AppCompatActivity {
         }
 
         rtn.putInt("day", day);
-        rtn.putInt("month", month-1);
+        rtn.putInt("month", month - 1);
         rtn.putInt("year", year);
 
         return rtn;
     }
 
 
-    public void showDatePickerDialog(View v) {
+    public void showDatePickerDialog (View v){
         TextView tf = (TextView) v;
         Bundle args = getDateFromLabel(tf.getText().toString());
         args.putInt("id", v.getId());
@@ -60,10 +127,9 @@ public class FindRoute extends AppCompatActivity {
     }
 
 
-    public void setDate(int id, int d, int m, int y) {
+    public void setDate ( int id, int d, int m, int y){
         TextView tv = (TextView) findViewById(id);
         tv.setText(String.format("%02d-%02d-%04d", d, m + 1, y));
     }
-
 
 }

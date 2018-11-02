@@ -4,10 +4,10 @@ import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-@Table(name = "routes")
+@Table(name = "trip")
 //@NamedQueries({@NamedQuery(name = "Route.findAll", query = "SELECT e FROM routes e")})
 public class Route{
-	
+
 private String driver;
 private int availableSeats;
 private String startCity;
@@ -16,7 +16,6 @@ private String date;
 private boolean isAvailable;
 private boolean isComplete;
 private String vehicle;
-private ArrayList<String> users = new ArrayList<String>();
 private String price;
 private String passenger1;
 private String passenger2;
@@ -24,6 +23,10 @@ private String passenger3;
 private String passenger4;
 private String passenger5;
 private String passenger6;
+
+//==================================
+
+@Id @GeneratedValue (strategy=GenerationType.AUTO) long id;
 
 //==================================
 
@@ -62,6 +65,7 @@ public void setPassenger1(String user) {
 
 
 //==================================
+
 	public void setPassenger5(String user) {
 		this.passenger5 = user;
 	}
@@ -72,7 +76,7 @@ public void setPassenger1(String user) {
 	}
 
 //==================================
-	
+
 	public void setPassenger6(String user) {
 		   this.passenger6 = user;
 		}
@@ -101,7 +105,6 @@ public void setDriver(String driver) {
    this.driver = driver;
 }
 
-@Id
 @Column(name = "driver")
 public String getDriver() {
    return this.driver;
@@ -120,27 +123,6 @@ public String getPrice() {
 
 //==================================
 
-
-public void addUser(String user) {
-	this.users.add(user);
-}
-
-public void setUsers(ArrayList<String> users) {
-	
-	this.users = users;
-	
-}
-
-@Column(name = "participants")
-public ArrayList<String> getUsers() {
-	return this.users;
-}
-
-public void removeUser(String user) {
-	users.remove(user);
-}
-
-//==================================
 
 public void setAvailableSeats(int value) {
    this.availableSeats = value;

@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 
 import org.springframework.beans.factory.annotation.Autowired;
-  import org.springframework.stereotype.Repository;
+ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 
@@ -123,118 +123,54 @@ public class RideSharingRepository {
 	//end route
 	@Transactional
 	public Route endRoute(long id) {
-		
+			
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.id = :id", Route.class);
-		
+			
 		Route route = query.setParameter("id", id).getSingleResult();
-		
+			
 		route.setIsComplete(true);
-		
+			
 		entityManager.persist(route);
-		
+			
 		return route;
 	}
-	/*
-	public void deleteRoute(String driver) {
 		
-		entityManager.createQuery("DELETE FROM routes WHERE driver = 'driver'");  
 
-	}
-	/*
-	@Transactional
-	public Route updateRoute(int numberOfSeats, String startCity, String endCity, String aDate, String vehicle, String driver, String price) {
-		
-		entityManager.createQuery("UPDATE routes set seats = 'numberOfSeats', startCity = 'startCity', endCity = 'endCity', date)
-		
-		
-	    return route;
-	}
-	*/
-	/*
-	@Transactional
-	public Passenger createPassenger(String name) {
-		Passenger passenger = new Passenger(0, name, name);
-		passenger.setUsername(name);
-		entityManager.persist(passenger);
-		return passenger;
+	public List<Route> showDriversRoutes(String driver) {
+			
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.driver = :driver AND c.isComplete = FALSE", Route.class);
+			
+		List<Route> routes = query.setParameter("driver", driver).getResultList();
+			
+		return routes;
 	}
 
-	@Transactional
-	public Passenger getPassenger(String name) {
-		Passenger passenger = entityManager.find(Passenger.class, name);
-		return passenger;
-	}
-	
-	
-	@Transactional
-	public Driver createDriver(String name) {
-		Driver driver = new Driver(0, name, name);
-		driver.setUsername(name);
-		entityManager.persist(driver);
-		return driver;
-	}
-
-	@Transactional
-	public Driver getDriver(String name) {
-		Driver driver  = entityManager.find(Driver.class, name);
-		return driver;
-	}
-	
-	@Transactional
-	public Admin createAdmin(String name) {
-		admin.setUsername(name);
-		entityManager.persist(admin);
-		return admin;
-	}
-
-	@Transactional
-	public Admin getAdmin(String name) {
-		Admin admin  = entityManager.find(Admin.class, name);
-		return admin;
-	}
-	@Transactional
-	public Route createRoute(Date aDate, Time aTime, String vehicle, String startCity, int numberOfSeats) {
-		Route route = new Route();
-	    route.setAvailableSeats(numberOfSeats);
-	    route.setDate(aDate);
-	    route.setStartCity(startCity);
-	    route.setIsAvailable(true);
-	    route.setIsComplete(false);
-	    entityManager.persist(route);
-	    return route;
-	}
-	
-	@Transactional
-	public boolean routeFinished(Route route) {
-		route.setIsComplete(true);
-		return true;
+	public List<Route> showPassengerRoutes(String passenger) {
+		
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.passenger1 = :passenger OR c.passenger2 = :passenger OR c.passenger3 = :passenger OR c.passenger4 = :passenger OR c.passenger5 = :passenger OR c.passenger6 = :passenger", Route.class);
+		
+		query.setParameter("passenger", passenger);
+		
+		List<Route> allRoutes = query.getResultList();
+		List<Route> routes = new ArrayList<Route>();
+		
+		for (Route route : allRoutes) {
+			
+			if (!route.isIsComplete()) {
+				
+				routes.add(route);
+				
+			}
+			
 		}
-	
-//	@Transactional
-//	public List<Route> findRoutes(Date aDate, String startCity, String endCity){
-//		List<Route> routeList = entityManager.createQuery("SELECT r FROM Route r").getResultList();
-//		List<Route> matchingRoutes;
-//		matchingRoutes = new ArrayList<Route>();
-//		for(Route route: routeList) {
-//			Date date = route.getDate();
-//			String routeStartCity = route.getStartCity();
-//			
-//		}
-//		return matchingRoutes;
-//	}
-	
-	@Transactional
-	public void joinRoute(Route route, Passenger passenger) {
-		int availableSeats = route.getAvailableSeats();
-		List<Passenger> passengersOnRoute = route.getPassengers();
-		if(passengersOnRoute.size()<availableSeats) {
-			passengersOnRoute.add(passenger);
-		}
-		if(passengersOnRoute.size()==availableSeats) {
-			route.setIsAvailable(false);
-		}
+			
+		return routes;
+		
 	}
 	
 	
-	*/
+	
+	
+
+	
 }

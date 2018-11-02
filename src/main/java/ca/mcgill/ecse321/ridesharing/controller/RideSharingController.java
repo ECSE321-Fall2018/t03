@@ -131,19 +131,54 @@ public class RideSharingController {
 		}
 		
 	}
-	/*
+	
 	@RequestMapping(value = "/showDriversRoutes/{driver}", method = RequestMethod.GET)
 	@ResponseBody
-	public String endRoute(@PathVariable long id) {
+	public String showDriversRoutes(@PathVariable String driver) {
 		
-		Route route = repository.endRoute(id);
+		List<Route> routes = repository.showDriversRoutes(driver);
 		
-		if (route != null) {
-			return " joined!";
+		if (routes.isEmpty() != true) {
+			
+			String list = "";
+			
+			for (Route route : routes) {
+				
+				list += route.getPrice();
+				
+			}
+			
+			return list;
+			
 		} else {
-			return " not joined.";
+			return " not found.";
 		}
 		
 	}
-	*/
+	
+	@RequestMapping(value = "/showPassengersRoutes/{passenger}", method = RequestMethod.GET)
+	@ResponseBody
+	public String showPassengersRoutes(@PathVariable String passenger) {
+		
+		List<Route> routes = repository.showPassengerRoutes(passenger);
+		
+		if (routes.isEmpty() != true) {
+			
+			String list = "";
+			
+			for (Route route : routes) {
+				
+				list += route.getPrice();
+				
+			}
+			
+			return list;
+			
+		} else {
+			
+			return " not found.";
+		}
+		
+	}
+	
 }

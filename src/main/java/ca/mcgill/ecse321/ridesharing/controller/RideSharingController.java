@@ -9,6 +9,7 @@ import ca.mcgill.ecse321.ridesharing.model.*;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 //import org.springframework.web.bind.annotation.*;
 //
 //import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 //import ca.mcgill.ecse321.ridesharing.model.User;
 import ca.mcgill.ecse321.ridesharing.repository.RideSharingRepository;
 
-
+@CrossOrigin
 @RestController
 public class RideSharingController {
 
@@ -209,5 +210,20 @@ public class RideSharingController {
 		}
 			
 	}
+	
+	@RequestMapping(value = "/findUsers/{username}/{type}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> findUsers(@PathVariable String username, @PathVariable String type) {
+			
+		List<User> users = repository.findUsers(username, type);
+				
+		if (users.isEmpty() != true) {
+			return users;
+		} else {
+			return null;
+		}
+			
+	}
+	
 	
 }

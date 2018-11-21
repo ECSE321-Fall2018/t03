@@ -9,7 +9,7 @@ import javax.persistence.*;
 	@NamedQuery(name = "User.findAll", query = "SELECT e FROM participants e")
 })
 */
-public class User{
+public class User {
 private String username;
 private String password;
 private int rating;
@@ -66,4 +66,5 @@ public int getRating() {
 public void setRating(int rating) {
 	this.rating = rating;
 }
+
 }

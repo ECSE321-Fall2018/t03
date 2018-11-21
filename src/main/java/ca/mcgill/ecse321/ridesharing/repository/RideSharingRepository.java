@@ -3,6 +3,8 @@ package ca.mcgill.ecse321.ridesharing.repository;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -276,8 +278,8 @@ public class RideSharingRepository {
 			
 		int avgRating = user.getRating();
 		int ridesTravelled = user.getRidesTravelled();
-		int total = avgRating*(ridesTravelled -1);
-		avgRating = (total + rating)/(ridesTravelled);
+		int total = avgRating*(ridesTravelled);
+		avgRating = (total + rating)/(ridesTravelled + 1);
 		user.setRating(avgRating);
 		user.setRidesTravelled(ridesTravelled);
 			
@@ -324,6 +326,26 @@ public class RideSharingRepository {
 		
 		entityManager.persist(route);
 		return route;
+	}
+
+	public List<User> findUsers(String username, String type) {
+		
+		TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.username LIKE :username AND c.type LIKE :type", User.class);
+		
+		query.setParameter("username", "%"+username+"%");
+		query.setParameter("type", "%"+type+"%");
+		
+		List<User> users = query.getResultList();
+		
+		Collections.sort(users, new Comparator<User>(){
+		     public int compare(User o1, User o2){
+		         if(o1.getRating() == o2.getRating())
+		             return 0;
+		         return o1.getRating() < o2.getRating() ? 1 : -1;
+		     }
+		});
+		
+		return users;
 	}
 	
 }

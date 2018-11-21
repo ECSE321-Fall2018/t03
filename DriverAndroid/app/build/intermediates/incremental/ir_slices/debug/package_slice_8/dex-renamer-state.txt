@@ -1,4 +1,0 @@
-#Fri Nov 02 06:39:39 EDT 2018
-base.0=/Users/Matthew/Desktop/321-backend/t03/DriverAndroid/app/build/intermediates/transforms/dexMerger/debug/8
-path.0=classes.dex
-renamed.0=classes.dex

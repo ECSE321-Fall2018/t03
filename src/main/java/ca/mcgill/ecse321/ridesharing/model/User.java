@@ -13,6 +13,8 @@ public class User{
 private String username;
 private String password;
 private int rating;
+private String type;
+private int ridesTravelled;
 
 
 public void setUsername(String value) {
@@ -34,6 +36,25 @@ this.password = value;
 public String getPassword() {
 return this.password;
        }
+
+public void setType(String type) {
+this.type = type;
+    }
+
+@Column(name = "type")
+public String getType() {
+return this.type;
+       }
+
+@Column(name = "ridesTravelled")
+public int getRidesTravelled() {
+	return this.ridesTravelled;
+}
+
+
+public void setRidesTravelled(int value) {
+	this.ridesTravelled = value;
+}
 
 
 @Column(name = "rating")

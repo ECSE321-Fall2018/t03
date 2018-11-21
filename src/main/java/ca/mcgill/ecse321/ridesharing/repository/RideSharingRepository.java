@@ -35,11 +35,13 @@ public class RideSharingRepository {
 	
 	//create user
 	@Transactional
-	public User createUser(String username, String password) {
+	public User createUser(String username, String password, String type) {
 		User user = new User();
 		user.setRating(5);
 		user.setUsername(username);
 		user.setPassword(password);
+		user.setRidesTravelled(0);
+		user.setType(type);
 		entityManager.persist(user);
 		return user;	
 	}
@@ -47,6 +49,12 @@ public class RideSharingRepository {
 	//create route
 	@Transactional
 	public Route createRoute(int numberOfSeats, String startCity, String endCity, String aDate, String vehicle, String driver, String price) {
+		
+		TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+		
+		User user = query.setParameter("username", driver).getSingleResult();
+		
+		user.setRidesTravelled(user.getRidesTravelled() + 1);
 		
 		Route route = new Route();
 		route.setAvailableSeats(numberOfSeats);
@@ -68,6 +76,12 @@ public class RideSharingRepository {
 	//join route
 	@Transactional
 	public Route joinRoute(long id, String user) {
+		
+		TypedQuery<User> userQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+		
+		User passenger = userQuery.setParameter("username", user).getSingleResult();
+		
+		passenger.setRidesTravelled(passenger.getRidesTravelled() + 1);
 		
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.id = :id", Route.class);
 		
@@ -103,6 +117,7 @@ public class RideSharingRepository {
 		
 		route.setAvailableSeats(route.getAvailableSeats() - 1);
 		entityManager.persist(route);
+		entityManager.persist(passenger);
 		
 		return route;
 	}
@@ -112,11 +127,11 @@ public class RideSharingRepository {
 	public List<Route> findRoutes(String aDate, String startCity, String endCity){
 	
 		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.date = :aDate"
-				+ " AND c.startCity = :startCity AND c.endCity = :endCity AND c.isAvailable = TRUE AND c.isComplete = FALSE", Route.class);
+				+ " AND c.startCity LIKE :startCity AND c.endCity LIKE :endCity AND c.isAvailable = TRUE AND c.isComplete = FALSE", Route.class);
 		
 		
-		query.setParameter("startCity", startCity);
-		query.setParameter("endCity", endCity);
+		query.setParameter("startCity", "%"+startCity+"%");
+		query.setParameter("endCity", "%"+endCity+"%");
 		query.setParameter("aDate", aDate);
 		
 		return query.getResultList();
@@ -259,7 +274,12 @@ public class RideSharingRepository {
 		
 		User user = query.setParameter("username", username).getSingleResult();
 			
-		user.setRating(rating);
+		int avgRating = user.getRating();
+		int ridesTravelled = user.getRidesTravelled();
+		int total = avgRating*(ridesTravelled -1);
+		avgRating = (total + rating)/(ridesTravelled);
+		user.setRating(avgRating);
+		user.setRidesTravelled(ridesTravelled);
 			
 		entityManager.persist(user);
 		

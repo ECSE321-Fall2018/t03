@@ -37,13 +37,13 @@ public class RideSharingController {
 	}
 	
 	//sign in
-	@RequestMapping(value = "/signIn/{username}/{password}", method = RequestMethod.POST)
+	@RequestMapping(value = "/signIn/{username}/{password}/{type}", method = RequestMethod.POST)
 	@ResponseBody
-	public User createUser(@PathVariable String username, @PathVariable String password) {
+	public User createUser(@PathVariable String username, @PathVariable String password, @PathVariable String type) {
 		
 		try {
 			
-			User user = repository.createUser(username, password);
+			User user = repository.createUser(username, password, type);
 			
 			return user;
 			

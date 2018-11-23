@@ -240,11 +240,11 @@ public class RideSharingController {
 			
 	}
 	
-	@RequestMapping(value = "/findActiveUsers/{type}", method = RequestMethod.GET)
+	@RequestMapping(value = "/findActiveUsers/{username}/{type}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> findActiveUsers(String type) {
+	public List<String> findActiveUsers(@PathVariable String username,@PathVariable String type) {
 			
-		List<String> users = repository.findActiveUsers(type);
+		List<String> users = repository.findActiveUsers(username, type);
 				
 		if (users.isEmpty() != true) {
 			return users;

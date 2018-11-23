@@ -333,7 +333,7 @@ public class RideSharingRepository {
 	
 	public List<User> findUsers(String username, String type) {
 		
-		List<User> users;
+		List<User> users = new ArrayList<User>();
 		
 		if (username.equals("!ALL!")) {
 			TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.type LIKE :type", User.class);
@@ -477,9 +477,11 @@ public class RideSharingRepository {
 		return users;
 	}
 
-	public List<String> findActiveUsers(String type) {
+	public List<String> findActiveUsers(String username, String type) {
 		
 		List<Route> routes = new ArrayList<Route>();
+		
+		List<Route> allRoutes = new ArrayList<Route>();
 		
 		Date date = new Date(); 
 		
@@ -490,22 +492,47 @@ public class RideSharingRepository {
 		String [] current = strDate.split("-");
 		
 		int currentD = Integer.parseInt(current[2])*365 + Integer.parseInt(current[1]) * 30 + Integer.parseInt(current[0]);
+		
+		if (type.equals("Driver")) {
 			
-			TypedQuery<Route>queryOne = entityManager.createQuery("SELECT c FROM Route c WHERE c.isComplete = FALSE", Route.class); 
-			
-			List <Route> allRoutes = queryOne.getResultList(); 
-			
-			for (Route route:allRoutes) {
-				String currentDate = route.getDate(); 
-				String [] currDate = currentDate.split("-");
-				
-				int currentRoute = Integer.parseInt(currDate[2])*365 + Integer.parseInt(currDate[1]) * 30 + Integer.parseInt(currDate[0]);
-				
-				if (currentRoute >= currentD) {
-					
-					routes.add(route);
-				}
+			if (username.equals("!ALL!")) {
+				TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.isComplete = FALSE", Route.class);
+				allRoutes = query.getResultList();
+			} else {
+				TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.driver LIKE :username", Route.class);
+				query.setParameter("username", "%"+username+"%");
+				allRoutes = query.getResultList();
 			}
+			
+		} else if (type.equals("Passenger")) {
+			
+			if (username.equals("!ALL!")) {
+				TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.isComplete = FALSE", Route.class);
+				allRoutes = query.getResultList();
+			} else {
+				TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.passenger1 LIKE :passenger1 OR c.passenger2 LIKE :passenger2 OR c.passenger3 LIKE :passenger3 OR c.passenger4 LIKE :passenger4 OR c.passenger5 LIKE :passenger5 OR c.passenger6 LIKE :passenger6", Route.class);
+				query.setParameter("passenger1", "%"+username+"%");
+				query.setParameter("passenger2", "%"+username+"%");
+				query.setParameter("passenger3", "%"+username+"%");
+				query.setParameter("passenger4", "%"+username+"%");
+				query.setParameter("passenger5", "%"+username+"%");
+				query.setParameter("passenger6", "%"+username+"%");
+				allRoutes = query.getResultList();
+			}
+			
+		}
+			
+		for (Route route:allRoutes) {
+			String currentDate = route.getDate(); 
+			String [] currDate = currentDate.split("-");
+				
+			int currentRoute = Integer.parseInt(currDate[2])*365 + Integer.parseInt(currDate[1]) * 30 + Integer.parseInt(currDate[0]);
+				
+			if (currentRoute >= currentD) {
+					
+				routes.add(route);
+			}
+		}
 			
 		List<String> users = new ArrayList<String>();
 		
@@ -513,13 +540,44 @@ public class RideSharingRepository {
 			
 			if (type.equals("Driver")) {
 				users.add(route.getDriver());
-			} else if (type.equals("Passenger")) {	
-				users.add(route.getPassenger1());
-				users.add(route.getPassenger2());
-				users.add(route.getPassenger3());
-				users.add(route.getPassenger4());
-				users.add(route.getPassenger5());
-				users.add(route.getPassenger6());
+			} else if (type.equals("Passenger")) {
+				
+				if (route.getPassenger1() != null && route.getPassenger1().contains(username)) {
+				
+					users.add(route.getPassenger1());
+					
+				}
+				
+				if (route.getPassenger2() != null && route.getPassenger2().contains(username)) {
+					
+					users.add(route.getPassenger2());
+					
+				}
+				
+				if (route.getPassenger3() != null && route.getPassenger3().contains(username)) {
+					
+					users.add(route.getPassenger3());
+					
+				}
+				
+				if (route.getPassenger4() != null && route.getPassenger4().contains(username)) {
+					
+					users.add(route.getPassenger4());
+					
+				}
+				
+				if (route.getPassenger5() != null && route.getPassenger5().contains(username)) {
+					
+					users.add(route.getPassenger5());
+					
+				}
+				
+				if (route.getPassenger6() != null && route.getPassenger6().contains(username)) {
+					
+					users.add(route.getPassenger6());
+					
+				}
+
 			}
 			
 		}

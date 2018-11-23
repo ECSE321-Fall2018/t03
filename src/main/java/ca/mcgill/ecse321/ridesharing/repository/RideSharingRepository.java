@@ -5,7 +5,9 @@ import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -327,15 +329,21 @@ public class RideSharingRepository {
 		entityManager.persist(route);
 		return route;
 	}
-
+	
 	public List<User> findUsers(String username, String type) {
 		
-		TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.username LIKE :username AND c.type LIKE :type", User.class);
+		List<User> users;
 		
-		query.setParameter("username", "%"+username+"%");
-		query.setParameter("type", "%"+type+"%");
-		
-		List<User> users = query.getResultList();
+		if (username.equals("!ALL!")) {
+			TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.type LIKE :type", User.class);
+			query.setParameter("type", "%"+type+"%");
+			users = query.getResultList();
+		} else {
+			TypedQuery<User> query = entityManager.createQuery("SELECT c FROM User c WHERE c.username LIKE :username AND c.type LIKE :type", User.class);
+			query.setParameter("username", "%"+username+"%");
+			query.setParameter("type", "%"+type+"%");
+			users = query.getResultList();
+		}	
 		
 		Collections.sort(users, new Comparator<User>(){
 		     public int compare(User o1, User o2){
@@ -344,6 +352,126 @@ public class RideSharingRepository {
 		         return o1.getRating() < o2.getRating() ? 1 : -1;
 		     }
 		});
+		
+		return users;
+	}
+
+	
+	public List<User> findUsersInRange(String startDate, String endDate, String type) {
+		
+		TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c", Route.class);
+		List<Route> routes = query.getResultList();
+		
+		List<Route> rangeRoutes = new ArrayList<Route>();
+		
+		String [] start = startDate.split("-");
+		String [] end = endDate.split("-");
+		
+		int startD = Integer.parseInt(start[2])*365 + Integer.parseInt(start[1]) * 30 + Integer.parseInt(start[0]);
+		int endD = Integer.parseInt(end[2])*365 + Integer.parseInt(end[1]) * 30 + Integer.parseInt(end[0]);
+		
+		for (Route route : routes) {
+			
+			String date = route.getDate();
+			
+			String [] current = date.split("-");
+			
+			int currentD = Integer.parseInt(current[2])*365 + Integer.parseInt(current[1]) * 30 + Integer.parseInt(current[0]);
+			
+			if (currentD >= startD && currentD <= endD) {
+				
+				System.out.println(route.getDriver());
+				rangeRoutes.add(route);
+				
+			}
+			
+		}
+		
+		List<User> users = new ArrayList<User>();
+		
+		if (type.equals("Driver")) {
+			
+			System.out.println("hello Driver");
+			
+			for (Route route : rangeRoutes) {
+				
+				System.out.println(route);
+				
+				String driver = route.getDriver();
+				TypedQuery<User> driverQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+				User user = driverQuery.setParameter("username", driver).getSingleResult();
+				
+				System.out.println(user.getUsername());
+				
+				users.add(user);
+				
+			}
+			
+		} else if (type.equals("Passenger")){
+			
+			for (Route route : rangeRoutes) {
+				
+				String passenger1 = route.getPassenger1();
+				String passenger2 = route.getPassenger2();
+				String passenger3 = route.getPassenger3();
+				String passenger4 = route.getPassenger4();
+				String passenger5 = route.getPassenger5();
+				String passenger6 = route.getPassenger6();
+				
+				if (passenger1 != null) {
+			
+					TypedQuery<User> driverQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+					User user = driverQuery.setParameter("username", passenger1).getSingleResult();
+					users.add(user);
+				}
+				if (passenger2 != null) {
+					
+					TypedQuery<User> driverQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+					User user = driverQuery.setParameter("username", passenger2).getSingleResult();
+					users.add(user);
+				}
+				if (passenger3 != null) {
+					
+					TypedQuery<User> driverQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+					User user = driverQuery.setParameter("username", passenger3).getSingleResult();
+					users.add(user);
+				}
+				if (passenger4 != null) {
+					
+					TypedQuery<User> driverQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+					User user = driverQuery.setParameter("username", passenger4).getSingleResult();
+					users.add(user);
+				}
+				if (passenger5 != null) {
+					
+					TypedQuery<User> driverQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+					User user = driverQuery.setParameter("username", passenger5).getSingleResult();
+					users.add(user);
+				}
+				if (passenger6 != null) {
+					
+					TypedQuery<User> driverQuery = entityManager.createQuery("SELECT c FROM User c WHERE c.username = :username", User.class);
+					User user = driverQuery.setParameter("username", passenger6).getSingleResult();
+					users.add(user);
+				}
+						
+			}
+
+			
+		}
+		
+		Collections.sort(users, new Comparator<User>(){
+		     public int compare(User o1, User o2){
+		         if(o1.getRating() == o2.getRating())
+		             return 0;
+		         return o1.getRating() < o2.getRating() ? 1 : -1;
+		     }
+		});
+		
+		Set<User> hs = new HashSet<>();
+		hs.addAll(users);
+		users.clear();
+		users.addAll(hs);
 		
 		return users;
 	}

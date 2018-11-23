@@ -6,6 +6,7 @@ package ca.mcgill.ecse321.ridesharing.controller;
 import ca.mcgill.ecse321.ridesharing.model.*;
 //import ca.mcgill.ecse321.ridesharing.repository.*;
 
+import java.text.ParseException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -225,5 +226,18 @@ public class RideSharingController {
 			
 	}
 	
+	@RequestMapping(value = "/findUsersInRange/{startDate}/{endDate}/{type}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> findUsersInRange(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String type) {
+			
+		List<User> users = repository.findUsersInRange(startDate, endDate, type);
+				
+		if (users.isEmpty() != true) {
+			return users;
+		} else {
+			return null;
+		}
+			
+	}
 	
 }

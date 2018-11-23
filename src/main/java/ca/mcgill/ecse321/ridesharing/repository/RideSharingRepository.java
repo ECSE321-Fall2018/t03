@@ -475,5 +475,15 @@ public class RideSharingRepository {
 		
 		return users;
 	}
+
+	public List<String> findActiveUsers(String type) {
+		
+		return null;
+	}
+
+	public List<Route> findActiveRoutes() {
+		
+		return null;
+	}
 	
 }

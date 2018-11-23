@@ -240,4 +240,32 @@ public class RideSharingController {
 			
 	}
 	
+	@RequestMapping(value = "/findActiveUsers/{type}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<String> findActiveUsers(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String type) {
+			
+		List<String> users = repository.findActiveUsers(type);
+				
+		if (users.isEmpty() != true) {
+			return users;
+		} else {
+			return null;
+		}
+			
+	}
+	
+	@RequestMapping(value = "/findActiveRoutes", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Route> findActiveRoutes() {
+			
+		List<Route> routes = repository.findActiveRoutes();
+				
+		if (routes.isEmpty() != true) {
+			return routes;
+		} else {
+			return null;
+		}
+			
+	}
+	
 }

@@ -507,6 +507,9 @@ public class RideSharingRepository {
 		} else if (type.equals("Passenger")) {
 			
 			if (username.equals("!ALL!")) {
+				
+				System.out.println("hello");
+				
 				TypedQuery<Route> query = entityManager.createQuery("SELECT c FROM Route c WHERE c.isComplete = FALSE", Route.class);
 				allRoutes = query.getResultList();
 			} else {
@@ -523,6 +526,9 @@ public class RideSharingRepository {
 		}
 			
 		for (Route route:allRoutes) {
+			
+			System.out.println(route.getPassenger3());
+			
 			String currentDate = route.getDate(); 
 			String [] currDate = currentDate.split("-");
 				
@@ -530,6 +536,8 @@ public class RideSharingRepository {
 				
 			if (currentRoute >= currentD) {
 					
+				System.out.println("hellloooooooo");
+				System.out.println(route.getPassenger3());
 				routes.add(route);
 			}
 		}
@@ -542,37 +550,39 @@ public class RideSharingRepository {
 				users.add(route.getDriver());
 			} else if (type.equals("Passenger")) {
 				
-				if (route.getPassenger1() != null && route.getPassenger1().contains(username)) {
+				if (route.getPassenger1() != null && (route.getPassenger1().contains(username) || username.equals("!ALL!"))) {
 				
 					users.add(route.getPassenger1());
 					
 				}
 				
-				if (route.getPassenger2() != null && route.getPassenger2().contains(username)) {
+				if (route.getPassenger2() != null && (route.getPassenger2().contains(username) || username.equals("!ALL!"))) {
 					
 					users.add(route.getPassenger2());
 					
 				}
 				
-				if (route.getPassenger3() != null && route.getPassenger3().contains(username)) {
+				if (route.getPassenger3() != null && (route.getPassenger3().contains(username) || username.equals("!ALL!"))) {
+					
+					System.out.println("HELLLLOOOOOO");
 					
 					users.add(route.getPassenger3());
 					
 				}
 				
-				if (route.getPassenger4() != null && route.getPassenger4().contains(username)) {
+				if (route.getPassenger4() != null && (route.getPassenger4().contains(username) || username.equals("!ALL!"))) {
 					
 					users.add(route.getPassenger4());
 					
 				}
 				
-				if (route.getPassenger5() != null && route.getPassenger5().contains(username)) {
+				if (route.getPassenger5() != null && (route.getPassenger5().contains(username) || username.equals("!ALL!"))) {
 					
 					users.add(route.getPassenger5());
 					
 				}
 				
-				if (route.getPassenger6() != null && route.getPassenger6().contains(username)) {
+				if (route.getPassenger6() != null && (route.getPassenger6().contains(username) || username.equals("!ALL!"))) {
 					
 					users.add(route.getPassenger6());
 					

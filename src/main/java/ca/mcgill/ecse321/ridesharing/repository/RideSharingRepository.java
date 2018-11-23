@@ -1,10 +1,11 @@
 package ca.mcgill.ecse321.ridesharing.repository;
 
-import java.sql.Date;
-import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -478,12 +479,176 @@ public class RideSharingRepository {
 
 	public List<String> findActiveUsers(String type) {
 		
-		return null;
+		List<Route> routes = new ArrayList<Route>();
+		
+		Date date = new Date(); 
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		
+		String strDate = dateFormat.format(date);
+		
+		String [] current = strDate.split("-");
+		
+		int currentD = Integer.parseInt(current[2])*365 + Integer.parseInt(current[1]) * 30 + Integer.parseInt(current[0]);
+			
+			TypedQuery<Route>queryOne = entityManager.createQuery("SELECT c FROM Route c WHERE c.isComplete = FALSE", Route.class); 
+			
+			List <Route> allRoutes = queryOne.getResultList(); 
+			
+			for (Route route:allRoutes) {
+				String currentDate = route.getDate(); 
+				String [] currDate = currentDate.split("-");
+				
+				int currentRoute = Integer.parseInt(currDate[2])*365 + Integer.parseInt(currDate[1]) * 30 + Integer.parseInt(currDate[0]);
+				
+				if (currentRoute >= currentD) {
+					
+					routes.add(route);
+				}
+			}
+			
+		List<String> users = new ArrayList<String>();
+		
+		for (Route route : routes) {
+			
+			if (type.equals("Driver")) {
+				users.add(route.getDriver());
+			} else if (type.equals("Passenger")) {	
+				users.add(route.getPassenger1());
+				users.add(route.getPassenger2());
+				users.add(route.getPassenger3());
+				users.add(route.getPassenger4());
+				users.add(route.getPassenger5());
+				users.add(route.getPassenger6());
+			}
+			
+		}
+		
+		Set<String> hs = new HashSet<>();
+		hs.addAll(users);
+		users.clear();
+		users.addAll(hs);
+		
+		return users;
+		
 	}
 
-	public List<Route> findActiveRoutes() {
+	public List<Route> findActiveRoutes(String startCity, String endCity) {
 		
-		return null;
+		List<Route> routes = new ArrayList<Route>();
+		
+		Date date = new Date(); 
+		
+		System.out.println(date);
+		
+		DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		
+		String strDate = dateFormat.format(date);
+		
+		String[] current = strDate.split("-");
+		
+		System.out.println(strDate);
+		
+		int currentD = Integer.parseInt(current[2])*365 + Integer.parseInt(current[1])*30 + Integer.parseInt(current[0]);
+		
+		System.out.println("Year" + Integer.parseInt(current[2]));
+		System.out.println("Month" + Integer.parseInt(current[1]));
+		System.out.println("Day" + Integer.parseInt(current[0]));
+		
+		System.out.println("currentD" + currentD);
+		
+		if (startCity.equals("!ALL!") && endCity.equals("!ALL!")) {
+			
+			TypedQuery<Route> queryOne = entityManager.createQuery("SELECT c FROM Route c WHERE c.isComplete = FALSE", Route.class); 
+			
+			List<Route> allRoutes = queryOne.getResultList(); 
+			
+			for (Route route:allRoutes) {
+				String currentDate = route.getDate(); 
+				String [] currDate = currentDate.split("-");
+				
+				int currentRoute = Integer.parseInt(currDate[2])*365 + Integer.parseInt(currDate[1])*30 + Integer.parseInt(currDate[0]);
+				
+				if (currentRoute >= currentD) {
+					
+					System.out.println("currentRoute" + currentRoute);
+					routes.add(route);
+				}
+			}
+			
+		}
+		
+		else if (!startCity.equals("!ALL!") && !endCity.equals("!ALL!")) {
+			
+			System.out.println("helloooo");
+			
+			TypedQuery<Route> queryTwo = entityManager.createQuery("SELECT c FROM Route c WHERE c.startCity LIKE :startCity AND c.endCity LIKE :endCity", Route.class);
+			queryTwo.setParameter("startCity", "%"+startCity+"%");
+			queryTwo.setParameter("endCity", "%"+ endCity+ "%");
+			
+			List <Route> allRoutes = queryTwo.getResultList(); 
+			
+			for (Route route:allRoutes) {
+				String currentDate = route.getDate(); 
+				String [] currDate = currentDate.split("-");
+				
+				int currentRoute = Integer.parseInt(currDate[2])*365 + Integer.parseInt(currDate[1]) * 30 + Integer.parseInt(currDate[0]);
+				
+				if (currentRoute >= currentD) {
+					
+					routes.add(route);
+				}
+			}
+		}
+		
+		else if (startCity.equals("!ALL!") && !endCity.equals("!ALL!")) {
+			
+			System.out.println("h");
+			
+			TypedQuery<Route>queryThree = entityManager.createQuery("SELECT c FROM Route c WHERE c.endCity LIKE :endCity", Route.class);
+			queryThree.setParameter("endCity", "%"+ endCity+ "%"); 
+			
+			List <Route> allRoutes = queryThree.getResultList(); 
+			
+			for (Route route:allRoutes) {
+				String currentDate = route.getDate(); 
+				String [] currDate = currentDate.split("-");
+				
+				int currentRoute = Integer.parseInt(currDate[2])*365 + Integer.parseInt(currDate[1]) * 30 + Integer.parseInt(currDate[0]);
+				
+				if (currentRoute>= currentD) {
+					
+					routes.add(route);
+				}
+			}
+			
+		}
+		else if(!startCity.equals("!ALL!") && endCity.equals("!ALL!")){ 
+			
+			System.out.println("world");
+			
+			TypedQuery<Route>queryFour = entityManager.createQuery("SELECT c FROM Route c WHERE c.startCity LIKE :startCity", Route.class);
+			queryFour.setParameter("startCity", "%"+ startCity+ "%");
+			
+			List <Route> allRoutes = queryFour.getResultList(); 
+			
+			for (Route route:allRoutes) {
+				String currentDate = route.getDate(); 
+				String [] currDate = currentDate.split("-");
+				
+				int currentRoute = Integer.parseInt(currDate[2])*365 + Integer.parseInt(currDate[1]) * 30 + Integer.parseInt(currDate[0]);
+				
+				if (currentRoute>= currentD) {
+					
+					
+					routes.add(route);
+				}
+			}
+		}
+		
+		return routes;
+		
+		
 	}
 
 	public List<Route> mostPopularRoutes(String startDate, String endDate) {

@@ -256,9 +256,9 @@ public class RideSharingController {
 	
 	@RequestMapping(value = "/findActiveRoutes/{startCity}/{endCity}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<Route> findActiveRoutes() {
+	public List<Route> findActiveRoutes(@PathVariable String startCity, @PathVariable String endCity) {
 			
-		List<Route> routes = repository.findActiveRoutes();
+		List<Route> routes = repository.findActiveRoutes(startCity, endCity);
 				
 		if (routes.isEmpty() != true) {
 			return routes;

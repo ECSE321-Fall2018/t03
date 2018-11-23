@@ -242,7 +242,7 @@ public class RideSharingController {
 	
 	@RequestMapping(value = "/findActiveUsers/{type}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<String> findActiveUsers(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String type) {
+	public List<String> findActiveUsers(String type) {
 			
 		List<String> users = repository.findActiveUsers(type);
 				
@@ -254,7 +254,7 @@ public class RideSharingController {
 			
 	}
 	
-	@RequestMapping(value = "/findActiveRoutes", method = RequestMethod.GET)
+	@RequestMapping(value = "/findActiveRoutes/{startCity}/{endCity}", method = RequestMethod.GET)
 	@ResponseBody
 	public List<Route> findActiveRoutes() {
 			
@@ -262,6 +262,34 @@ public class RideSharingController {
 				
 		if (routes.isEmpty() != true) {
 			return routes;
+		} else {
+			return null;
+		}
+			
+	}
+	
+	@RequestMapping(value = "/mostPopularRoutes/{startDate}/{endDate}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<Route> mostPopularRoutes(@PathVariable String startDate, @PathVariable String endDate) {
+			
+		List<Route> routes = repository.mostPopularRoutes(startDate, endDate);
+				
+		if (routes.isEmpty() != true) {
+			return routes;
+		} else {
+			return null;
+		}
+			
+	}
+	
+	@RequestMapping(value = "/mostLoyal/{startDate}/{endDate}/{type}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<User> mostLoyale(@PathVariable String startDate, @PathVariable String endDate, @PathVariable String type) {
+			
+		List<User> users = repository.mostLoyal(startDate, endDate, type);
+				
+		if (users.isEmpty() != true) {
+			return users;
 		} else {
 			return null;
 		}
